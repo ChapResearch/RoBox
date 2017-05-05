@@ -12,6 +12,7 @@
 #include "actions.h"
 #include "debug.h"
 #include "program.h"
+#include "RXL.h"
 
 //
 // RXL() - the VM (virtual machine) processor for RXL programs.
@@ -22,20 +23,37 @@ void RXL(Program program)
 	while(!program.AtEnd()) {
 		switch(program.Next()) {
 		case 'W':
-			Wheel wheel;
+			RXL_Wheel(program);
+			break;
 
-			switch(program.Next()) {
-			case 'L':
-				wheel = WheelLeft;
-				break;
-			default:
-			case 'R':
-				wheel = WheelRight;
-				break;
-			}
-			int power = (int)program.Next();
-			power = power - 127;
-			action_Wheel(wheel,power);
+		case 'S':
+			RXL_Sleep(program);
+			break;
 		}
 	}
+}
+
+void RXL_Sleep(Program program)
+{
+	action_Sleep((int)program.Next());
+}
+
+void RXL_Wheel(Program program)
+{
+	Wheel wheel;
+	int power;
+
+	switch(program.Next()) {
+	case 'L':
+		wheel = WheelLeft;
+		break;
+	default:
+	case 'R':
+		wheel = WheelRight;
+		break;
+	}
+
+	power = (int)program.Next();
+	power = power - 127;
+	action_Wheel(wheel,power);
 }

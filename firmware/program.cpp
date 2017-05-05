@@ -12,8 +12,10 @@
 //   kept in memory, but on the Robox, it will be in EEPROM.
 //
 
+#include "robox.h"
 #include "program.h"
 #include "debug.h"
+#include "EEPROM.h"
 
 #ifdef DEBUGGING
 #include <malloc.h>
@@ -21,23 +23,46 @@
 #include <stdio.h>
 #endif
 
+Program::Program()
+{
+	base = 0;
+	ptr = 0;
+	size = 0;
+	baseEnd = base + size;
+}
+
 Program::Program(const char *prog)
 {
+	base = 0;
 	ptr = 0;
-
-	buffer = (unsigned char *)malloc(500);		// 500 bytes of storage for debugging programs
 	size = strlen(prog);
-	strncpy((char *)buffer,prog,size);
+	baseEnd = base + size;
+
+	for(int i=ptr; i < size; i++) {
+		EEPROM[i] = (byte)prog[i];
+	}
 }
+
+//
+// This constructor takes a "sub-program" view of an existing program.
+// Note that for debugging purposes it has a buffer, too
+//
+Program::Program(Program prog, int start, int endExclusive)
+{
+	base = start;
+	ptr = 0;
+	size = endExclusive - start;
+	baseEnd = base+size;
+}
+	
 
 void Program::Dump()
 {
-	printf("Program is: %s\n",buffer+ptr);
-}
-
-void Program::Dump(int i)
-{
-	printf("Program is: %s\n",buffer+i);
+	printf("Program is: ");
+	for(int i=base+ptr; i < baseEnd; i++) {
+		printf("%c",EEPROM[i]);
+	}
+	printf("\n");
 }
 
 unsigned char Program::Next()
@@ -45,7 +70,9 @@ unsigned char Program::Next()
 	if(ptr >= size) {
 		return(0);	// zero is returned continuously if at th end of the program
 	}
-	return(buffer[ptr++]);
+	byte r = EEPROM[base+ptr];
+	ptr++;
+	return(r);
 }
 
 bool Program::AtEnd()

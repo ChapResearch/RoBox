@@ -8,14 +8,19 @@
 // program.h
 //
 
+#ifndef PROGRAM_H
+#define PROGRAM_H
+
 class Program {
 private:
+	int	base;		// a pointer into EEPROM where the program starts
 	int	ptr;		// a pointer into the program
 	int	size;		// size of the program
+	int	baseEnd;	// base+size - lowers the number of adds we need to do!
 public:
-	unsigned char	*buffer;	// [DEBUG] used to hold program when debugging
-
+	Program();
 	Program(const char *);
+	Program(Program,int,int);
 	void Dump();
 	void Dump(int);
 	unsigned char Next();
@@ -24,3 +29,5 @@ public:
 	void Reset();
 	bool AtEnd();
 };
+
+#endif
