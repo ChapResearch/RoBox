@@ -39,3 +39,10 @@ bool action_Sleep(int ds)
 	return(true);
 }
 
+
+bool action_Beep(int freq, int dur)
+{
+  debugOutput("beeping at %d freq for %d dur \n", freq, dur);
+	return(true);
+}
+

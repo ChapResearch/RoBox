@@ -29,6 +29,10 @@ void RXL(Program program)
 		case 'S':
 			RXL_Sleep(program);
 			break;
+
+		case 'B':
+			RXL_Beep(program);
+			break;			
 		}
 	}
 }
@@ -36,6 +40,15 @@ void RXL(Program program)
 void RXL_Sleep(Program program)
 {
 	action_Sleep((int)program.Next());
+}
+
+void RXL_Beep(Program program)
+{
+  int freq = program.Next();
+  int dur = program.Next();
+  action_Beep(freq, dur);
+
+       
 }
 
 void RXL_Wheel(Program program)

@@ -14,5 +14,6 @@ void RXL(Program);
 
 void RXL_Wheel(Program);
 void RXL_Sleep(Program);
+void RXL_Beep(Program);
 
 #endif
