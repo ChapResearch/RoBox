@@ -1,5 +1,5 @@
 //
-// BitBangIR.ino (.cpp)
+// roboxIR.ino (.cpp)
 //
 //   This file implements RoBox-specific IR processing. We started to use the
 //   popular IR library, except that it can only send on the PWM pins, which
