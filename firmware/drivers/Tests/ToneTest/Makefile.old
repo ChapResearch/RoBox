@@ -1,0 +1,32 @@
+#
+# ToneTest Makefile
+#
+# this file counts on arduino-mk being installed - see
+#    https://github.com/sudar/Arduino-Makefile
+#
+
+export ARDUINO_DIR=/usr/share/arduino
+export ARDMK_DIR=/usr/share/arduino
+export AVR_TOOLS_DIR=/usr
+
+ARCHITECTURE  = avr
+BOARD_TAG     = uno
+BOARD_SUB     = atmega368
+
+MONITOR_PORT  = /dev/ttyUSB0
+
+ROBOX_PATH = ../../
+NEEDED_FILES = roboxTone.cpp roboxTone.h
+
+#
+# these rules will ensure that the NEEDED_FILES are linked to the
+# files in robox path
+#
+NEEDED_FILES_COMPLETE := $(addprefix $(ROBOX_PATH),$(NEEDED_FILES))
+INITIALIZE := $(shell ln -fs $(NEEDED_FILES_COMPLETE) .)
+
+include $(ARDMK_DIR)/Arduino.mk
+
+clean::
+	rm -f $(NEEDED_FILES)
+

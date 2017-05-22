@@ -1,6 +1,6 @@
 
-#include "arduino.h"
-#include "tone.h"
+#include "Arduino.h"
+#include "RoBoxRomeo.h"
 
 ToneGenerator myTone = ToneGenerator(12);
 
