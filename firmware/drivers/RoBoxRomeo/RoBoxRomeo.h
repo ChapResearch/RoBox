@@ -7,3 +7,5 @@
 #include "roboxIR.h"
 #include "roboxTone.h"
 #include "roboxUltra.h"
+#include "roboxMotor.h"
+
