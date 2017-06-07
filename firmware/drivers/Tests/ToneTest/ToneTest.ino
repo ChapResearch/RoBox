@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "RoBoxRomeo.h"
 
-ToneGenerator myTone = ToneGenerator(12);
+ToneGenerator myTone = ToneGenerator(10);
 
 int count = 16;
 int freq = 110;
