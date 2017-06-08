@@ -1,5 +1,5 @@
 #
-# ToneTest Makefile
+# IR Receive Test
 #
 # this file counts on arduino-mk being installed - see
 #    https://github.com/sudar/Arduino-Makefile
