@@ -31,11 +31,11 @@ Program::Program()
 	baseEnd = base + size;
 }
 
-Program::Program(const char *prog)
+Program::Program(int count, const char *prog)
 {
 	base = 0;
 	ptr = 0;
-	size = strlen(prog);
+	size = count;
 	baseEnd = base + size;
 
 	for(int i=ptr; i < size; i++) {
@@ -49,20 +49,32 @@ Program::Program(const char *prog)
 //
 Program::Program(Program prog, int start, int endExclusive)
 {
-	base = start;
-	ptr = 0;
-	size = endExclusive - start;
-	baseEnd = base+size;
+    base = start;
+    ptr = 0;
+    size = endExclusive - start;
+    baseEnd = base+size;
 }
 	
 
 void Program::Dump()
 {
-	printf("Program is: ");
-	for(int i=base+ptr; i < baseEnd; i++) {
-		printf("%c",EEPROM[i]);
+    printf("Program is (base %d ptr %d size %d): ",base,ptr,size);
+    for(int i=base+ptr; i < baseEnd; i++) {
+	if(EEPROM[i] <= ' ' || EEPROM[i] > '~') {
+	    printf("[%d]",EEPROM[i]); 
+	} else {
+	    printf("%c",EEPROM[i]);
 	}
-	printf("\n");
+    }
+    printf("\n");
+}
+
+//
+// Skip() - skips over the next COUNT characters, normally used to skip sub-program
+//
+void Program::Skip(int count)
+{
+  ptr += count;
 }
 
 unsigned char Program::Next()
@@ -73,6 +85,11 @@ unsigned char Program::Next()
 	byte r = EEPROM[base+ptr];
 	ptr++;
 	return(r);
+}
+
+int Program::Position()
+{
+    return(base+ptr);
 }
 
 bool Program::AtEnd()

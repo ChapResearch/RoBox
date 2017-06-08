@@ -24,8 +24,18 @@
 bool action_Wheel(Wheel wheel, int power)
 {
 	debugOutput("wheel %s power %d\n", (wheel==WheelLeft?"left":"right"),power);
-
 	return(true);
+}
+
+//
+// action_Led() - turns num led on or off 
+//
+//
+//
+bool action_Led(int num, int on)
+{
+        debugOutput("led %d set to %d\n", num, on);
+        return(true);
 }
 
 //
@@ -33,16 +43,26 @@ bool action_Wheel(Wheel wheel, int power)
 //                  Note that this routine, in the real future, will set up a condition
 //                  where it will still allow processing while "sleeping".
 //
+
+//
+// action_Repeat() - repeats prog times times
+//                  
+//
+
 bool action_Sleep(int ds)
 {
 	debugOutput("sleeping for %d ds\n",ds);
 	return(true);
 }
 
-
+bool action_Fire(int count, int pwr)
+{
+        debugOutput("firing %d shots at %d power\n", count, pwr);
+        return (true);
+}
 bool action_Beep(int freq, int dur)
 {
-  debugOutput("beeping at %d freq for %d dur \n", freq, dur);
-	return(true);
+         debugOutput("beeping at %d freq for %d dur \n", freq, dur);
+	 return(true);
 }
 

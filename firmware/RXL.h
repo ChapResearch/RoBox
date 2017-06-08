@@ -10,10 +10,17 @@
 #ifndef RXL_H
 #define RXL_H
 
-void RXL(Program);
+int RXL(Program&);
+void RXL_Skip(Program&);
+Program RXL_SubProgram(Program&);
 
-void RXL_Wheel(Program);
-void RXL_Sleep(Program);
-void RXL_Beep(Program);
+int RXL_Break(Program&);
+void RXL_Wheel(Program&);
+void RXL_Sleep(Program&);
+void RXL_Beep(Program&);
+void RXL_Led(Program&);
+void RXL_Ir(Program&);
+int RXL_Repeat(Program&);
+int RXL_If(Program&);
 
 #endif

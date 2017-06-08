@@ -15,11 +15,11 @@ class Program {
 private:
 	int	base;		// a pointer into EEPROM where the program starts
 	int	ptr;		// a pointer into the program
-	int	size;		// size of the program
 	int	baseEnd;	// base+size - lowers the number of adds we need to do!
 public:
+	int	size;		// size of the program
 	Program();
-	Program(const char *);
+	Program(int,const char *);
 	Program(Program,int,int);
 	void Dump();
 	void Dump(int);
@@ -28,6 +28,8 @@ public:
 	void SetIndex(int);
 	void Reset();
 	bool AtEnd();
+	void Skip(int);
+	int Position();
 };
 
 #endif

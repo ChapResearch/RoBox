@@ -15,5 +15,7 @@ enum Wheel { WheelLeft, WheelRight };
 bool action_Wheel(Wheel,int);
 bool action_Sleep(int);
 bool action_Beep(int, int);
+bool action_Led(int, int);
+bool action_Fire(int, int);
 
 #endif
