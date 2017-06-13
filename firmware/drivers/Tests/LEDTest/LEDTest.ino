@@ -20,8 +20,16 @@ void setup()
 	led1.Off();
 	led2.Off();
 	led3.Off();
+	
+	led1.Blink(1000);
+	led2.Blink(500);
+	led3.Blink(250);
 }
 
 void loop()
 {
+	led1.Update();
+	led2.Update();
+	led3.Update();
+	
 }

@@ -17,23 +17,51 @@ LED::LED(int led)
     pin = LED3_PIN;
   }
   pinMode(pin, OUTPUT);
+  digitalWrite(pin,LOW);	// off by default
+  state = LOW;
 }
 
 
 void LED::On()
 {
-  digitalWrite(pin, HIGH); 
+  blink_ms = 0;		// setting this to 0 turns off blink
+  state = HIGH;
+  digitalWrite(pin, state); 
 }
 
 void LED::Off()
 {
-  digitalWrite(pin, LOW); 
+  blink_ms = 0;		// setting this to 0 turns off blink
+  state = LOW;
+  digitalWrite(pin, state); 
 }
 
+void LED::Toggle()
+{
+  state = (state == HIGH)?LOW:HIGH;
+  digitalWrite(pin, state);
+}
+
+//
+// Blink() - blink the LED at the given frequency. 
+//		freq is given in ms. For example, if the freq 
+//		given is 250 then the blink would be 4 times a second.
+//		To turn off blink, set freq to 0.
+//
 void LED::Blink(int freq)
 {
-  digitalWrite(pin, HIGH); 
-  delay(freq); 
-  digitalWrite(pin, LOW); 
-  delay(freq); 
+  blink_ms = freq/2; 
+  blink_target = millis()+blink_ms;
+}
+
+//
+// Update() - call this routine at the end of every loop
+//		to update any blinking LEDs
+// 
+void LED::Update()
+{
+  if(blink_ms!=0 && millis()>blink_target) {
+    blink_target = millis()+blink_ms;    
+    Toggle();
+  }
 }
