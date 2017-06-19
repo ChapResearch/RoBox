@@ -66,6 +66,9 @@ void RXL_Skip(Program &program)
 	    program.Next();     // skip comparison
 	    program.Next();     // skip second parameter
 	    break;
+//	case 'E':
+	    
+  
 	case 'K':
 	    program.Next();     // skip break level
 	    break;
@@ -220,9 +223,75 @@ int RXL_Repeat(Program &program)
 
 }
 
-int RXL_If(Program &program) {
-  
+// 
+// RXL_If() - executes the subprogram enclosed in () if the 
+//            left value (motor, sensor, integer, etc)
+//            is the same as value right value 
+//
+void  RXL_If(Program &program)
+{
+    int left_value  = (int)program.Next();
+    char oper = (char)program.Next();
+    int right_value  = (int)program.Next();
+    bool truth = false;
+
+    /*  if(is_sensor(left_value)) {
+	left_value = sensor_map(left_value);
+	}*/
+
+    /*  if(is_sensor(right_value)) {
+	right_value = sensor_map(right_value);
+	}*/
+
+    switch(oper) {
+    case '!':  truth = (left_value != right_value); break;
+    case '=':  truth = (left_value == right_value); break;
+    case '#':  truth = (left_value >= right_value); break;
+    case '@':  truth = (left_value <=  right_value); break;
+    case '>':  truth = (left_value > right_value); break;
+    case '<':  truth = (left_value <= right_value); break;
+    }
+	
+    if(truth) {
+	program.Next(); // skip over the '('
+
+	int subProgramBegin = program.Position();   // points to the '(' starting the sub-program
+	    
+	RXL_Skip(program);                          // skips the next statement, in this case a sub-program
+
+	int subProgramEnd = program.Position();     // points to just after the sub-program ')'
+
+	Program subprogram(program,subProgramBegin,subProgramEnd-1);
+    }
+	  
 }
+
+/*void RXL_Else(Program &program) {
+    		program.Next(); //skips '(' enclosing the subprogram
+
+		int subProgramBegin = program.Position();
+
+		RXL_skip(program);
+
+		int subProgramEnd = program.Position();
+
+		Program subprogram(subProgramBegin, subProgramEnd - 1);
+}
+
+void RXL_ElseIf(Program &program) {
+
+    if(
+		program.Next(); //skips '(' enclosing the subprogram
+
+		int subProgramBegin = program.Position();
+
+		RXL_skip(program);
+
+		int subProgramEnd = program.Position();
+
+		Program subprogram(subProgramBegin, subProgramEnd - 1);
+		}*/
+		
 void RXL_Led(Program &program)
 {
   int led;
