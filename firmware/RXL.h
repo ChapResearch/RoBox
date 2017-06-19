@@ -21,6 +21,6 @@ void RXL_Beep(Program&);
 void RXL_Led(Program&);
 void RXL_Ir(Program&);
 int RXL_Repeat(Program&);
-int RXL_If(Program&);
+void RXL_If(Program&);
 
 #endif

@@ -23,7 +23,8 @@ int main(int argc, char **argv)
 
 	for(int i=0; i < 1; i++) {
 
-	    Program program(30,"WL\000RT\002(RT\003(WL\001WR\001K\000B\100\100)B\000\000)B\050\050");
+//	    Program program(30,"WL\000RT\002(RT\003(WL\001WR\001K\003B\100\100)B\000\000)B\050\050");	    
+	    Program program(30,"I\000=\000(WL\003WR\000)");
 
 	    program.Dump();
 
