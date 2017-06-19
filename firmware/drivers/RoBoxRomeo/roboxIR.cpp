@@ -77,6 +77,19 @@ IRReceiver::IRReceiver(int inputPin)
 {
      pin = inputPin;
      pinMode(pin, INPUT);
+     debounce_target = 0;
+}
+
+//
+// Debounce() - tells the IR routines to ignore incoming signals during the
+//              debounce period. This routine should be called RIGHT AFTER
+//              a recognized code, and BEFORE the next call to receive a code.
+//
+void IRReceiver::Debounce()
+{
+#define DEFAULT_IR_DEBOUNCE	500
+
+     debounce_target = millis() + DEFAULT_IR_DEBOUNCE;
 }
 
 //
@@ -87,9 +100,15 @@ IRReceiver::IRReceiver(int inputPin)
 //
 uint32_t IRReceiver::checkAndReceive()
 {
-     long start;	// used to provide an escape hatch if things need to timeout
-     long end;
-     long limit;
+     unsigned long start;	// used to provide an escape hatch if things need to timeout
+     unsigned long end;
+     unsigned long limit;
+
+     // ignore incoming signals during deboung period
+
+     if(millis() < debounce_target) {
+	  return(0);
+     }
 
      // note that the logic values of received IR are inverted, so low
      // indicates that a signal is being received.

@@ -32,10 +32,12 @@ public:
 class IRReceiver {
 private:
      int		pin;
+     unsigned long	debounce_target;
 
 public:
      IRReceiver(int);
      uint32_t checkAndReceive();
+     void Debounce();
 };
 
 #endif
