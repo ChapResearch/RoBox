@@ -8,11 +8,17 @@
 //
 //   Implements RXL processing.
 //
+//
+//#include "Arduino.h"
 
-#include "actions.h"
+typedef unsigned char uint8_t;	// until Arduino.h can be defined
+typedef unsigned long uint32_t;
+
+#include "hardware.h"
 #include "debug.h"
 #include "program.h"
 #include "RXL.h"
+
 
 //
 // RXL_SkipToEnd() - skips to the end of the given program. Used
@@ -133,43 +139,33 @@ int RXL_Break(Program &program)
 
 void RXL_Sleep(Program &program)
 {
-	action_Sleep((int)program.Next());
+     debugOutput("sleeping for %d\n",program.Next());
 }
 
 void RXL_Ir(Program &program)
 {
-  int count = (int)program.Next();
-  int pwr = (int)program.Next();
-  action_Fire(count, pwr);
+     int count = (int)program.Next();
+     int pwr = (int)program.Next();
+     hw_blaster((uint8_t)0x88,count,pwr);
 }
 
 void RXL_Beep(Program &program)
 {
   int freq = (int)program.Next();
   int dur = (int)program.Next();
-  action_Beep(freq, dur);
-
-       
+  hw_tone(freq,dur);
 }
 
 void RXL_Wheel(Program &program)
 {
-	Wheel wheel;
 	int power;
+	char wheel;
 
-	switch(program.Next()) {
-	case 'L':
-		wheel = WheelLeft;
-		break;
-	default:
-	case 'R':
-		wheel = WheelRight;
-		break;
-	}
-
+	wheel = program.Next();
 	power = (int)program.Next();
 	power = power - 127;
-	action_Wheel(wheel,power);
+
+	hw_motor(wheel,power);
 }
 
 // 
@@ -221,33 +217,36 @@ int RXL_Repeat(Program &program)
 }
 
 int RXL_If(Program &program) {
-  
+       
 }
 void RXL_Led(Program &program)
 {
-  int led;
-  int on;
+     int led;
+     int on;
 
-  switch(program.Next()){
-  case '1':
-    led = 1;
-    break;
-  case '2':
-    led = 2;
-    break;
-  case '3':
-    led = 3;
-    break;
-  }
+     switch(program.Next()){
+     case '1':
+	  led = 1;
+	  break;
+     case '2':
+	  led = 2;
+	  break;
+     case '3':
+	  led = 3;
+	  break;
+     }
   
-  switch(program.Next()){
-  case '0':
-    on = 0;
-    break;
-  case '1':
-    on = 1;
-    break;
-  }
+     switch(program.Next()){
+     case '0':
+	  on = 0;
+	  break;
+     case '1':
+	  on = 1;
+	  break;
+     case '2':
+	  on = 1;
+	  break;
+     }
 
-  action_Led(led, on);
+     hw_led(led, on);
 }
