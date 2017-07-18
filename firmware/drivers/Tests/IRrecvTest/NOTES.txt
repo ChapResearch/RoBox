@@ -1,0 +1,16 @@
+SparkFun remote control - 4 bytes - lead-in 10EF
+
+        PWR
+       (D827)
+
+  A      B      C
+(F807) (7887) (58A7)
+
+         N
+       (A05F)
+
+  W      O       E
+(10EF) (20DF) (807F)
+
+         S
+       (00FF)
