@@ -1,3 +1,5 @@
+![Alt text](http://robox.chapresearch.com/media/robox.gif)
+
 # RoBox
 You have found the Chap Research and Team Appreciate (FRC2468)
 RoBox github, congratulations!
