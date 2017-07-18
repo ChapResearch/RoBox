@@ -1,5 +1,5 @@
 #
-# UltraSonicTest Makefile
+# Line Follow Test Makefile
 #
 # this file counts on arduino-mk being installed - see
 #    https://github.com/sudar/Arduino-Makefile
@@ -11,7 +11,6 @@ export AVR_TOOLS_DIR=/usr
 
 ARCHITECTURE  = avr
 BOARD_TAG     = uno
-BOARD_SUB     = atmega368
 
 MONITOR_PORT  = /dev/ttyACM0
 

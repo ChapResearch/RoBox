@@ -10,9 +10,9 @@ void setup() {
 
 void loop()
 {
-	int val;
+	unsigned int val;
 
-	val = line.measure();
+	val = line.Measure();
 	Serial.println(val);
   
 	delay(1000);
