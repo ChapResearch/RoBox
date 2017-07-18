@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "RoBoxRomeo.h"
 #include <Servo.h> 
+#include "../RoBox/IR-ID.h"
 
 #define IR	11
 #define LED	12
@@ -47,7 +48,10 @@ void loop()
 
 	     Serial.println(value,HEX);
 	}
-	if(value == (uint32_t)0xC12F40BF) {
+
+	if((value >> 16) == IR_BASE_ID) {
+
+//	if(value == (uint32_t)0xC12F40BF) {	// viewsonic power button
 	     if(UP) {
 		  myservo.write(100);
 	     } else {
