@@ -12,7 +12,7 @@ void loop()
 {
 	unsigned int	mm;
 
-	mm = ultra.measure();
+	mm = ultra.Measure();
 
 	Serial.print(mm);
 	Serial.println("mm");
