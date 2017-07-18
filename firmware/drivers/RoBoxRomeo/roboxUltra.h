@@ -8,7 +8,7 @@ private:
 
 public:
 	UltraSonic(int,int);
-	unsigned int measure();
+	unsigned int Measure();
 };
 
 

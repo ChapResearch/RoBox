@@ -47,7 +47,7 @@ UltraSonic::UltraSonic(int trig, int echo)
 //             an int, the biggest number we can have is 65,536 mm
 //             or 6,553.6 cm, or 65km - I think that is enough...
 //
-unsigned int UltraSonic::measure()
+unsigned int UltraSonic::Measure()
 {
 	long duration;
 

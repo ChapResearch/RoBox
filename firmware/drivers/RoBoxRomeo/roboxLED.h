@@ -7,10 +7,10 @@
 
 class LED {
  private:
-  int pin;
-  int state;
-  int blink_ms;
-  long blink_target;
+  int		pin;
+  int		state;
+  int 		blink_ms;
+  unsigned long blink_target;
   
  public: 
   LED(int);

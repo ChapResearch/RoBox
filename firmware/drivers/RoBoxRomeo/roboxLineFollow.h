@@ -7,7 +7,7 @@ private:
 
 public:
 	LineFollow();
-	unsigned int measure();
+	unsigned int Measure();
 };
 
 #endif

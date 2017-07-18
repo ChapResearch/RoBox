@@ -17,7 +17,7 @@ LineFollow::LineFollow()
 //
 // measure() - returns a unitless measurement from the line follow.
 //
-unsigned int LineFollow::measure()
+unsigned int LineFollow::Measure()
 {
      return(analogRead(pin));
 }

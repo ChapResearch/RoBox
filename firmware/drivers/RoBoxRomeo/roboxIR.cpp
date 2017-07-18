@@ -101,7 +101,6 @@ void IRReceiver::Debounce()
 uint32_t IRReceiver::checkAndReceive()
 {
      unsigned long start;	// used to provide an escape hatch if things need to timeout
-     unsigned long end;
      unsigned long limit;
 
      // ignore incoming signals during deboung period
@@ -180,7 +179,14 @@ uint32_t IRReceiver::checkAndReceive()
 		    return(0);
 	       }
 	  }
-	  end = micros();
+	 
+	  // this is where the "end" of the bit is - but not needed as far as I know
+	  //   so uncomment these if needed.
+
+	  // unsigned long end;
+	  // end = micros();
+
+
 	  // the next bit marker has just arrived, so we have the value of this bit
 
 	  value <<= 1;

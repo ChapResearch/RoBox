@@ -4,12 +4,12 @@
 
 class ToneGenerator {
 private:
-     int	pin;		// the pin where the tone will be
-     int	freq;		// the current target frequency
-     int	halfWaveMicros;	// micro seconds for a half wave
-     long	targetMicros;	// next target for half wave toggle
-     bool	state;		// used to quickly toggle pin (as opposed to reading it)
-     long	stopMillis;	// target millis when tone will stop
+     int		pin;		// the pin where the tone will be
+     int		freq;		// the current target frequency
+     int		halfWaveMicros;	// micro seconds for a half wave
+     unsigned long	targetMicros;	// next target for half wave toggle
+     bool		state;		// used to quickly toggle pin (as opposed to reading it)
+     unsigned long	stopMillis;	// target millis when tone will stop
 
 public:
      ToneGenerator(int);
