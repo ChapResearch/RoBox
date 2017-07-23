@@ -1,0 +1,37 @@
+    <!-- ******************************************************* -->
+    
+    
+    <div id="bottomDiv">
+      <a id="RunButton"
+	 onClick="return roboxRun();" class="runButton allButtons"
+	 oncontextmenu="roboxCompileDebug();return false;" %%RUNDISPLAY%%>RUN <i class="material-icons">play_arrow</i></a>
+      <a id="StopButton"
+	 onClick="return roboxStop();" class="stopButton allButtons flash" %%STOPDISPLAY%%>STOP <i class="material-icons">stop</i></a>
+      <a id="ConnectButton"
+	 onClick="return roboxSelect();" class="runButton allButtons">Connect</a>
+      <a id="DisconnectButton"
+	 onClick="return roboxDisConnect();" class="runButton allButtons">Disconnect</a>
+      <a id="HelpButton"
+	 onClick="return roboxExplain();" class="runButton allButtons" %%HELPDISPLAY%%>Help</a>
+      <script type="text/javascript">
+	RoBoxEvents.addListener("onDisconnect",
+	    function() {
+	       document.getElementById("DisconnectButton").style.display = "none";
+	       document.getElementById("ConnectButton").style.display = "inline";
+	});
+	RoBoxEvents.addListener("onConnect",
+	    function() {
+	       document.getElementById("DisconnectButton").style.display = "inline";
+	       document.getElementById("ConnectButton").style.display = "none";
+	});
+	RoBoxEvents.addListener("onRun",
+	    function() {
+	       document.getElementById("RunButton").classList.add("pulsate");
+	});
+	RoBoxEvents.addListener("onStop",
+	    function() {
+	       document.getElementById("RunButton").classList.remove("pulsate");
+	});
+      </script>
+      
+    </div>

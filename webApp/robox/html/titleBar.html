@@ -1,0 +1,71 @@
+<div id="topDiv">
+  <table width="100%">
+    <tr>
+      <td id="topDivTitle">
+	<span><span>%%PAGETYPE%%</span> %%NUMBER%%</span>
+	<span>%%NAME%%</span>
+      </td>
+      <td id="topDivStatusContainer" width="200px">
+	<div id="topDivStatus">
+	  <table width="100%">
+	    <tr>
+	      <td colspan="3">
+		<span id="conn-indicator" class="conn-indicator"><span class="conn-inner"></span></span>
+		<span title="Click to change the RoBox name"
+		      id="robox-name" onclick="javascript:roboxChangeName();"></span>
+		<script type="text/javascript">
+		  RoBoxEvents.addListener("onNameReport",
+		      function(name) {
+		          document.getElementById("robox-name").innerHTML = name;
+		  });
+		  RoBoxEvents.addListener("onConnect",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator conn-indicator-green";
+		  });
+		  RoBoxEvents.addListener("onDisconnect",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator conn-indicator-red";
+		  });
+		  RoBoxEvents.addListener("onNoDongle",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator";
+		  });
+		  RoBoxEvents.addListener("onIRHit",
+		      function() {
+		          var lightning = document.getElementById("lightning");
+		          lightning.classList.add("flash");
+		          lightning.addEventListener('webkitAnimationEnd',function() { lightning.classList.remove("flash");});
+		  });
+		  RoBoxEvents.addListener("onLineFollow",
+		      function(data) {
+		          document.getElementById("statusFollow").innerHTML = data;
+		  });
+		  RoBoxEvents.addListener("onUltraSonic",
+		      function(data) {
+		          document.getElementById("statusUsonic").innerHTML = data;
+		  });
+		</script>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td id="title-bar-usonic"
+		  onmouseover="repeater=setInterval(roboxSensorReport,500);"
+		  onmouseout="clearInterval(repeater);">
+		<img src="/media/usonic2.png"/></td>
+	      <td id="title-bar-linefollow"
+		  onmouseover="repeater=setInterval(roboxSensorReport,500);"
+		  onmouseout="clearInterval(repeater);">
+		<img src="/media/follow2.png"/></td>
+	      <td><img id="lightning" src="/media/lightning.png"/></td>
+	    </tr>
+	    <tr>
+	      <td id="statusUsonic"></td>
+	      <td id="statusFollow"></td>
+	      <td id="statusHit"></td>
+	    </tr>
+	  </table>
+	</div>
+      </td>
+    </tr>
+  </table>
+</div>

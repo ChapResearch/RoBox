@@ -1,0 +1,503 @@
+#topDiv {
+    background-color: #36bace;
+    width: 100%;
+}
+
+#topDivTitle {
+    background:url('/media/roboxIcon128.png');
+    background-repeat: no-repeat;
+    background-color: #36bace;
+    padding: 0px 0px 0px 150px;
+    display:block;
+    min-height: 128px;
+    width: 100%;
+}
+
+#topDivStatusContainer {
+    padding: 0px 0px 0px 0px;
+}
+
+#topDivStatus {
+    min-height: 128px;
+/**    padding: 0px 0px 0px 0px;
+    box-shadow: 5px 5px 5px #888888;
+    width: 150px;
+    border: 2px solid black; **/
+    background-color: #56daee;
+
+}
+#topDivStatus table tr:nth-child(1) td {
+    padding: 10px 0px 0px 0px;
+    font-size: 150%;
+    color: #fff;
+    font-family: "Arial";
+}
+#topDivStatus td {
+    text-align: center;
+}
+#topDivStatus table tr:nth-child(2) td, #topDivStatus table tr:nth-child(3) td {
+    width: 33%;
+    font-size:125%;
+    font-family: "Arial";
+    color: #fff;
+}
+#robox-name:hover {
+    background: #36bace;
+}
+
+#topDivStatus img {
+    width: 25px;
+}
+
+#topDivTitle span:nth-child(1) span {
+    font-size: 80%;
+    display: inline;
+}
+
+#topDivTitle span:nth-child(1) {
+    padding: 10px 0px 0px 0px;
+    display: block;
+    font-family: "Arial";
+    font-weight: bold;
+    font-size: 25px;
+    color: #f00;
+    text-shadow: 2px 2px #000000;
+}
+
+#topDivTitle span:nth-child(2) {
+    font-size: 50px;
+    color: #fff;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    margin: 0px 0px 0px 0px;
+    padding: 25px 0px 0px 0px;
+}
+#topDivTitle p span {
+    font-style: italic;
+    white-space: nowrap;
+}
+#bottomDiv {
+    position:fixed;
+    left: 0px;
+    bottom: 0px;
+    width:100%;
+    background-color: #36bace;
+    min-height: 60px;
+    text-align: center;
+}
+
+#blocklyDiv {
+    float: clear;
+    position: absolute;
+    width: 100%;
+    top: 128px;
+    bottom: 80px;
+}
+
+.allButtons {
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:28px;
+    font-weight:bold;
+    padding:10px 21px;
+    margin: 10px 10px;
+    text-decoration:none;
+    text-shadow:-4px 3px 7px #2f6627;
+    -moz-border-radius:14px;
+    -webkit-border-radius:14px;
+    border-radius:14px;
+}
+.allButtons:active {
+    position:relative;
+    top:1px;
+}
+
+.runButton {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44c767), color-stop(1, #5cbf2a));
+    background:-moz-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+    background:-webkit-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+    background:-o-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+    background:-ms-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+    background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#44c767', endColorstr='#5cbf2a',GradientType=0);
+    background-color:#44c767;
+    border:3px solid #18ab29;
+}
+.runButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5cbf2a), color-stop(1, #44c767));
+    background:-moz-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+    background:-webkit-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+    background:-o-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+    background:-ms-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+    background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cbf2a', endColorstr='#44c767',GradientType=0);
+    background-color:#5cbf2a;
+}
+.stopButton {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff0026), color-stop(1, #c20654));
+    background:-moz-linear-gradient(top, #ff0026 5%, #c20654 100%);
+    background:-webkit-linear-gradient(top, #ff0026 5%, #c20654 100%);
+    background:-o-linear-gradient(top, #ff0026 5%, #c20654 100%);
+    background:-ms-linear-gradient(top, #ff0026 5%, #c20654 100%);
+    background:linear-gradient(to bottom, #ff0026 5%, #c20654 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0026', endColorstr='#c20654',GradientType=0);
+    background-color:#ff0026;
+    border:3px solid #961017;
+}
+.stopButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c20654), color-stop(1, #ff0026));
+    background:-moz-linear-gradient(top, #c20654 5%, #ff0026 100%);
+    background:-webkit-linear-gradient(top, #c20654 5%, #ff0026 100%);
+    background:-o-linear-gradient(top, #c20654 5%, #ff0026 100%);
+    background:-ms-linear-gradient(top, #c20654 5%, #ff0026 100%);
+    background:linear-gradient(to bottom, #c20654 5%, #ff0026 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c20654', endColorstr='#ff0026',GradientType=0);
+    background-color:#c20654;
+}
+
+/********
+  The following creates a cute little indicator light for connection status.
+********/
+.conn-indicator {
+    overflow: hidden;
+    border-style:solid;
+    border-width: 2px;
+    border-color: #666;
+    padding-top: 6px;
+    padding-left: 6px;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0.2em 0.4em 0.2em 0;
+    vertical-align:middle;
+    line-height: 32px;
+    background: #cccccc;
+    -webkit-box-shadow: inset 0 -6px 6px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    -moz-box-shadow: inset 0 -6px 6px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: inset -6px -6px 6px rgba(0, 0, 0, 0.3), inset 3px 3px 6px rgba(255, 255, 255, 0.3);
+}
+.conn-inner {
+    background: white;
+    opacity:0.35;
+    filter:alpha(opacity=35);
+    -webkit-box-shadow: 0px 0px 6px 3px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 0px 6px 3px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 6px 3px rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    overflow: hidden;
+    width: 6px;
+    height: 6px;
+    display: block;
+    line-height: 0;
+}
+
+.conn-indicator-clear {
+}
+
+.conn-indicator-red {
+    background: #ff0000;
+}
+.conn-indicator-green {
+    background: #00ff00;
+}
+
+/****** CSS for controlling the modal robox select pop-up ******/
+
+.robox-select-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.robox-select-modal-content {
+    border-radius: 10px;
+    background-color: #36bace;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 5px solid black;
+    width: 400px; /* Could be more or less, depending on screen size */
+    height: 400px;
+}
+
+.robox-select-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.robox-select-close:hover,
+.robox-select-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#robox-select-scanning {
+    text-align: center;
+    font-size: 24px;
+    font-family: "Arial";
+    font-weight: bold;
+    color: #fff;
+    margin: 0px;
+}
+
+.robox-select-choice:hover {
+    box-shadow: 10px 10px 5px #888;
+}
+
+.robox-select-choice {
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #444;
+    float: left;
+    background-color: #36bace;
+    width: 185px;
+}
+
+.robox-select-choice:nth-child(even) {
+    margin: 0px 0px 20px 0px;
+}
+
+.robox-select-choice:nth-child(odd) {
+    margin: 0px 20px 20px 0px;
+}
+
+.robox-select-choice-name {
+    font-size: 16px;
+    font-family: "Arial";
+    font-weight: bold;
+    color: #fff;
+}
+
+.robox-select-choice-address {
+    font-size: 10px;
+    font-family: "Arial";
+    color: #888;
+    text-transform: uppercase;
+}
+
+    
+/****** CSS for controlling the modal robox challenge explanation pop-up ******/
+
+.robox-explain-modal {
+/*    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.robox-explain-modal-content {
+    color: white;
+    border-radius: 10px;
+    background-color: #36bace;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 5px solid black;
+    width: 400px; /* Could be more or less, depending on screen size */
+    height: 570px;
+    overflow: auto;
+    font-family: "Arial";
+}
+
+.robox-explain-modal-content h3 {
+
+}
+
+.robox-explain-modal-content h2 {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.green-text {
+    color: #008800;
+}
+
+.robox-explain-close {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.robox-explain-close:hover,
+.robox-explain-close:focus {
+    color: #BD3614;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/****** CSS for controlling the modal robox rename pop-up ******/
+
+.robox-changename-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.robox-changename-modal-content {
+    color: white;
+    border-radius: 10px;
+    background-color: #36bace;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 5px solid black;
+    width: 400px; /* Could be more or less, depending on screen size */
+    height: 200px;
+    overflow: auto;
+    font-family: "Arial";
+}
+
+.robox-changename-waiting {
+    color: white;
+    font-size: 150%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+}
+
+#robox-changename-countdown {
+    color: white;
+    font-size: 200%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+}
+
+.robox-changename-modal-content h3 {
+
+}
+
+.robox-changename-modal-content h2 {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-decoration: underline;
+    text-align: center;
+}
+
+#robox-changename-notes {
+    font-size: 12px;
+    color: #ffffff;
+    font-family: "Arial";
+    text-align: center;
+}
+    
+.robox-changename-modal-content input[type="text"] {
+
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px #ffffff;
+    transition: border 0.3s;
+
+    background: none;
+    
+    font-size: 200%;
+    font-family: "Courier";
+    font-weight: bold;
+    text-align: left;
+
+    color: #ffffff;
+}
+
+.robox-changename-modal-content input[type="text"]:focus,
+.robox-changename-modal-content input[type="text"].focus,
+{
+	border-bottom: solid 2px #707070;
+}
+
+.robox-changename-modal-content form {
+    text-align: center;
+}
+
+.green-text {
+    color: #008800;
+}
+
+.robox-changename-close {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#title-bar-usonic:hover, #title-bar-linefollow:hover {
+    background: #36bace;
+}
+
+.robox-changename-close:hover,
+.robox-changename-close:focus {
+    color: #BD3614;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pulsate {
+    -webkit-animation: pulsate .5s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+
+@-webkit-keyframes pulsate {
+    0% {
+	opacity: 0.5;
+    }
+    50% {
+	opacity: 1.0;
+    }
+    100% {
+	opacity: 0.5;
+    }
+}
+
+.flash {
+    animation-name: flash;
+    animation-timing-function: ease-out;
+    animation-duration: 1s;
+    -webkit-animation-name: flash;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 1s;
+}
+@-webkit-keyframes flash {
+    from { background: white; }
+    to  background: none; }
+}
+@keyframes flash {
+     0% { background: white; }
+     100% { background: none; }
+}
+
+.flashcolor {
+    animation-name: flashcolor;
+    animation-timing-function: ease-out;
+    animation-duration: 1s;
+    -webkit-animation-name: flashcolor;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 1s;
+}
+@-webkit-keyframes flashcolor {
+    from { background: #36bace; }
+    to  background: none; }
+}
+@keyframes flashcolor {
+     0% { background: #36bace; }
+     100% { background: none; }
+ }
