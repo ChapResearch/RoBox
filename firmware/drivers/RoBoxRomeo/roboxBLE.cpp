@@ -5,6 +5,7 @@
 //
 #include "Arduino.h"
 #include "roboxBLE.h"
+#include <avr/wdt.h>
 
 // DEBUG DEBUG DEBUG 
 //#include <SoftwareSerial.h>
@@ -19,8 +20,8 @@ void BLE::init()
 /// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG 
 //	debugSerial.begin(38400);
 
+	wdt_disable();
 	Serial.begin(115200);
-
 }
 
 // receive() - receives BLE data returning an int that represents the. Returns -1 if nothing is available
@@ -78,16 +79,6 @@ void BLE::dataDump(int msec)
 	count++;
 }
 
-void BLE::dataDump()
-{
-	int	c;
-
-	while(Serial.available()) {	// dump data to prevent stalling
-		c = Serial.read();
-//		debugSerial.write(c);
-	}
-}
-
 //
 // getname() - get the configured name on this Romeo.  Up to 13 characters
 //             returned.  There is a static buffer in this command that is
@@ -134,8 +125,11 @@ const char *BLE::getname()
 
 void BLE::restart()
 {
- 	Serial.write("AT+RESTART\r\n");
-	delay(3000);
+ 	Serial.write("AT+RESTART\r\n");	// resets the BLE, then
+	wdt_enable(WDTO_2S);		// will cause a whole board reset at 1 second
+	delay(3000);			// enough delay to allow the complete reset
+	
+	// NEVER RETURN FROM THIS!
 }
 
 
@@ -145,15 +139,14 @@ void BLE::restart()
 void BLE::rename(const char *newname)
 {
 	commandMode();
-	dataDump();
+	dataDump(200);
 
 	Serial.write("AT+NAME=");
 	Serial.write(newname);	// up to 13 characters
 	Serial.write("\r\n");
+	Serial.flush();
 
-	delay(500);			// allows the name set to get done
-
-	dataDump();
+	dataDump(500);			// allows the name set to get done
 
 	// A restart is required. It would be nice if a simple:
         //	Serial.write("AT+EXIT\r\n");
@@ -165,7 +158,7 @@ void BLE::rename(const char *newname)
 
 	restart();
 
-	dataDump();	// dump data to prevent bleeding into future functions
+	dataDump(100);	// dump data to prevent bleeding into future functions
 
 	// if the client is smart, it will automatically reconnect to the appropriate
 	// MAC address after doing a rename.
