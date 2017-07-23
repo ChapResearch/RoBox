@@ -31,6 +31,7 @@
 // DEBUG DEBUG DEBUG
 //#include <SoftwareSerial.h>
 //extern SoftwareSerial debugSerial;
+//SoftwareSerial debugSerial(2,4);
 
 //
 // RCLIncoming() - process incoming RCL command and do what it says.
@@ -44,6 +45,9 @@
 //
 bool RCLIncoming(RoBoxMessage &message, bool running)
 {
+// DEBUG DEBUG DEBUG 
+//	debugSerial.begin(38400);
+
 	static Program *lastProgram = NULL;
 
 	switch(message.cmd) {
@@ -76,10 +80,9 @@ bool RCLIncoming(RoBoxMessage &message, bool running)
 		                        // Long (normal) names are already in EEPROM
 		                        // TODO - which is a problem if we're already RUNNING a program!
 		if(!running) {
-			message.Transfer();		// transfer small names to EEPROM
-			// TODO - set the name
-			//    - put it into a static buffer
-			//    - call hw_setname();
+			char buffer[14];		// max 13 chars (plus '\0')
+			message.toString(buffer,14);
+			hw_setname(buffer);
 		}
 		break;
 

@@ -71,6 +71,38 @@ void RoBoxMessage::Transfer()
 	}
 }
 
+//
+// toString() - given a buffer with a specified size, transfer the current message to
+//              that buffer. This routine is smart about small or large messages
+//              relative to EEPROM or the internal storage.  The string will be
+//              terminated with a '\0' in ANY CASE. So if the message is bigger
+//              than size-1, it will be truncated and buffer[size-1] == '\0';
+//
+void RoBoxMessage::toString(char *buffer, int size)
+{
+	unsigned int count;
+	unsigned int max;
+
+	max = ((unsigned int)size < length)?size:length;
+
+	if(length <= MAX_INT_PAYLOAD) {		// little messages
+		for(count = 0; count < max; count++) {
+			buffer[count] = (char)arg[count];
+		}
+	} else {				// big messages
+		int ptr = EEPROM_ptr;
+		for(count = 0; count < max; count++,ptr++) {
+			buffer[count] = (char)EEPROM.read(ptr);
+		}
+	}
+	if(count < (unsigned)size) {
+		buffer[count] = '\0';
+	} else {
+		buffer[count-1] = '\0';		// may overwrite the last position - which is
+		                                //   exactly how we said this worked
+	}
+}
+
 // 
 // Receive() - check for, and receive a message. Returns TRUE if a message was received
 //             or FALSE otherwise.

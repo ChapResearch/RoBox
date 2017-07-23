@@ -20,4 +20,4 @@ void hw_bleStart();			// get BLE up and running
 int  hw_bleReceive();			// receive a byte from BLE (-1 if non available)
 void hw_bleSend(byte*,int);		// sends an output buffer (bytes) to BLE
 const char *hw_getname();		// get the BLE name
-void hw_setname();			// set the BLE name
+void hw_setname(const char *);		// set the BLE name

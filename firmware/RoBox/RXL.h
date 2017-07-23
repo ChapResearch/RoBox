@@ -24,6 +24,7 @@ int RXL_Repeat(Program&);
 bool RXL_OpEvaluate(int,int,int);
 int RXL_ValueEvaluate(int);
 int RXL_If(Program&);
+int RXL_Else(Program&);
 void RXL_Start(Program&);
 void RXL_Variable(Program&);
 

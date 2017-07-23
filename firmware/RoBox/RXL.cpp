@@ -226,7 +226,33 @@ int RXL(Program &program)
 	    hw_update();
     }
 
-    while(millis() < sleepTarget);	// don't return until last sleep is done
+    while(millis() < sleepTarget) {	// don't return until last sleep is done
+
+	    // BUT still have to monitor for stop and update things
+	    // TODO - this is just a copy of the above code, which is not really cool
+
+	    if(message.Receive()) {
+		    if(RCLIncoming(message,true)) {	// true return means STOP requested
+			    return(100);		// breaks out of all levels
+		    }
+	    }
+
+	    // check for an IR hit
+
+	    {	uint32_t IRvalue;
+
+		    IRvalue = IRHit();
+		    if(IRvalue) {
+			    RoBoxMessage('I',(IRvalue&0xff00)>>8,IRvalue&0x00ff).Send();
+			    ir_hit = IRvalue;
+		    }
+	    }
+
+	    // update any hardware thingies
+
+	    hw_update();
+    }
+	    
 
     return (false);
 }

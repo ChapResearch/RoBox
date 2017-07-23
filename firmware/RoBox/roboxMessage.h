@@ -47,4 +47,5 @@ public:
 	void Transfer();
 	bool Receive();
 	void Send();
+	void toString(char *,int);
 };
