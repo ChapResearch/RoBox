@@ -27,7 +27,7 @@ void setup()
      Serial.println("HI!");
 }
 
-int UP = 0;
+int UP = 1;			// starts in the UP position
 unsigned long LED_Blip;
 
 #define LED_BLIP_MS	100
