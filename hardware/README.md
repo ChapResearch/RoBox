@@ -1,6 +1,6 @@
 # RoBox Hardware
 
-This folder of the RoBox repository contains all production and previous version CAD models for the RoBox kit.
+This section of the RoBox repository contains all production and previous version CAD models for the RoBox kit.
 
 
 
