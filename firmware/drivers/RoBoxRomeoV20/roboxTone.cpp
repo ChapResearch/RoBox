@@ -25,9 +25,9 @@
 #include "Arduino.h"
 #include "roboxTone.h"
 
-ToneGenerator::ToneGenerator(int pin)
+ToneGenerator::ToneGenerator()
 {
-     this->pin = pin;
+     this->pin = 10;
      pinMode(pin,OUTPUT);
      digitalWrite(pin,LOW);
      status = false;
@@ -39,31 +39,20 @@ ToneGenerator::ToneGenerator(int pin)
 //
 void ToneGenerator::Play(int freq, int duration)
 {
-     this->freq = freq;
-     halfWaveMicros = (int)((1.0 / (float)freq)*1000L*1000L/2);
-     state = 0;
-     stopMillis = millis() + (duration * 100);
-     status = true;
-     targetMicros = micros() + halfWaveMicros;
+	tone(this->pin,freq);   
+	status = true;
+	targetMicros = micros() + (duration * 100L * 1000L);
 }
 
 void ToneGenerator::Update()
 {
-     if(status && micros() > targetMicros) {
-	  digitalWrite(pin,state);
-	  state = !state;
-	  targetMicros = micros() + halfWaveMicros;
-
-	  // only checking duration at a halfwave switch time
-	  if(millis() > stopMillis) {
-	       state = 0;
-	       digitalWrite(pin,state);
-	       status = false;
-	  }
-     }
+	if(status && micros() > targetMicros) {
+		Stop();
+	}
 }
 
 void ToneGenerator::Stop()
 {
-     status = false;
+	noTone(pin);
+	status = false;
 }
