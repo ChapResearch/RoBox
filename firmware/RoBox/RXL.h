@@ -27,5 +27,8 @@ int RXL_If(Program&);
 int RXL_Else(Program&);
 void RXL_Start(Program&);
 void RXL_Variable(Program&);
+void RXL_SetMethod(Program&, char);
+int RXL_RunMethod(Program&);
+void RXL_PreLoad(Program&);
 
 #endif

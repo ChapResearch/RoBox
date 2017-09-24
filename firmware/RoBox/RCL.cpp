@@ -6,7 +6,7 @@
 //
 //	L - line follow sensor report (valid during run)	- same return command
 //	U - ultra-sonic sensor report (valid during run)	- same return command
-//	V - version report (valid during run)			- same return command
+//	V - version report (valid during run)	       	- same return command
 //	S - STOP! (valid during run)				- same return command
 //	N - reName the robox (NOT valid during run)
 //      D - IR ID set (NOT valid during run)

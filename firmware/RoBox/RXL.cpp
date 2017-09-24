@@ -21,7 +21,9 @@
 //      I - If condition do (opA,op,opB)
 //      V - set variable (var,op,value)
 //      K - break (level)
-//      E?
+//      E - else 
+//      m - defining a method (letter)
+//      M - run the specific method (number indicating which method)
 
 #include "Arduino.h"
 #include "program.h"
@@ -34,6 +36,13 @@
 #define RXL_VARIABLE_COUNT	10
 #define RXL_TOP_VAR		104	// the ordinal of the first variable
 static int RXL_Variables[RXL_VARIABLE_COUNT];
+
+// Variables storing the subroutines.
+// They start out as empty programs 
+
+Program methodA = NULL;
+Program methodB = NULL;
+Program methodC = NULL;
 
 // this is the global "hit" indicator - if non-zero, means we were "hit" since the last check
 //   the code must set it to zero after it is consumed.
@@ -130,6 +139,14 @@ void RXL_Skip(Program &program)
 	case 'K':
 	    program.Next();     // skip break level
 	    break;
+	
+	case 'm':
+	    program.Next();     // skip the number of the method
+	    break;
+
+	case 'M':
+	    program.Next();     // skip the number of the method
+	    break;
 	}
     }
 }
@@ -156,7 +173,7 @@ int RXL(Program &program)
     // A flag is set when an IR hit occurred.
 
 //    debugSerial.print("Z");
-
+    RXL_PreLoad(program);
     while(!program.AtEnd()) {
         // DEBUG DEBUG DEBUG 
 //        debugSerial.print("X");
@@ -177,7 +194,7 @@ int RXL(Program &program)
 		    case 'V':	RXL_Variable(program);			break;	// set a variable
 			    
 		    case 'I':	
-			    break_count = RXL_If(program);	// execute -if- statement
+			    break_count = RXL_If(program);	// execute -if- statementnnn
 			    if(break_count > 0) {
 				    return (break_count);
 			    }
@@ -197,6 +214,13 @@ int RXL(Program &program)
 			    }
 			    break;
 
+		    case 'm':
+			RXL_SetMethod(program);
+			break;
+
+		    case 'M':
+			RXL_RunMethod(program);
+			break;
 		    }
 	    }
 
@@ -272,10 +296,34 @@ void RXL_Start(Program &program)
 	}
 }
 
+//
+// RXL_PreLoad() - goes throught the full RXL code and 
+//                 assigns all of the appropriate subprograms
+//                 to the instance variable methods.
+//                 Needs to be completed
+//
+void RXL_PreLoad(Program &program) 
+{
+    char ch = program.Next();
+    for(int i = 0; i < program.size-1; i++) { 
+	if(ch == 'm') {
+	    char let = program.Next(); //gets which method is being set
+	    program.Next(); //skips over the parenthesis
+	    int subProgramBegin = program.Position();
+	    RXL_Skip(program);
+	    int subProgramEnd = program.Position();
+	    Program subprogram = new Program(program, subProgramBegin, subProgramEnd);
+	    RXL_setMethod(subprogram, let);
+	    i = subProgramEnd;
+	}
+	    ch = program.Next();
+    }
+}
+
 unsigned long RXL_Sleep(Program &program)
 {
 	int tenths = (int)program.Next();			// number of tenths of seconds
-	return(millis() + ((unsigned long)tenths * 100L));	// max of 10 second seleep
+	return(millis() + ((unsigned long)tenths * 100L));	// max of 10 second sleep
 }
 
 void RXL_Ir(Program &program)
@@ -303,6 +351,49 @@ void RXL_Wheel(Program &program)
 	hw_motor(wheel,power);
 }
 
+//
+// RXL_SetMethod() - takes an RXL program that is really a subprogram
+//                   and stores it into the appropriate instance variable
+//
+void RXL_SetMethod(Program &program, char let)
+{
+    int subProgramBegin = program.Position();
+    RXL_Skip(program);
+    int subProgramEnd = program.Position();
+    
+    switch(let) {
+    case 'A':
+	methodA = new Program(program, subProgramBegin, subProgramEnd - 1);
+	break;
+    case 'B':
+	methodB = new Program(program, subProgramBegin, subProgramEnd - 1);
+	break;
+    case 'C':
+	methodC = new Program(program, subProgramBegin, subProgramEnd - 1);
+	break;
+    }
+}
+
+//
+//RXL_RunMethod() - takes the method set in the RXL_SetMethod() and executes it
+//
+int RXL_RunMethod(Program &program) 
+{
+    int num = program.Next();
+    
+    switch(num) {
+    case '1': 
+	Program methodA; 
+	break;
+    case '2':
+	Program methodB;
+	break;
+    case '3':
+	Program methodC;
+	break;
+    }
+}
+
 // 
 // RXL_Repeat() - executes the subprogram the number of times specified.
 //                It will execute the subprogram forever if the number of times is 0.
@@ -320,9 +411,10 @@ int RXL_Repeat(Program &program)
 	int rtype = program.Next();	// get the type of repeat
 
 	if(rtype =='T') {	// repeat a certain number of Times
-
-		int times = program.Next();
-		int forever = (times == 0);
+	    
+	    int times = program.Next();
+	    times = RXL_ValueEvaluate(times);
+	    boolean forever = (times == 0);
 
 		// at this point the next character in the program is the opening parenthesis 
 		// so we create a sub program from here to the closing parenthesis.
@@ -548,3 +640,4 @@ void RXL_Variable(Program &program)
 
 	RXL_Variables[var-RXL_TOP_VAR] = newValue;
 }
+

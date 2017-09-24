@@ -35,7 +35,11 @@ Motor::Motor(int motor)
 	  dir_pin = M2_DIR_PIN;
 	  break;
      }
+     pinMode(speed_pin, OUTPUT);
+     pinMode(dir_pin, OUTPUT);
+
 }
+
 
 //
 // Reverse() - if the given argument evaluates to TRUE, then this motor will be
@@ -61,11 +65,9 @@ void Motor::Speed(int incoming_speed)
      int	  forward;
 
      if(incoming_speed < 0) {
-	  forward = 0;
-	  speed = -incoming_speed;
+         forward = 0;
      } else {
-       forward = 1;
-	  speed = incoming_speed;
+         forward = 1;
      }
 
      if(speed > 100) {
@@ -79,16 +81,15 @@ void Motor::Speed(int incoming_speed)
      }
 
      if(forward) {
-	  analogWrite(speed_pin,speed);
-	  digitalWrite(dir_pin,LOW);
-     } else {
-	  analogWrite(speed_pin,255-speed);
 	  digitalWrite(dir_pin,HIGH);
+     } else {
+	  digitalWrite(dir_pin,LOW);
      }
+     analogWrite(speed_pin,speed);
+
 }
 
-void Motor::Stop()
+void Motor::Stop(void)
 {
-     analogWrite(speed_pin,0);
-     digitalWrite(dir_pin,LOW);
+  digitalWrite(speed_pin,LOW); 
 }
