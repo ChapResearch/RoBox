@@ -1,8 +1,8 @@
 
 #include "Arduino.h"
-#include "RoBoxRomeo.h"
+#include "RoBoxRomeoV20.h"
 
-ToneGenerator myTone = ToneGenerator(10);
+ToneGenerator myTone = ToneGenerator();
 
 int count = 16;
 int freq = 110;
@@ -17,7 +17,7 @@ void loop()
 {
      if(!myTone.status && count) {
 	  freq = freq * 12 / 10;
-	  myTone.Play(freq,1);
+	  myTone.Play(freq,10);
 	  count--;
 	  Serial.println("beep beep");
      }
