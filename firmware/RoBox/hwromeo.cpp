@@ -9,7 +9,7 @@
 #ifdef ROMEO
 
 #include "Arduino.h"
-#include "RoBoxRomeo.h"		// from the roboxromeo library
+#include "RoBoxRomeoV20.h"		// from the roboxromeo library
 #include "IR-ID.h"
 
 BLE BLE;					// interface to the built-in Romeo BLE
@@ -22,13 +22,13 @@ UltraSonic ultra = UltraSonic(12,11);		// these pins SHOULD be in the driver
 
 IRSender irsender = IRSender();
 
-IRReceiver irreceiver1 = IRReceiver(1);		// here too (up to 2 ir receivers)
+IRReceiver irreceiver1 = IRReceiver(1);
 // IRReceiver irreceiver2 = IRReceiver(2);
 
 Motor LeftMotor(1);				// motor pins are built-in to the driver too
 Motor RightMotor(2);
 
-ToneGenerator myTone = ToneGenerator(10);	// should be built in here, oh well
+ToneGenerator myTone = ToneGenerator();
 
 LineFollow line = LineFollow();
 
