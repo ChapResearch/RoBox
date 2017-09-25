@@ -1,7 +1,7 @@
 #include "Arduino.h"
-#include "RoBoxRomeo.h"
+#include "RoBoxRomeoV20.h"
 
-UltraSonic ultra = UltraSonic(12,11);
+UltraSonic ultra = UltraSonic();
 
 void setup() {
   // initialize serial communication:

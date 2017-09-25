@@ -18,7 +18,7 @@ LED led1(1);					// LED pins are built-in to the driver
 LED led2(2);
 LED led3(3);
 
-UltraSonic ultra = UltraSonic(12,11);		// these pins SHOULD be in the driver
+UltraSonic ultra = UltraSonic();
 
 IRSender irsender = IRSender();
 

@@ -7,7 +7,7 @@ private:
 	int	echo_pin;
 
 public:
-	UltraSonic(int,int);
+	UltraSonic();
 	unsigned int Measure();
 };
 
