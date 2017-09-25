@@ -16,10 +16,10 @@
 //   is reversed for direction=HIGH (meaning that 0 is full speed).
 
 #define M1_SPEED_PIN	5
-#define M1_DIR_PIN	3
+#define M1_DIR_PIN	4
 
 #define M2_SPEED_PIN	6
-#define M2_DIR_PIN	9
+#define M2_DIR_PIN	7
 
 Motor::Motor(int motor)
 {
@@ -66,15 +66,16 @@ void Motor::Speed(int incoming_speed)
 
      if(incoming_speed < 0) {
          forward = 0;
+	 incoming_speed = -incoming_speed;
      } else {
          forward = 1;
      }
 
-     if(speed > 100) {
-	  speed = 100;
+     if(incoming_speed > 100) {
+	  incoming_speed = 100;
      }
 
-     speed = 255 * speed / 100;		// translate to 0-255 - stays within 2 bytes
+     speed = 255 * incoming_speed / 100;		// translate to 0-255 - stays within 2 bytes
 
      if(reverse) {
 	  forward = !forward;
@@ -91,5 +92,5 @@ void Motor::Speed(int incoming_speed)
 
 void Motor::Stop(void)
 {
-  digitalWrite(speed_pin,LOW); 
+	digitalWrite(speed_pin,LOW); 
 }
