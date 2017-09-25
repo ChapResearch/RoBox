@@ -20,10 +20,10 @@ LED led3(3);
 
 UltraSonic ultra = UltraSonic(12,11);		// these pins SHOULD be in the driver
 
-IRSender irsender = IRSender(13);		// so should this one
+IRSender irsender = IRSender();
 
-IRReceiver irreceiver1 = IRReceiver(7);		// here too (up to 2 ir receivers)
-// IRReceiver irreceiver2 = IRReceiver(8);
+IRReceiver irreceiver1 = IRReceiver(1);		// here too (up to 2 ir receivers)
+// IRReceiver irreceiver2 = IRReceiver(2);
 
 Motor LeftMotor(1);				// motor pins are built-in to the driver too
 Motor RightMotor(2);

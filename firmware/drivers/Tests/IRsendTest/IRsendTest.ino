@@ -2,11 +2,9 @@
 // IR Send Test
 //
 #include "Arduino.h"
-#include "RoBoxRomeo.h"
+#include "RoBoxRomeoV20.h"
 
-#define IR_SEND_PIN		13
-
-IRSender irsender = IRSender(IR_SEND_PIN);
+IRSender irsender = IRSender();
 
 void setup()
 {
