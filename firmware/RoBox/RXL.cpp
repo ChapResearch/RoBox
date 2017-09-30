@@ -40,9 +40,9 @@ static int RXL_Variables[RXL_VARIABLE_COUNT];
 // Variables storing the subroutines.
 // They start out as empty programs 
 
-Program methodA = NULL;
-Program methodB = NULL;
-Program methodC = NULL;
+Program *methodA;
+Program *methodB;
+Program *methodC;
 
 // this is the global "hit" indicator - if non-zero, means we were "hit" since the last check
 //   the code must set it to zero after it is consumed.
@@ -173,7 +173,6 @@ int RXL(Program &program)
     // A flag is set when an IR hit occurred.
 
 //    debugSerial.print("Z");
-    RXL_PreLoad(program);
     while(!program.AtEnd()) {
         // DEBUG DEBUG DEBUG 
 //        debugSerial.print("X");
@@ -194,7 +193,7 @@ int RXL(Program &program)
 		    case 'V':	RXL_Variable(program);			break;	// set a variable
 			    
 		    case 'I':	
-			    break_count = RXL_If(program);	// execute -if- statementnnn
+			    break_count = RXL_If(program);	// execute -if- statement
 			    if(break_count > 0) {
 				    return (break_count);
 			    }
@@ -219,7 +218,10 @@ int RXL(Program &program)
 			break;
 
 		    case 'M':
-			RXL_RunMethod(program);
+			break_count = RXL_RunMethod(program);	// execute -method- statement
+			if(break_count > 0) {
+			    return (break_count);
+			}
 			break;
 		    }
 	    }
@@ -289,41 +291,26 @@ int RXL_Break(Program &program)
 
 void RXL_Start(Program &program)
 {
-	// clear variables
+    // clear methods
+    delete methodA;
+    methodA = NULL;
 
-	for(int i=0; i < RXL_VARIABLE_COUNT; i++) {
-		RXL_Variables[i] = 0;
-	}
-}
+    delete methodB;
+    methodB = NULL;
 
-//
-// RXL_PreLoad() - goes throught the full RXL code and 
-//                 assigns all of the appropriate subprograms
-//                 to the instance variable methods.
-//                 Needs to be completed
-//
-void RXL_PreLoad(Program &program) 
-{
-    char ch = program.Next();
-    for(int i = 0; i < program.size-1; i++) { 
-	if(ch == 'm') {
-	    char let = program.Next(); //gets which method is being set
-	    program.Next(); //skips over the parenthesis
-	    int subProgramBegin = program.Position();
-	    RXL_Skip(program);
-	    int subProgramEnd = program.Position();
-	    Program subprogram = new Program(program, subProgramBegin, subProgramEnd);
-	    RXL_setMethod(subprogram, let);
-	    i = subProgramEnd;
-	}
-	    ch = program.Next();
+    delete methodC;
+    methodC = NULL;
+
+    // clear variables
+    for(int i=0; i < RXL_VARIABLE_COUNT; i++) {
+	RXL_Variables[i] = 0;
     }
 }
 
 unsigned long RXL_Sleep(Program &program)
 {
-	int tenths = (int)program.Next();			// number of tenths of seconds
-	return(millis() + ((unsigned long)tenths * 100L));	// max of 10 second sleep
+    int tenths = (int)program.Next();			// number of tenths of seconds
+    return(millis() + ((unsigned long)tenths * 100L));	// max of 10 second sleep
 }
 
 void RXL_Ir(Program &program)
@@ -355,21 +342,30 @@ void RXL_Wheel(Program &program)
 // RXL_SetMethod() - takes an RXL program that is really a subprogram
 //                   and stores it into the appropriate instance variable
 //
-void RXL_SetMethod(Program &program, char let)
+void RXL_SetMethod(Program &program)
 {
+
+    int prog = program.Next();
+
+    program.Next(); 			// skip over the '(' lead-in to the sub-statements
     int subProgramBegin = program.Position();
-    RXL_Skip(program);
-    int subProgramEnd = program.Position();
-    
-    switch(let) {
+    RXL_Skip(program);                      // skips the next statement, in this case a sub-program
+    int subProgramEnd = program.Position();	// points to just after the sub-program ')'
+
+    Program *method = new Program(program,subProgramBegin,subProgramEnd-1);
+		
+    switch(prog) {
     case 'A':
-	methodA = new Program(program, subProgramBegin, subProgramEnd - 1);
+	delete methodA;
+	methodA = method;
 	break;
     case 'B':
-	methodB = new Program(program, subProgramBegin, subProgramEnd - 1);
+	delete methodB;
+	methodB = method;
 	break;
     case 'C':
-	methodC = new Program(program, subProgramBegin, subProgramEnd - 1);
+	delete methodC;
+	methodC = method;
 	break;
     }
 }
@@ -379,18 +375,32 @@ void RXL_SetMethod(Program &program, char let)
 //
 int RXL_RunMethod(Program &program) 
 {
-    char let = program.Next();
-    switch(let) {
+    int break_count = 0;
+    int prog = program.Next();
+
+    Program *target = NULL;
+
+    switch(prog) {
     case 'A': 
-	Program methodA; 
+	target = methodA;
 	break;
     case 'B':
-	Program methodB;
+	target = methodB;
 	break;
     case 'C':
-	Program methodC;
+	target = methodC;
 	break;
     }
+   
+    if(target) {
+	target->Reset();
+	break_count = RXL(*target);
+	if(break_count > 0) {
+	    break_count--;
+	}
+    }
+    return (break_count);
+    
 }
 
 // 
