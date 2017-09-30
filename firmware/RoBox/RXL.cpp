@@ -379,16 +379,15 @@ void RXL_SetMethod(Program &program, char let)
 //
 int RXL_RunMethod(Program &program) 
 {
-    int num = program.Next();
-    
-    switch(num) {
-    case '1': 
+    char let = program.Next();
+    switch(let) {
+    case 'A': 
 	Program methodA; 
 	break;
-    case '2':
+    case 'B':
 	Program methodB;
 	break;
-    case '3':
+    case 'C':
 	Program methodC;
 	break;
     }
