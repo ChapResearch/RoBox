@@ -30,5 +30,6 @@ void RXL_Variable(Program&);
 void RXL_SetMethod(Program&);
 int RXL_RunMethod(Program&);
 void RXL_PreLoad(Program&);
+void RXL_ClearMethods();
 
 #endif

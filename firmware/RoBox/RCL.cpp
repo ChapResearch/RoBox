@@ -115,7 +115,8 @@ bool RCLIncoming(RoBoxMessage &message, bool running)
 		// turn off the motors!
 		hw_motor('L',0);
 		hw_motor('R',0);
-
+		hw_tone(0,0); //stop any beeping
+		//TODO - stop any beeps
 		break;
 
 	case 'P':			// Program command - already loaded into EEPROM 
@@ -124,8 +125,10 @@ bool RCLIncoming(RoBoxMessage &message, bool running)
 			message.Transfer();		// transfer the program to EEPROM (if small)
 			if(lastProgram) {
 				delete lastProgram;
+				RXL_ClearMethods();
 			}
 			lastProgram = new Program(RoBoxMessage::EEPROM_ptr,message.length);
+			
 		}
 		break;
 

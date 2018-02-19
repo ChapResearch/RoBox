@@ -87,7 +87,7 @@ void loop()
 //		debugSerial.print(message.arg[1],HEX);
 
 		// DEBUG DEBUG DEBUG (toggle LED when a message is received)
-		// hw_led(3,2);
+//		 hw_led(3,2);
 		RCLIncoming(message,false);	// note that this routine will recursively call
 		                                //   message.Receive() when running a program
 	}

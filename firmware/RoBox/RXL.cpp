@@ -40,9 +40,9 @@ static int RXL_Variables[RXL_VARIABLE_COUNT];
 // Variables storing the subroutines.
 // They start out as empty programs 
 
-Program *methodA;
-Program *methodB;
-Program *methodC;
+Program *methodA = NULL;
+Program *methodB = NULL;
+Program *methodC = NULL;
 
 // this is the global "hit" indicator - if non-zero, means we were "hit" since the last check
 //   the code must set it to zero after it is consumed.
@@ -289,18 +289,24 @@ int RXL_Break(Program &program)
     return (level);
 }
 
-void RXL_Start(Program &program)
+void RXL_ClearMethods() 
 {
     // clear methods
-    delete methodA;
-    methodA = NULL;
-
-    delete methodB;
-    methodB = NULL;
-
-    delete methodC;
-    methodC = NULL;
-
+    if(methodA) {
+	delete methodA;
+	methodA = NULL;
+    }
+    if(methodB) {
+	delete methodB;
+	methodB = NULL;
+    }
+    if(methodC) {
+	delete methodC;
+	methodC = NULL;
+    }
+} 
+void RXL_Start(Program &program)
+{
     // clear variables
     for(int i=0; i < RXL_VARIABLE_COUNT; i++) {
 	RXL_Variables[i] = 0;
@@ -345,6 +351,7 @@ void RXL_Wheel(Program &program)
 void RXL_SetMethod(Program &program)
 {
 
+    hw_led(2,1);
     int prog = program.Next();
 
     program.Next(); 			// skip over the '(' lead-in to the sub-statements
@@ -375,6 +382,7 @@ void RXL_SetMethod(Program &program)
 //
 int RXL_RunMethod(Program &program) 
 {
+    hw_led(3,1);
     int break_count = 0;
     int prog = program.Next();
 
