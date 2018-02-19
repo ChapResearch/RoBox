@@ -2,13 +2,10 @@
 // IR Send Test
 //
 #include "Arduino.h"
-#include "RoBoxRomeo.h"
+#include "RoBoxRomeoV20.h"
 
-#define IR_RECEIVE_PIN_1	7
-#define IR_RECEIVE_PIN_2	8
-
-IRReceiver irreceiver1 = IRReceiver(IR_RECEIVE_PIN_1);
-IRReceiver irreceiver2 = IRReceiver(IR_RECEIVE_PIN_2);
+IRReceiver irreceiver1 = IRReceiver(1);
+IRReceiver irreceiver2 = IRReceiver(2);
 
 void setup()
 {
@@ -21,7 +18,7 @@ void loop()
 
 	value = irreceiver1.checkAndReceive();
 	if(!value) {
-		value = irreceiver2.checkAndReceive();
+//		value = irreceiver2.checkAndReceive();
 	}
 	if(value) {
 		Serial.println(value,HEX);

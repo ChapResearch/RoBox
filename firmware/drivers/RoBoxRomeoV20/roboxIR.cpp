@@ -24,6 +24,11 @@
 #include "Arduino.h"
 #include "roboxIR.h"
 
+#define IR_RECV_1_PIN	8
+#define IR_RECV_2_PIN	9
+	
+#define IR_SEND_PIN	13
+
 //
 // IRCarrier() - turns on the 38KHz carrier for the given number of microseconds'ish.
 //               Disables interrupts to keep it consistent.
@@ -43,9 +48,9 @@ void IRSender::carrier(unsigned int micros)
      sei();
 }
 
-IRSender::IRSender(int outputPin)
+IRSender::IRSender()
 {
-     pin = outputPin;
+     pin = IR_SEND_PIN;
      digitalWrite(pin, LOW);    //turn off IR LED to start
      pinMode(pin, OUTPUT);
 }
@@ -73,11 +78,15 @@ void IRSender::sendCode(uint32_t code)
      carrier(IR_BITWIDTH);                 //send a single STOP bit.
 }
 
-IRReceiver::IRReceiver(int inputPin)
+IRReceiver::IRReceiver(int recv_number)
 {
-     pin = inputPin;
-     pinMode(pin, INPUT);
-     debounce_target = 0;
+	if(recv_number == 2) {
+		pin = IR_RECV_2_PIN;
+	} else { 
+		pin = IR_RECV_1_PIN;
+	}
+	pinMode(pin, INPUT);
+	debounce_target = 0;
 }
 
 //

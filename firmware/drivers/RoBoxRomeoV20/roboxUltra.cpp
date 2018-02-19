@@ -8,10 +8,10 @@
 //   (site the source for the template here)
 //
 
-UltraSonic::UltraSonic(int trig, int echo)
+UltraSonic::UltraSonic()
 {
-	trig_pin = trig;
-	echo_pin = echo;
+	trig_pin = 12;
+	echo_pin = 11;
 
 	pinMode(trig_pin,OUTPUT);
 	pinMode(echo_pin,INPUT);

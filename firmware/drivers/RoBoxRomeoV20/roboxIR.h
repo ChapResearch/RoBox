@@ -25,7 +25,7 @@ private:
      void carrier(unsigned int);
 
 public:
-     IRSender(int);
+     IRSender();
      void sendCode(uint32_t);
 };
 

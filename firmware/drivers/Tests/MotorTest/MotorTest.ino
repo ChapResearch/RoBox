@@ -2,7 +2,7 @@
 // Motor Test
 //
 #include "Arduino.h"
-#include "RoBoxRomeo.h"
+#include "RoBoxRomeoV20.h"
 
 Motor LeftMotor(1);
 Motor RightMotor(2);
