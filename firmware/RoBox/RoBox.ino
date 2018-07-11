@@ -25,7 +25,7 @@
 #include "roboxMessage.h"
 #include "RCL.h"
 #include "IR.h"
-
+#include "start_up_show.h"
 // DEBUG DEBUG DEBUG 
 //#include "SoftwareSerial.h"
 //SoftwareSerial debugSerial(2,4);
@@ -47,7 +47,7 @@ void setup()
 //	debugSerial.begin(38400);
 
 	hw_bleStart();
-//	hw_led(1,1);
+	start_up_show();
 }
 
 void loop()
