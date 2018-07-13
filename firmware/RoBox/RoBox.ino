@@ -47,6 +47,7 @@ void setup()
 //	debugSerial.begin(38400);
 
 	hw_bleStart();
+	hw_motorReverse('R');
 	start_up_show();
 }
 
