@@ -328,9 +328,9 @@ void RXL_Ir(Program &program)
 
 void RXL_Beep(Program &program)
 {
-  int freq = (int)program.Next();
-  int dur = (int)program.Next();
-  hw_tone(freq,dur);
+    int freq = RXL_ValueEvaluate((int)program.Next());
+    int dur = RXL_ValueEvaluate((int)program.Next());
+    hw_tone(freq,dur);
 }
 
 void RXL_Wheel(Program &program)
