@@ -351,7 +351,6 @@ void RXL_Wheel(Program &program)
 void RXL_SetMethod(Program &program)
 {
 
-    hw_led(2,1);
     int prog = program.Next();
 
     program.Next(); 			// skip over the '(' lead-in to the sub-statements
@@ -382,7 +381,6 @@ void RXL_SetMethod(Program &program)
 //
 int RXL_RunMethod(Program &program) 
 {
-    hw_led(3,1);
     int break_count = 0;
     int prog = program.Next();
 
