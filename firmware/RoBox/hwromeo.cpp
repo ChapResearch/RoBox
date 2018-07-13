@@ -9,7 +9,7 @@
 #ifdef ROMEO
 
 #include "Arduino.h"
-#include "RoBoxRomeoV20.h"		// from the roboxromeo library
+#include "RoBoxRomeoV21.h"		// from the roboxromeo library
 #include "IR-ID.h"
 
 BLE BLE;					// interface to the built-in Romeo BLE
@@ -23,7 +23,7 @@ UltraSonic ultra = UltraSonic();
 IRSender irsender = IRSender();
 
 IRReceiver irreceiver1 = IRReceiver(1);
-// IRReceiver irreceiver2 = IRReceiver(2);
+IRReceiver irreceiver2 = IRReceiver(2);
 
 Motor LeftMotor(1);				// motor pins are built-in to the driver too
 Motor RightMotor(2);
@@ -67,9 +67,9 @@ uint32_t hw_readIR()
 	uint32_t value;
 
 	value = irreceiver1.checkAndReceive();
-//	if(!value) {
-//		value = irreceiver2.checkAndReceive();
-//	}
+	if(!value) {
+		value = irreceiver2.checkAndReceive();
+	}
 
 	return(value);	// zero if nothing received
 }
