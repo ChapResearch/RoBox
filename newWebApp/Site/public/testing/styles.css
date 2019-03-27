@@ -1,0 +1,24 @@
+#statusUsonic2 {
+    font-size: 150%;
+    font-family: "Impact";
+    color: #36BACE;
+}
+
+#statusFollow2 {
+    font-size: 150%;
+    font-family: "Impact";
+    color: #36BACE;
+}
+
+#linefollowcell:hover {
+    background: #ccc;
+}
+
+#ultrasoniccell:hover {
+    background: #ccc;
+}
+
+.hoverinstr {
+    font-size: 10px;
+    font-family: "Arial";
+}

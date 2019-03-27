@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<title>CHALLENGE 3 - RoBox</title>
+    <script src="../blockly/blockly_compressed.js"></script>
+    <script src="../blockly/blocks_compressed.js"></script>
+    <script src="../blockly/msg/js/en.js"></script>
+    <script src="../robox/js/roboxevents.js"></script>
+    <script src="../robox/js/rxp.js"></script>
+    <script src="../robox/js/chromeAppID.js"></script>
+    <script src="../robox/js/rcl.js"></script>
+    <script src="../robox/js/messageService.js"></script>
+    <script src="../robox/js/robox.js"></script>
+    <script src="../robox/js/bstart.js"></script>
+    <link rel="stylesheet" type="text/css" href="../robox/css/robox.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="../robox/blocks/blocks_lightOnOff.js"></script>
+<script src="../robox/blocks/blocks_playSound.js"></script>
+<script src="../robox/blocks/blocks_wait.js"></script>
+<script src="../robox/blocks/blocks_start.js"></script>
+<script src="../robox/blocks/blocks_repeatForever.js"></script>
+<script src="../robox/blocks/blocks_if.js"></script>
+<script src="../robox/blocks/blocks_else.js"></script>
+<script src="../robox/blocks/blocks_elseIf.js"></script>
+<script src="../robox/blocks/blocks_break.js"></script>
+<script src="../robox/blocks/blocks_wheel.js"></script>
+<script src="../robox/blocks/blocks_variableSet.js"></script>
+<script src="../robox/blocks/blocks_break.js"></script>
+<script src="../robox/blocks/blocks_fireIR.js"></script>
+<script src="../robox/blocks/blocks_repeatUntil.js"></script>
+<script src="../robox/blocks/blocks_repeatNumTimes.js"></script>
+<script src="../robox/blocks/blocks_variableSet.js"></script>
+<script src="http://robox.chapresearch.com/robox/blocks/blocks_variableMath.js"></script>
+<xml id="toolbox" style="display: none">
+<block type="start"></block>
+<block type="wait"></block>
+<block type="wheel_left"></block>
+<block type="wheel_right"></block>
+<block type="repeat_number_times"></block>
+</xml></head>
+<body style="margin:0px">
+<div id="topDiv">
+  <table width="100%">
+    <tr>
+      <td id="topDivTitle">
+	<span><span>CHALLENGE</span> 3</span>
+	<span>Draw A Square!</span>
+      </td>
+      <td id="topDivStatusContainer" width="200px">
+	<div id="topDivStatus">
+	  <table width="100%">
+	    <tr>
+	      <td colspan="3">
+		<span id="conn-indicator" class="conn-indicator"><span class="conn-inner"></span></span>
+		<span title="Click to change the RoBox name"
+		      id="robox-name" onclick="javascript:roboxChangeName();"></span>
+		<script type="text/javascript">
+		  RoBoxEvents.addListener("onNameReport",
+		      function(name) {
+		          document.getElementById("robox-name").innerHTML = name;
+		  });
+		  RoBoxEvents.addListener("onConnect",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator conn-indicator-green";
+		  });
+		  RoBoxEvents.addListener("onDisconnect",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator conn-indicator-red";
+		  });
+		  RoBoxEvents.addListener("onNoDongle",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator";
+		  });
+		  RoBoxEvents.addListener("onIRHit",
+		      function() {
+		          var lightning = document.getElementById("lightning");
+		          lightning.classList.add("flash");
+		          lightning.addEventListener('webkitAnimationEnd',function() { lightning.classList.remove("flash");});
+		  });
+		  RoBoxEvents.addListener("onLineFollow",
+		      function(data) {
+		          document.getElementById("statusFollow").innerHTML = data;
+		  });
+		  RoBoxEvents.addListener("onUltraSonic",
+		      function(data) {
+		          document.getElementById("statusUsonic").innerHTML = data;
+		  });
+		</script>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td id="title-bar-usonic"
+		  onmouseover="repeater=setInterval(roboxSensorReport,500);"
+		  onmouseout="clearInterval(repeater);">
+		<img src="../media/usonic2.png"/></td>
+	      <td id="title-bar-linefollow"
+		  onmouseover="repeater=setInterval(roboxSensorReport,500);"
+		  onmouseout="clearInterval(repeater);">
+		<img src="../media/follow2.png"/></td>
+	      <td><img id="lightning" src="../media/lightning.png"/></td>
+	    </tr>
+	    <tr>
+	      <td id="statusUsonic"></td>
+	      <td id="statusFollow"></td>
+	      <td id="statusHit"></td>
+	    </tr>
+	  </table>
+	</div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="blocklyDiv" onmouseup="setTimeout(function () { roboxSave();}, 1000);" onload="" ></div>
+    <!-- box that will pop-up when selecting robox to connect to -->
+    
+    <div id="robox-select" class="robox-select-modal">
+      <div id="robox-select-content" class="robox-select-modal-content">
+	<span class="robox-select-close">&times;</span>
+      </div>
+    </div>
+    <!-- change name pop-up  -->
+    
+    <div id="robox-changename" class="robox-changename-modal">
+      <div id="robox-changename-content" class="robox-changename-modal-content">
+	<span class="robox-changename-close">&times;</span>
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    <!-- ******************************************************* -->
+    <!-- box that will pop-up when showing the challenge text -->
+    
+    <div id="robox-explain" class="robox-explain-modal">
+      <div id="robox-explain-content" class="robox-explain-modal-content">
+	<span class="robox-explain-close" onclick="explainClose()">&times;</span>
+		<h3>Challenge #3</h3>
+	<h2>Drive The Perimeter!</h2>	
+	
+	<p>In this challenge you program your robot to
+	Drive around the perimeter of a block 5 times.
+	But that sounds like it would take ALOT of blocks, right? Wrong!</p>
+
+	<p>You are going to be using a <strong>Repeat</strong> block to complete this challenge.
+	This block allows you to repeat a set of blocks multiple times so you don't have to
+	place every block yourself.</p>
+
+	<img src="../robox/media/Repeat.png"/><br>
+	
+	<p>For example the folowing <strong>Repeat</strong> will make the robot move
+	forward and stop 3 times.</p>
+
+	<img src="../robox/media/RepeatExample.png"/><br>
+
+	<p>Now how could you use this in your challenge?</p>
+
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    <!-- ******************************************************* -->
+    
+    
+    <div id="bottomDiv">
+      <a id="RunButton"
+	 onClick="return roboxRun();" class="runButton allButtons"
+	 oncontextmenu="roboxCompileDebug();return false;" %%RUNDISPLAY%%>RUN <i class="material-icons">play_arrow</i></a>
+      <a id="StopButton"
+	 onClick="return roboxStop();" class="stopButton allButtons flash" %%STOPDISPLAY%%>STOP <i class="material-icons">stop</i></a>
+      <a id="ConnectButton"
+	 onClick="return roboxSelect();" class="runButton allButtons">Connect</a>
+      <a id="DisconnectButton"
+	 onClick="return roboxDisConnect();" class="runButton allButtons">Disconnect</a>
+      <a id="HelpButton"
+	 onClick="return roboxExplain();" class="runButton allButtons" %%HELPDISPLAY%%>Help</a>
+      <a id="SaveButton"
+	 class="runButton allButtons"
+	 onClick="roboxSave();return false;" %%RUNDISPLAY%%>SAVE </a>
+      <a id="nextChallengeButton"
+	 onClick="nextChallenge();" class="challengeButton allButtons">Next</a>      
+      <script type="text/javascript">
+	RoBoxEvents.addListener("onDisconnect",
+	    function() {
+	       document.getElementById("DisconnectButton").style.display = "none";
+	       document.getElementById("ConnectButton").style.display = "inline";
+	});
+	RoBoxEvents.addListener("onConnect",
+	    function() {
+	       document.getElementById("DisconnectButton").style.display = "inline";
+	       document.getElementById("ConnectButton").style.display = "none";
+	});
+	RoBoxEvents.addListener("onRun",
+	    function() {
+	       document.getElementById("RunButton").classList.add("pulsate");
+	});
+	RoBoxEvents.addListener("onStop",
+	    function() {
+	       document.getElementById("RunButton").classList.remove("pulsate");
+	});
+      </script>
+      
+    </div>
+</body></html>
