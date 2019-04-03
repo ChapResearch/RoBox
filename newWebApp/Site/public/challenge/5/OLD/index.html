@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Challenge 4 - RoBox</title>
+    <script src="/blockly/blockly_compressed.js"></script>
+    <script src="/blockly/blocks_compressed.js"></script>
+    <script src="/robox/js/rxp.js"></script>
+    <script src="/blockly/msg/js/en.js"></script>
+    <script src="/robox/blocks/blocks_wheel.js"></script>
+    <script src="/robox/blocks/blocks_wait.js"></script>
+    <script src="/robox/blocks/blocks_start.js"></script>
+    <script src="/robox/blocks/blocks_repeatUntil.js"></script>    
+    <script src="/robox/js/chromeAppID.js"></script>
+    <script src="/robox/js/rcl.js"></script>
+    <script src="/robox/js/messageService.js"></script>
+    <script src="/robox/js/robox.js"></script>
+    <script src="/robox/js/bstart.js"></script>
+    <link rel="stylesheet" type="text/css" href="/robox/css/robox.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <xml id="toolbox" style="display: none">
+      <block type="start"></block>
+      <block type="wait"></block>
+      <block type="wheel_left"></block>
+      <block type="wheel_right"></block>
+      <block type="repeat_until"></block>      
+    </xml>
+  </head>
+  <body style="margin:0px">
+    <div id="topDiv">
+      <table width="100%">
+	<tr>
+	  <td id="topDivTitle">
+	    <span><span>CHALLENGE</span> #4</span>
+	    <span>Drive To The Wall!</span>
+	  </td>
+	  <td id="topDivStatusContainer">
+	    <div id="topDivStatus">
+	      <table width="100%">
+		<tr>
+		  <td colspan="3"><span id="conn-indicator" class="conn-indicator"><span class="conn-inner"></span></span><span id="robox-name"></span></td>
+		</tr>
+		<tr>
+		  <td><img src="/media/usonic2.png"/></td>
+		  <td><img src="/media/follow2.png"/></td>
+		  <td><img src="/media/lightning.png"/></td>
+		</tr>
+		<tr>
+		  <td id="statusUsonic">45</td>
+		  <td id="statusFollow">50</td>
+		  <td id="statusHit">5</td>
+		</tr>
+	      </table>
+	    </div>
+	  </td>
+	</tr>
+      </table>
+    </div>
+    <div id="blocklyDiv"></div>
+
+    <!-- box that will pop-up when selecting robox to connect to -->
+    
+    <div id="robox-select" class="robox-select-modal">
+      <div id="robox-select-content" class="robox-select-modal-content">
+	<span class="robox-select-close">&times;</span>
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    
+    <!-- box that will pop-up when selecting robox to connect to -->
+    <!-- Note that you need to populate this box with your challenge text -->
+
+    <div id="robox-explain" class="robox-explain-modal">
+      <div id="robox-explain-content" class="robox-explain-modal-content">
+	<span class="robox-explain-close">&times;</span>
+
+	<h3>Challenge #4</h3>
+	<h2>Drive To The Wall!</h2>
+
+	<p>In this challenge you program your robot to
+	stop right before it slams into a wall!  But how do you do that?</p>
+
+	<p>Fortunately, the RoBox has an <strong>Ultrasonic</strong> sensor
+	on the front! This sensor sends out a beep of sound and listens
+	for the sound to return. It can tell how far it is away from the
+	  wall by how measuring how long the sound takes to get back after the beep.</p>
+
+	<p>You will be using the <strong>Ultrasonic</strong> sensor in a <strong>Repeat Until</strong>
+	  block. A <strong>Repeat Until</strong> block repeats a set of blocks until the condition is met.
+	  The following would repeat a set of blocks until the <strong>Ultrasonic</strong> sensor
+	  sees an object 20 millimeters (mm) away.</p>
+
+	<p>Don't try to listen for the beep...it is much too high for you
+	to hear.</p>
+	
+	
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    
+    <div id="bottomDiv">
+      <a onClick="return roboxRun();" class="runButton allButtons">RUN <i class="material-icons">play_arrow</i></a>
+      <a onClick="return roboxStop();" class="stopButton allButtons">STOP <i class="material-icons">stop</i></a>
+      <a onClick="return roboxSelect();" class="runButton allButtons">Connect</a>
+      <a onClick="return roboxDisConnect();" class="runButton allButtons">DisConnect</a>
+      <a onClick="return roboxCompile();" class="runButton allButtons">Compile</a>      
+      <a onClick="return roboxExplain();" class="runButton allButtons">Help</a>
+      
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,7 @@
+start
+wait
+wheel_left
+wheel_right
+repeat_number_times
+if
+break

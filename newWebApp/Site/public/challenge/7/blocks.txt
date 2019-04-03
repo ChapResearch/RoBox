@@ -1,0 +1,9 @@
+start
+wait
+repeat_forever
+if
+play_sound
+wheel_right
+wheel_left
+break
+fire_ir
