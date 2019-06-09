@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RoBox Challenges</title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	    crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Acme" rel="stylesheet">
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script src="js/rxp.js"></script>
+    <script src="js/roboxBlocks.js"></script>
+    <script src="js/challenges.js"></script>
+    <script src="js/roboxBlockly.js"></script>
+    <script src="js/roboxEvents.js"></script>
+    <script src="js/roboxBLE.js"></script>
+    <script src="js/robox.js"></script>
+    <script src="js/rcl.js"></script>
+    
+
+    <link rel="stylesheet" type="text/css" href="css/robox.css">
+    
+</head>
+
+<body style="margin:0px">
+<div id="topDiv">
+  <table width="100%">
+    <tr>
+      <td id="topDivTitle">
+	<div class="type">CHALLENGE</div><div class="number"></div>
+	<div></div>
+	<div class="title">RoBox Challenges!</div>
+      </td>
+      <td id="topDivStatusContainer" width="200px">
+	<div id="topDivStatus">
+	  <table width="100%">
+	    <tr>
+	      <td colspan="3">
+		<span id="conn-indicator" class="conn-indicator"><span class="conn-inner"></span></span>
+		<span title="Click to change the RoBox name"
+		      id="robox-name" onclick="javascript:roboxChangeName();"></span>
+		<script type="text/javascript">
+		  RoBoxEvents.addListener("onNameReport",
+		      function(name) {
+		          document.getElementById("robox-name").innerHTML = name;
+		  });
+		  RoBoxEvents.addListener("onConnect",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator conn-indicator-green";
+		  });
+		  RoBoxEvents.addListener("onDisconnect",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator conn-indicator-red";
+		  });
+		  RoBoxEvents.addListener("onNoDongle",
+		      function() {
+		          document.getElementById("conn-indicator").className = "conn-indicator";
+		  });
+		  RoBoxEvents.addListener("onIRHit",
+		      function() {
+		          var lightning = document.getElementById("lightning");
+		          lightning.classList.add("flash");
+		          lightning.addEventListener('webkitAnimationEnd',function() { lightning.classList.remove("flash");});
+		  });
+		  RoBoxEvents.addListener("onLineFollow",
+		      function(data) {
+		          document.getElementById("statusFollow").innerHTML = data;
+		  });
+		  RoBoxEvents.addListener("onUltraSonic",
+		      function(data) {
+		          document.getElementById("statusUsonic").innerHTML = data;
+		  });
+		</script>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td id="title-bar-usonic"
+		  onmouseover="repeater=setInterval(roboxSensorReport,500);"
+		  onmouseout="clearInterval(repeater);">
+		<img src="media/usonic2.png"/></td>
+	      <td id="title-bar-linefollow"
+		  onmouseover="repeater=setInterval(roboxSensorReport,500);"
+		  onmouseout="clearInterval(repeater);">
+		<img src="media/follow2.png"/></td>
+	      <td><img id="lightning" src="media/lightning.png"/></td>
+	    </tr>
+	    <tr>
+	      <td id="statusUsonic"></td>
+	      <td id="statusFollow"></td>
+	      <td id="statusHit"></td>
+	    </tr>
+	  </table>
+	</div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="blocklyDiv" onmouseup="setTimeout(function () { roboxSave();}, 1000);" onload="" ></div>
+
+    <!-- change name pop-up  -->
+    
+    <div id="robox-changename" class="robox-changename-modal">
+      <div id="robox-changename-content" class="robox-changename-modal-content">
+	<span class="robox-changename-close">&times;</span>
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    <!-- ******************************************************* -->
+    <!-- box that will pop-up when showing the challenge text -->
+    
+    <div id="robox-explain" class="robox-explain-modal">
+      <div id="robox-explain-content" class="robox-explain-modal-content">
+	<span class="robox-explain-close"">&times;</span>
+	<div>
+		<h3></h3>
+		<h2>Welcome to RoBox!</h2>
+		<div>
+
+		<center><img src="media/robox.gif"></center>
+	
+		<p>The first thing you must do is connect to your RoBox robot.
+		  Click on the "Connect" button below (need picture)
+		  to get started.
+	        </div>
+	</div>
+		
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    <!-- ******************************************************* -->
+    
+    
+    <div id="bottomDiv">
+      <a id="prevChallengeButton" style="display:none"
+	 onClick="roboxPrevChallenge();" class="challengeButton allButtons"><i class="material-icons">skip_previous</i>Prev</a>      
+      <a id="RunButton"
+	 onClick="return roboxRun();" class="runButton allButtons"
+	 oncontextmenu="roboxCompileDebug();return false;" %%RUNDISPLAY%%>RUN <i class="material-icons">play_arrow</i></a>
+      <a id="StopButton"
+	 onClick="return roboxStop();" class="stopButton allButtons flash" %%STOPDISPLAY%%>STOP <i class="material-icons">stop</i></a>
+      <a id="ConnectButton"
+	 onClick="return roboxConnect();" class="runButton allButtons">Connect</a>
+      <a id="DisconnectButton"  style="display:none"
+	 onClick="return roboxDisConnect();" class="runButton allButtons">Disconnect</a>
+      <a id="HelpButton"
+	 onClick="return roboxExplain();" class="runButton allButtons" %%HELPDISPLAY%%>Help</a>
+      <a id="SaveButton" style="display:none"
+	 class="runButton allButtons"
+	 onClick="roboxSave();return false;" %%RUNDISPLAY%%>SAVE </a>
+      <a id="nextChallengeButton" style="display:none"
+	 onClick="roboxNextChallenge();" class="challengeButton allButtons">Next<i class="material-icons">skip_next</i></a>      
+    </div>
+</body></html>
