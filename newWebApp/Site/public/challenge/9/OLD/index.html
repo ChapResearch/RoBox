@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Challenge 0 - RoBox</title>
+    <script src="/blockly/blockly_compressed.js"></script>
+    <script src="/robox/js/rxp.js"></script>
+    <script src="/blockly/blocks_compressed.js"></script>
+    <script src="/blockly/msg/js/en.js"></script>
+    <script src="/robox/blocks/blocks_lightOnOff.js"></script>
+    <script src="/robox/blocks/blocks_playSound.js"></script>    
+    <script src="/robox/blocks/blocks_wait.js"></script>
+    <script src="/robox/blocks/blocks_start.js"></script>
+    <script src="/robox/blocks/blocks_repeatForever.js"></script>
+    <script src="/robox/blocks/blocks_if.js"></script>
+    <script src="/robox/blocks/blocks_break.js"></script>            
+    <script src="/robox/js/chromeAppID.js"></script>
+    <script src="/robox/js/messageService.js"></script>
+    <script src="/robox/js/robox.js"></script>
+    <script src="/robox/js/bstart.js"></script>
+    <script src="/robox/blocks/blocks_wheel.js"></script>
+    <script src="/robox/blocks/blocks_variableSet.js"></script>
+    <script src="/robox/blocks/blocks_break.js"></script>
+    <script src="/robox/blocks/blocks_fireIR.js"></script>            
+    <link rel="stylesheet" type="text/css" href="/robox/css/robox.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <xml id="toolbox" style="display: none">
+      <block type="start"></block>
+      <block type="wait"></block>
+      <block type="light_on"></block>
+      <block type="light_off"></block>
+      <block type="repeat_forever"></block>
+      <block type="if"></block>
+      <block type="play_sound"></block>
+      <block type="wheel_right"></block>
+      <block type="wheel_left"></block>
+      <block type="variable_math"></block>
+      <block type="variable_setVar"></block>
+      <block type="break"></block>
+      <block type="fire_ir"></block>      
+    </xml>
+  </head>
+  <body style="margin:0px">
+    <div id="topDiv">
+      <table width="100%">
+	<tr>
+	  <td id="topDivTitle">
+	    <span><span>CHALLENGE</span> #9</span>
+	    <span>Line Follow!</span>
+	  </td>
+	  <td id="topDivStatusContainer">
+	    <div id="topDivStatus">
+	      <table width="100%">
+		<tr>
+		  <td colspan="3"><span id="conn-indicator" class="conn-indicator"><span class="conn-inner"></span></span><span id="robox-name"></span></td>
+		</tr>
+		<tr>
+		  <td><img src="/media/usonic2.png"/></td>
+		  <td><img src="/media/follow2.png"/></td>
+		  <td><img src="/media/lightning.png"/></td>
+		</tr>
+		<tr>
+		  <td id="statusUsonic">45</td>
+		  <td id="statusFollow">50</td>
+		  <td id="statusHit">5</td>
+		</tr>
+	      </table>
+	    </div>
+	  </td>
+	</tr>
+      </table>
+    </div>
+    <div id="blocklyDiv"></div>
+
+    <!-- box that will pop-up when selecting robox to connect to -->
+    <!-- Note that you need to populate this box with your challenge text -->
+
+    <div id="robox-explain" class="robox-explain-modal">
+      <div id="robox-explain-content" class="robox-explain-modal-content">
+	<span class="robox-explain-close">&times;</span>
+
+	<h3>Challenge #9</h3>
+	<h2>Line Follow!</h2>
+
+	<p>In this challenge you will be coding your robot to follow a black line!
+	  Sounds easy at first, but trust me, its not as easy as it sounds.
+	</p>
+	
+	<p>To get you started think about it this way. Place your robot on one side
+	  of the black line and trun towards it until you see the black line again,
+	  then turn back the other way and repeat.</p>
+
+	<p>I would suggest using a <strong>If</strong> statement that checks for the light
+	  sensor value, inside a <strong>Repeat Forever</strong> block. Good Luck</p>
+	
+	
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    
+    <div id="bottomDiv">
+      <a onClick="return roboxRun();" class="runButton allButtons">RUN <i class="material-icons">play_arrow</i></a>
+      <a onClick="return roboxStop();" class="stopButton allButtons">STOP <i class="material-icons">stop</i></a>
+      <a onClick="return roboxSelect();" class="runButton allButtons">Connect</a>
+      <a onClick="return roboxDisConnect();" class="runButton allButtons">DisConnect</a>
+      <a onClick="return roboxCompile();" class="runButton allButtons">Compile</a>
+      <a onClick="return roboxExplain();" class="runButton allButtons">Help</a>      
+      
+    </div>
+    
+  </body>
+</html>

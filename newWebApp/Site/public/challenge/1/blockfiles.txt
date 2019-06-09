@@ -1,0 +1,24 @@
+# All of the js files that implement the blocks for this
+# challenge should be listed here, one per line.  Note that
+# they need to be in the /robox/blocks directory.  You can
+# put the .js on the file or not, it will be assumed if not.
+
+blocks_move.js
+blocks_start.js
+blocks_lightOnOff.js
+blocks_playSound.js
+blocks_wait.js
+blocks_start.js
+blocks_repeatForever.js
+blocks_if.js
+blocks_else.js
+blocks_elseIf.js
+blocks_break.js
+blocks_wheel.js
+blocks_variableSet.js
+blocks_break.js
+blocks_fireIR.js
+blocks_repeatUntil.js
+blocks_repeatNumTimes.js
+blocks_variableSet.js
+blocks_variableMath.js

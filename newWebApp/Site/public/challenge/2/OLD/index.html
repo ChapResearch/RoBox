@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Challenge 2 - RoBox</title>
+    <script src="/blockly/blockly_compressed.js"></script>
+    <script src="/robox/js/rxp.js"></script>
+    <script src="/blockly/blocks_compressed.js"></script>
+    <script src="/blockly/msg/js/en.js"></script>
+    <script src="/robox/blocks/blocks_wheel.js"></script>
+    <script src="/robox/blocks/blocks_wait.js"></script>
+    <script src="/robox/blocks/blocks_start.js"></script>
+    <script src="/robox/js/chromeAppID.js"></script>
+    <script src="/robox/js/rcl.js"></script>
+    <script src="/robox/js/messageService.js"></script>
+    <script src="/robox/js/robox.js"></script>
+    <script src="/robox/js/bstart.js"></script>
+    <link rel="stylesheet" type="text/css" href="/robox/css/robox.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <xml id="toolbox" style="display: none">
+      <block type="start"></block>
+      <block type="wheel_left"></block>
+      <block type="wheel_right"></block>
+      <block type="wait"></block>
+    </xml>
+  </head>
+  <body style="margin:0px">
+    <div id="topDiv">
+      <table width="100%">
+	<tr>
+	  <td id="topDivTitle">
+	    <span><span>CHALLENGE</span> #2</span>
+	    <span>Drive In A Circle!</span>
+	  </td>
+	  <td id="topDivStatusContainer">
+	    <div id="topDivStatus">
+	      <table width="100%">
+		<tr>
+		  <td colspan="3"><span id="conn-indicator" class="conn-indicator"><span class="conn-inner"></span></span><span id="robox-name"></span></td>
+		</tr>
+		<tr>
+		  <td><img src="/media/usonic2.png"/></td>
+		  <td><img src="/media/follow2.png"/></td>
+		  <td><img src="/media/lightning.png"/></td>
+		</tr>
+		<tr>
+		  <td id="statusUsonic">45</td>
+		  <td id="statusFollow">50</td>
+		  <td id="statusHit">5</td>
+		</tr>
+	      </table>
+	    </div>
+	  </td>
+	</tr>
+      </table>
+    </div>
+    <div id="blocklyDiv"></div>
+
+    <!-- ******************************************************* -->
+    
+    <!-- box that will pop-up when showing the challenge text -->
+    <!-- Note that you need to populate this box with your challenge text -->
+    
+    <div id="robox-explain" class="robox-explain-modal">
+      <div id="robox-explain-content" class="robox-explain-modal-content">
+	<span class="robox-explain-close">&times;</span>
+
+	<h3>Challenge #2</h3>
+	<h2>Drive In A Circle</h2>
+
+	<p>Congratulations! You have succesfully made your first program.
+	Now you have moved onto challeneg #2</p>
+	
+	<p>In this challenge you will program your robot to
+	drive in a circle.</p>
+
+	<p>This time you will be using the <strong>Wheel</strong> block to move
+	each wheel on your robot. To get started use a <strong>Wheel right</strong>
+	block and a <strong>Wheel left</strong> block and set their power to
+	100. This will make the robot move forward</p>
+
+	<img src="/robox/media/WheelLeftRight.png"/><br>
+	
+	<p>Now use a wait block to tell your robot to wait for a few seconds.</p>
+
+	<img src="/robox/media/Wait.png"/><br>	
+	
+	<p>Next make your wheels stop moving by using the <strong>Wheel right</strong>
+	block and a <strong>Wheel left</strong> block and set their power to 0</p>
+
+	<p>Everytime you complete a new program and want your
+	robot to run it click the <img src="/robox/media/RUN.png" width="13%" /> button.</p>
+
+        <p>You might notice that this only makes your robot move forward, but we want the
+	robot to move in a circle. Try changing the power on the first 2 <strong>Wheel</strong>
+	blocks and see what happens.</p>
+
+      </div>
+    </div>
+
+    <!-- ******************************************************* -->
+    
+    <div id="bottomDiv">
+      <a onClick="return roboxRun();" class="runButton allButtons">RUN <i class="material-icons">play_arrow</i></a>
+      <a onClick="return roboxStop();" class="stopButton allButtons">STOP <i class="material-icons">stop</i></a>
+      <a onClick="return roboxSelect();" class="runButton allButtons">Connect</a>
+      <a onClick="return roboxDisConnect();" class="runButton allButtons">DisConnect</a>
+      <a onClick="return roboxCompile();" class="runButton allButtons">Compile</a>
+      <a onClick="return roboxExplain();" class="runButton allButtons">Help</a>
+      
+    </div>
+    
+  </body>
+</html>
