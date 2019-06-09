@@ -1,0 +1,13 @@
+start
+wait
+repeat_forever
+if
+play_sound
+play_sound_custom
+play_sound_variable
+wheel_right
+wheel_left
+variable_math
+variable_setVar
+break
+fire_ir

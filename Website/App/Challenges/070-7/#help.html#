@@ -1,0 +1,12 @@
+	<h3>Challenge #7</h3>
+	<h2>The 3 Lines!</h2>
+
+        <p>In this challenge you will be coding your robot to go forward until it sees the 3rd line.
+         It sounds easy at first, but you are going to have to use loops and your light sensor 
+	really well or else it won't work</p>
+	
+<p>To get you started think about it this way. You already learned how to make
+        </p>
+
+	<p>I would suggest using a <strong>If</strong> statement that checks for the light
+	  sensor value, inside a <strong>Repeat Forever</strong> block. Good Luck</p>

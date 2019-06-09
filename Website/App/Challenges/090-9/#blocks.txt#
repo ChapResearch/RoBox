@@ -1,0 +1,14 @@
+NNstart
+wait
+light_on
+light_off
+repeat_forever
+if
+play_sound
+play_sound_custom
+wheel_right
+wheel_left
+variable_math
+variable_setVar
+break
+fire_ir

@@ -1,0 +1,14 @@
+start
+wait
+repeat_forever
+if
+play_sound
+wheel_right
+wheel_left
+break
+def_method_a
+def_method_b
+def_method_c
+run_method_a
+run_method_b
+run_method_c

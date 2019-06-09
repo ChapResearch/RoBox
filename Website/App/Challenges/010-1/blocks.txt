@@ -1,0 +1,7 @@
+# all of the blocks that should be listed in the toolbox
+# are here, one per line. All of these blocks must be defined
+# in the javascript files listed in the blockfiles.txt.
+
+start
+move_forward
+move_backward
