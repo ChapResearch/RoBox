@@ -8,12 +8,14 @@
 
 JSDIR = js
 CSSDIR = css
+MEDIADIR = media
 
 # if you want the uncompressed version
 #JSFILES = rxp-min.js roboxBlockly-min.js roboxEvents-min.js robox-min.js rcl-min.js roboxBLE-min.js 
 JSFILES = rxp.js roboxBlockly.js roboxEvents.js robox.js rcl.js roboxBLE.js 
 
 CSSFILES = robox.css
+MEDIAFILES = favicon.ico
 
 #
 # marking this as .SECONDARY (just like .INDERMEDIATE but doesn't try to delete it)
@@ -48,6 +50,11 @@ $(CSSDIR): $(CSSFILES)
 	[ -d $@ ] || mkdir $@
 	cp $^ $@
 	touch $@
+
+# nothing really happens to media currently
+
+$(MEDIADIR):
+
 
 clean:
 	rm -fr $(JSDIR)

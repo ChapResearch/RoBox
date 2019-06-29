@@ -7,15 +7,18 @@
 #   in one spot.
 #
 
-//DEPLOYDIR = public
-DEPLOYDIR = /media/sf_Virtual_Machine_Shares/deployment/RoBox
+//DEPLOYDIR := public
+DEPLOYDIR := /media/sf_Virtual_Machine_Shares/deployment/RoBox
 
 all:
 	make -C Blockly js
 	make -C Challenges js
 	make -C RoBox js
 	make -C RoBox css
+	make -C RoBox media
 	make -C RoBoxBlocks js
+	make -C Testing
+	make -C Competition
 
 copy-files: 
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
@@ -42,6 +45,14 @@ clean:
 	make -C Challenges clean
 	make -C RoBox clean
 	make -C RoBoxBlocks clean
+	make -C Testing clean
+	make -C Competition clean
 	rm -fr index.html
 	rm -fr $(DEPLOYDIR)
 
+#
+# the .gitignore needs to be sure to stop referens to the created directories
+
+.gitignore:
+	(echo $(DEPLOYDIR);           \
+	) > $@
