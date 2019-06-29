@@ -229,7 +229,7 @@ function roboxSelectList(data)
 	html += '<span class="robox-select-close">&times;</span>';
 	html += '<div>';
 	html += '<img style="margin-left:auto;margin-right:auto;display:block;" '
-	html += 'src="/media/roboxIcon128.png"/>';
+	html += 'src="media/roboxIcon128.png"/>';
 	html += '<p id="robox-select-scanning">';
 	html += 'Can\'t find any RoBox!';
 	html += '<br>Is the power on?';
