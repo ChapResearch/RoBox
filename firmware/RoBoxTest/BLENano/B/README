@@ -1,0 +1,6 @@
+This tests half of the electronic components on the RoBox.
+The components tested are:
+    1. Speaker -- plays two pitches
+    2. IR blasters -- sends out an IR blast
+    3. Ultrasonic -- turns on either a red, yellow, or green LED based on reading of ultrasonic
+
