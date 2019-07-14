@@ -14,11 +14,14 @@
 //   255 and stopped is zero.  Note, though, that the polarity of speed
 //   is reversed for direction=HIGH (meaning that 0 is full speed).
 
-#define M1_SPEED_PIN	5
-#define M1_DIR_PIN	4
+// for the BLENano, given our current board configuration, we
+// switched what was M1 and what was M2
 
-#define M2_SPEED_PIN	6
-#define M2_DIR_PIN	7
+#define M1_SPEED_PIN	6
+#define M1_DIR_PIN	7
+
+#define M2_SPEED_PIN	5
+#define M2_DIR_PIN	4
 
 Motor::Motor(int motor)
 {
