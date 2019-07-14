@@ -16,8 +16,15 @@
     <script src="js/challenges.js"></script>
     <script src="js/roboxBlockly.js"></script>
     <script src="js/roboxEvents.js"></script>
+    <script src="js/roboxAppControl.js"></script>
+    <script src="js/roboxChallenge.js"></script>
+    <script src="js/roboxTesting.js"></script>
     <script src="js/roboxBLE.js"></script>
     <script src="js/robox.js"></script>
+    <script src="js/gamepad.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/testfns.js"></script>
+    <script src="js/roboxDriving.js"></script>
     <script src="js/rcl.js"></script>
     
 
@@ -33,6 +40,13 @@
 	<div class="type">CHALLENGE</div><div class="number"></div>
 	<div></div>
 	<div class="title">RoBox Challenges!</div>
+      </td>
+      <td id="topDivSelector">
+	<table>
+	  <tr><td class='selectorTesting' data-type='testing'>Testing</td></tr>
+	  <tr><td class='selectorChallenges' data-type='challenge'>Challenges</td></tr>
+	  <tr><td class='selectorDriving' data-type='driving'>Driving</td></tr>
+	</table>
       </td>
       <td id="topDivStatusContainer" width="200px">
 	<div id="topDivStatus">
@@ -99,6 +113,106 @@
   </table>
 </div>
 <div id="blocklyDiv" onmouseup="setTimeout(function () { roboxSave();}, 1000);" onload="" ></div>
+<div id="testingDiv" >
+  
+    <table align="center">
+      <tr>
+	<td><div id = "testButton">
+	    <img src="media/newBlaster.png" width="150" onclick="javascript:BlastTest();"/></td>
+	</div>
+	<td><div id = "testButton">
+	    <img height="110" width="110" src="media/speaker.png" onclick="javascript:SpeakerTest();"/></td>
+	</div>
+	<td id="ultrasoniccell"
+	    align="center"
+	    onmouseover="repeater=setInterval(roboxSensorReport,500);"
+	    onmouseout="clearInterval(repeater);">
+	  <img src="media/ultrasonic.png"><BR>
+	  <span id="statusUsonic2">0</span><br>
+	  <script type="text/javascript">
+	    RoBoxEvents.addListener("onUltraSonic",
+	        function(data) {
+	            document.getElementById("statusUsonic2").innerHTML = data;
+	    });
+	  </script>
+	  <span class="hoverinstr">(Hover to Monitor)</span></td>
+      </tr>
+      <tr>
+	<td>
+	  <table>
+	    <tr>
+	      <td><img height="50" width="50" src="media/up.png" onclick="javascript:motorTest('L','forward');"/></td>	      
+	      <td rowspan="3"><img src="media/left.png">
+	      </td>
+	    </tr>
+	    <tr>
+	      <td><img height="50" width="50" src="media/stop.png" onclick="javascript:motorTest('L','stop');"/></td>
+	    </tr>
+	    <tr>
+	      <td><img height="50" width="50" src="media/down.png" onclick="javascript:motorTest('L','backward');"/></td>	 
+	  </table>
+	</td>
+	<td id="linefollowcell"
+	    width="100" align="center"
+	    onmouseover="repeater=setInterval(roboxSensorReport,500);"
+	    onmouseout="clearInterval(repeater);">
+	  <img width="100" src="media/newLineFollow.png"/><p>
+	    <span id="statusFollow2">0</span>
+	    <script type="text/javascript">
+	    RoBoxEvents.addListener("onLineFollow",
+	        function(data) {
+	            document.getElementById("statusFollow2").innerHTML = data;
+	    });
+	    </script>
+
+	    <br><span class="hoverinstr">(Hover to Monitor)</span></p></td>
+	<td>
+	  <table>
+	    <tr>
+	      <td rowspan="3"><img src="media/right.png">
+	      </td>
+	      <td><img height="50" width="50" src="media/up.png" onclick="javascript:motorTest('R','forward');"/></td>
+	    </tr>
+	    <tr>
+	      <td><img height="50" width="50" src="media/stop.png" onclick="javascript:motorTest('R','stop');"/></td>
+	    </tr>
+	    <tr>
+	      <td><img heigh="50" width="50" src="media/down.png" onclick="javascript:motorTest('R','backward');"/></td>
+	    </tr>
+	  </table>
+	</td>
+      </tr>
+      <tr>
+	<td id="tableLightning" align="center"><img height="100" src="media/lightningBig.png"/></td>
+	<script type="text/javascript">
+	  RoBoxEvents.addListener("onIRHit",
+	  function() {
+	          var lightning = document.getElementById("tableLightning");
+	          lightning.classList.add("flashcolor");
+	          lightning.addEventListener('webkitAnimationEnd',function() { lightning.classList.remove("flashcolor");});
+	  });
+	</script>
+	<td colspan="2" align="center">
+	  <img height="50" width="50" src="media/redLight.png" onclick="javascript:LEDTest(1,2);"/>
+	  <img height="50" width="50" src="media/yellowLight.png" onclick="javascript:LEDTest(2,2);"/>
+	  <img height="50" width="50" src="media/greenLight.png" onclick="javascript:LEDTest(3,2);"/></td>
+      </tr>
+    </table>
+</div>
+<div id="drivingDiv" >
+  <audio id="hit-sound" preload="auto" autobuffer>
+    <source src="media/hit.wav" />
+  </audio>
+  <audio id="fire-sound" preload="auto" autobuffer>
+    <source src="media/fire.wav" />
+  </audio>
+
+  <p align="center"><img src="media/F310.png"></p>
+  <div style="text-align:center;">
+      <a id="Reset"
+	 onClick="return battleLEDReset();" class="runButton allButtons">Reset</a>
+  </div>
+</div>
 
     <!-- change name pop-up  -->
     
@@ -112,7 +226,7 @@
     <!-- ******************************************************* -->
     <!-- box that will pop-up when showing the challenge text -->
     
-    <div id="robox-explain" class="robox-explain-modal">
+    <div id="robox-explain" class="robox-explain-modal" style="display:none">
       <div id="robox-explain-content" class="robox-explain-modal-content">
 	<span class="robox-explain-close"">&times;</span>
 	<div>

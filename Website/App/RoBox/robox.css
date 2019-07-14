@@ -13,6 +13,37 @@
     width: 100%;
 }
 
+#topDivSelector {
+    min-height: 128px;
+    text-align: center;
+    font-size: 23px;
+    width: 120px;
+    font-family: "Acme", sans-serif;
+    padding: 0px;
+    margin: 0px;
+    color: grey;
+}
+
+#topDivSelector td {
+    cursor: pointer;
+    padding: 5px;
+}
+
+#topDivSelector td:hover {
+    color: white;
+}
+#topDivSelector td.selected:hover {
+    color: black;
+}
+
+
+#topDivSelector td.selected {
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: white;
+}
+
+
 #topDivStatusContainer {
     padding: 0px 0px 0px 0px;
 }
@@ -90,7 +121,7 @@
     text-align: center;
 }
 
-#blocklyDiv {
+#blocklyDiv, #testingDiv, #drivingDiv {
     float: clear;
     position: absolute;
     width: 100%;

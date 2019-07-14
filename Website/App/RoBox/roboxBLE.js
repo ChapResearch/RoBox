@@ -156,9 +156,10 @@ BLE.prototype.connect = function(reportFN)
 	})
 	.then(() => {
 	    BLEObj.connected = true;
-	    var rcl = new RCLMessage();
-	    rcl.LED(1,1);
-	    rcl.Transmit(BLEObj);
+	    // DEBUG DEBUG DEBUG - nice way to indicate connection
+	    // var rcl = new RCLMessage();
+	    // rcl.LED(1,1);
+	    // rcl.Transmit(BLEObj);
 	})
 
 	.catch(error => {

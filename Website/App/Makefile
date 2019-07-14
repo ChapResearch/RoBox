@@ -7,8 +7,8 @@
 #   in one spot.
 #
 
-//DEPLOYDIR := public
-DEPLOYDIR := /media/sf_Virtual_Machine_Shares/deployment/RoBox
+DEPLOYDIR := public
+//DEPLOYDIR := /media/sf_Virtual_Machine_Shares/deployment/RoBox
 
 all:
 	make -C Blockly js
@@ -17,8 +17,6 @@ all:
 	make -C RoBox css
 	make -C RoBox media
 	make -C RoBoxBlocks js
-	make -C Testing
-	make -C Competition
 
 copy-files: 
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
