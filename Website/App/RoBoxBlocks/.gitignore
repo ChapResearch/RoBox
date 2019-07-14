@@ -1,0 +1,6 @@
+#
+# ignore the files that are constructed in this directory
+#
+roboxBlocks-min.js
+roboxBlocks.js
+js/

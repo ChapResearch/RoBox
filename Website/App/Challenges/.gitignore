@@ -1,0 +1,11 @@
+#
+# ignore the files that are constructed in this directory
+#
+challenges.js
+challenges-compressed.js
+challengeArray.js
+challengeHelp.js
+challengeName.js
+challengeType.js
+challengeBlocks.js
+js/
