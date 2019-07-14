@@ -5,7 +5,6 @@
 #
 #   The directory structure of this directory on down is as follows:
 #     Main - the main web site that has the marketing stuff
-#     Campers - the web site that has camper information and direct links to challenges
 #     App - the RoBox running-the-robot app
 #       App/Testing - the testing app
 #       App/Competition - the competition app
@@ -42,7 +41,6 @@ logout:
 all:
 	make -C App
 	make -C Main
-	make -C Campers
 
 #
 # the deployment directory is $(DEPLOYDIR) which needs to be programmed in the
@@ -56,7 +54,6 @@ DEPLOYDIR := public
 deploy: testForLogin
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
 	[ -d $(DEPLOYDIR)/App ] || mkdir $(DEPLOYDIR)/App
-	[ -d $(DEPLOYDIR)/Campers ] || mkdir $(DEPLOYDIR)/Campers
 	make -C App DEPLOYDIR=../$(DEPLOYDIR)/App $@
 	make -C Main DEPLOYDIR=../$(DEPLOYDIR) $@
 	firebase deploy
@@ -65,4 +62,3 @@ clean:
 	rm -rf $(DEPLOYDIR)
 	make -C App $@
 	make -C Main $@
-	make -C Campers $@

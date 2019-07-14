@@ -1,0 +1,4 @@
+#
+# ignore the files that are constructed in this directory
+#
+js/
