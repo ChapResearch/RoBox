@@ -1,7 +1,0 @@
-start
-wait
-light_on
-light_off
-repeat_forever
-if
-play_sound
