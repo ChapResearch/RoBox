@@ -9,7 +9,7 @@ MEDIADIR = media
 
 JSFILES = challenges.js challenges-min.js
 
-all: $(JSFILES)
+all: clean $(JSFILES)
 
 #
 # marking this as .SECONDARY (just like .INDERMEDIATE but doesn't try to delete it)
