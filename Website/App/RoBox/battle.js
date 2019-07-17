@@ -36,6 +36,8 @@ function battleInit()
 //
 function battleOn()
 {
+    console.log('battleOn()');
+
     gamepadCheck();       // when the battle goes on, check for a gamepad
     
     battleLEDReset();
@@ -43,7 +45,12 @@ function battleOn()
     battleHitListenerID = RoBoxEvents.addListener("onIRHit",battleHit);
     battleFireListenerID = RoBoxEvents.addListener("onFire",battleFire);
 
+    console.log('battle - added Listeners');
+    
     gamepadLoopOn();
+
+    console.log('battle - returning');
+    
 }
 
 //
@@ -54,7 +61,9 @@ function battleOn()
 //
 function battleOff()
 {
-    battleLEDOff();
+    console.log('battleOff()');
+    
+//    battleLEDOff();
 
     if(battleHitListenerID) {
 	RoBoxEvents.removeListener(battleHitListenerID);
@@ -121,12 +130,10 @@ function battleLEDControl(on)
     //   turned on/off - I kept it in here but don't remember why it was needed
     //   TODO - see if this is really needed
 
-    setTimeout(function() {    
-	var rcl = new RCLMessage();
-	rcl.LED(1,on);
-	rcl.LED(2,on);
-	rcl.LED(3,on);
-	rcl.Transmit(RoBoxBrain);
-    }, 500);
+    var rcl = new RCLMessage();
+    rcl.LED(1,on);
+    rcl.LED(2,on);
+    rcl.LED(3,on);
+    rcl.Transmit(RoBoxBrain);
 }
 
