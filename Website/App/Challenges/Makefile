@@ -109,6 +109,6 @@ challengeBlocks.js:  $(shell ls */blocks.txt)
             done | sed $(LAST_COMMA) >> $@
 
 clean:
-	rm -f challenges.js challenges-compressed.js
-	rm -f challengeArray.js challengeHelp.js challengeName.js challengeType.js challengeBlocks.js
+	rm -f challenges.js challenges-min.js
+	rm -f challengeArray.js challengeHelp.js challengeName.js challengeType.js challengeBlocks.js challengeNumber.js
 	rm -fr $(JSDIR)
