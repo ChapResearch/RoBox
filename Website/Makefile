@@ -56,6 +56,7 @@ deploy: testForLogin
 	[ -d $(DEPLOYDIR)/App ] || mkdir $(DEPLOYDIR)/App
 	make -C App DEPLOYDIR=../$(DEPLOYDIR)/App $@
 	make -C Main DEPLOYDIR=../$(DEPLOYDIR) $@
+	cp $(DEPLOYDIR)/App/favicon.ico $(DEPLOYDIR)
 	firebase deploy
 
 clean:
