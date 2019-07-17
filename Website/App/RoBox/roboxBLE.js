@@ -234,10 +234,19 @@ function delay(ms) {
 // _sendChunks() - sends the given chunks to the RoBox. This routine
 //                 will resursively call itself after each chunk is transmitted.
 //
+//    TODO - battle.js was broken because a battleOff() and battleOn() could be called
+//           shortly after each other.  And due to the fact that _sendChunks redefines
+//           itself through a .bind(), the two calls were crashing into each other
+//           AFTER the promise for the characteristic came back.  BOTTOM LINE is that
+//           the chunks needs to become part of the object, and transmission needs to
+//           be automatically scheduled where there are chunks.  So any upper level
+//           Transmit() simply adds chunks - letting them be transmitted as necessary.
+
 BLE.prototype._sendChunks = function(callback,chunks,characteristic)
 {
     if(chunks.length) {
 	console.log("called");
+	console.trace();
 	console.log(chunks);
 	console.log(characteristic);
 

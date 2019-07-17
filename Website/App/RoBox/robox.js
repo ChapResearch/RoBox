@@ -17,9 +17,24 @@ var RoBoxBrain = new BLE();
 function roboxInit()
 {
     roboxAppControlInit(location.search);
+
+    disableNameChange();
     
     RoBoxBrain.connectionMonitor(roboxConnectionMonitor);
 }
+
+//
+// disableNameChange() - the current version of the BLE-Nano can't do a name change, so it
+//                       needs to be disabled.  Bummer.
+//
+function disableNameChange()
+{
+    var target = $('#robox-name');
+
+    target.removeAttr('title');
+    target.removeAttr('onClick');
+}
+
 
 function roboxRun()
 {
