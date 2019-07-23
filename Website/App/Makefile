@@ -43,8 +43,6 @@ clean:
 	make -C Challenges clean
 	make -C RoBox clean
 	make -C RoBoxBlocks clean
-	make -C Testing clean
-	make -C Competition clean
 	rm -fr index.html
 	rm -fr $(DEPLOYDIR)
 
