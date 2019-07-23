@@ -189,6 +189,8 @@ void hw_update()
      led2.Update();
      led3.Update();
      myTone.Update();
+     LeftMotor.Update();
+     RightMotor.Update();
 }
 
 //
