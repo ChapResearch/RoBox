@@ -118,9 +118,11 @@ void hw_motorReverse(char motor)
 //                that an 8-bit ID is sent in, which is added to the 24-bits of
 //                RoBox id.
 //
+//    NOTE - this uses the original spark-fun codes (not the new control codes)
+//
 void hw_blaster(uint8_t id, int count, int power)
 {
-	uint32_t code = (((uint32_t)IR_BASE_ID)<<16) | (0x00<<8) | id;
+	uint32_t code = (((uint32_t)IR_BASE_ID1)<<16) | (0x00<<8) | id;
 
 	// TODO - implement power if it ends-up being a thing.
 

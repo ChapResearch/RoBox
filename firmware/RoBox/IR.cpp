@@ -18,7 +18,7 @@ uint16_t IRHit()
 		// DEBUG DEBUG DEBUG DEBUG DEBUG 
 		// hw_led(2,2);
 
-		if(((IRvalue & 0xffff0000)>>16) == IR_BASE_ID) {
+		if(IRHIT(IRvalue)) {
 			return(IRvalue & 0xffff);
 		}
 	}
