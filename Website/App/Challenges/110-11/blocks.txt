@@ -2,6 +2,7 @@ start
 wait
 repeat_forever
 if
+else
 play_sound
 wheel_right
 wheel_left

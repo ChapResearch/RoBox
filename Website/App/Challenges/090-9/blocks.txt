@@ -2,6 +2,7 @@ start
 wait
 repeat_forever
 if
+else
 play_sound
 play_sound_custom
 play_sound_variable
