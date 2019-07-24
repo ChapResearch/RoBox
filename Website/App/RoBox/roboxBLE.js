@@ -51,6 +51,8 @@ function BLE()
     this.connectionMonitorFN = null;
 
     this.disconnectFN = this._disconnect.bind(this);
+
+    this.transmissionPromise = null;     // the promise chain that transmits packets
 }
 
 Object.defineProperties(BLE.prototype, {
@@ -187,20 +189,19 @@ BLE.prototype.connect = function(reportFN)
 
 //
 // transmit() - send the data out to the RoBox. This routine will fragmentize into smaller
-//              chunks if necessary.  It returns a promise, that should be used to update the
-//              GUI with the result of the transmission (with a .then() or .catch()).
+//              chunks if necessary.  If other transmit's have occurred, then they stack
+//              into the transmission buffer.
 //
-BLE.prototype.transmit = function(data,callback)
+//     TODO - this COULD return a promise, or have a callback upon transmission completion,
+//            which could be used by a GUI with the result of the transmission (with a .then() or .catch()).
+//            It will be pretty tough, however, because of multiple transmisions.
+//
+BLE.prototype.transmit = function(data)
 {
     var CHUNKSIZE = 20;
     var uuid = BLECharSend;
 
-    console.log("upper transmit");
-    
     if(this.connected) {
-	if(callback) {
-	    callback(true);
-	}
 
 	var chunks = [];
 	var chunkCount = Math.floor(data.length / CHUNKSIZE);    // count of full chunks
@@ -212,67 +213,44 @@ BLE.prototype.transmit = function(data,callback)
 	    chunks.push(data.slice(i*CHUNKSIZE,(i+1)*CHUNKSIZE));
 	}
 
-	console.log(chunks);
-
-	// now we have an array of chunks to be transmitted WITHOUT the need to check
-	//  the size of the chunk any more.
+	// for ease of use below, go ahead and package up the individual messages
 	
-	this.serviceObj.getCharacteristic(uuid)
-	    .then( this._sendChunks.bind(this,callback,chunks) )
-	    .catch(error => {
-		console.log("catch in transmit");
-		this.connected = false;
-	    });
-    }
-}
-
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve,ms));
-}
-
-//
-// _sendChunks() - sends the given chunks to the RoBox. This routine
-//                 will resursively call itself after each chunk is transmitted.
-//
-//    TODO - battle.js was broken because a battleOff() and battleOn() could be called
-//           shortly after each other.  And due to the fact that _sendChunks redefines
-//           itself through a .bind(), the two calls were crashing into each other
-//           AFTER the promise for the characteristic came back.  BOTTOM LINE is that
-//           the chunks needs to become part of the object, and transmission needs to
-//           be automatically scheduled where there are chunks.  So any upper level
-//           Transmit() simply adds chunks - letting them be transmitted as necessary.
-
-BLE.prototype._sendChunks = function(callback,chunks,characteristic)
-{
-    if(chunks.length) {
-	console.log("called");
-	console.trace();
-	console.log(chunks);
-	console.log(characteristic);
-
-	var chunk = chunks.shift();
-	var message = new Uint8Array(chunk.length);
-
-	message.set(chunk,0);
-
-	console.log(chunk);
-
-	// TODO - need to trow error upon the catch here
-	
-	delay(100)
-	    .then(() => characteristic.writeValue(message))
-	    .then( this._sendChunks.bind(this,callback,chunks,characteristic) )
-	    .catch(error => {
-		console.log("catch in _sendChunks with chunks=" + chunks.length);
-		console.log(error);
-		this.connected = false;
-	    });
-    } else {
-	if(callback) {
-	    callback(false);
+	var messages = [];
+	for(var i=0; i < chunkCount; i++) {
+	    messages[i] = new Uint8Array(chunks[i].length);
+	    messages[i].set(chunks[i],0);
 	}
+	
+	if(this.transmissionPromise === null) {
+	    this.transmissionPromise = this.serviceObj.getCharacteristic(uuid);
+	}
+
+	// note that the chunks are added as "then" before this thread relinquishes
+	//   so that the getCharacteristic() can't return before the chunk thens are added
+
+	var transmitDelay = 200;           // delay between chunk transmission
+
+	var BLEObj = this;
+
+	// this confusing chunk of code causes the array of messages to be turned into a
+	//  string of promise-then's which have, for each message:
+	//
+	//    - { writeValue() with return of characteristic }
+	//    - delay of "transmitDelay" ms
+	//
+	// Each message then's are appended to the previous.
+
+	messages.forEach(function(message) {
+	    BLEObj.transmissionPromise =
+		BLEObj.transmissionPromise
+		.then(function(characteristic) {
+		    console.log("-----prior to transmit----");
+		    console.log(message);
+		    return(characteristic.writeValue(message).then(()=>characteristic));})
+		.then((characteristic) => new Promise( resolve => setTimeout(()=>resolve(characteristic),transmitDelay)));
+	});
     }
-}    
+}
 
 //
 // connectionMonitor() - used to specify a callback that is called whenever
