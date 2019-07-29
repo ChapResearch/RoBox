@@ -87,6 +87,18 @@
 		      function(data) {
 		          document.getElementById("statusUsonic").innerHTML = data;
 		  });
+		  RoBoxEvents.addListener("onConnect",
+		      function() {
+		          setTimeout(roboxVersionReport,500);
+		  });
+		  RoBoxEvents.addListener("onDisconnect",
+		      function() {
+		          document.getElementById("statusVersion").innerHTML = '&nbsp;';
+		  });
+		  RoBoxEvents.addListener("onVersionReport",
+		      function(data) {
+		          document.getElementById("statusVersion").innerHTML = 'v' + data[0] + '.' + data[1];
+		  });
 		</script>
 	      </td>
 	    </tr>
@@ -102,11 +114,12 @@
 	      <td><img id="lightning" src="media/lightning.png"/></td>
 	    </tr>
 	    <tr>
-	      <td id="statusUsonic"></td>
-	      <td id="statusFollow"></td>
-	      <td id="statusHit"></td>
+	      <td id="statusUsonic">&nbsp;</td>
+	      <td id="statusFollow">&nbsp;</td>
+	      <td id="statusHit">&nbsp;</td>
 	    </tr>
 	  </table>
+	  <div id="statusVersion">&nbsp;</div>
 	</div>
       </td>
     </tr>

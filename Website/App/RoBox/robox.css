@@ -72,6 +72,13 @@
     font-family: "Arial";
     color: #fff;
 }
+#statusVersion {
+    text-align: right;
+    font-size: 75%;
+    font-family: "Arial";
+    color: #fff;
+    padding-right: 5px;
+}    
 #robox-name:hover {
     background: #36bace;
 }

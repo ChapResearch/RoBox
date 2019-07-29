@@ -455,3 +455,14 @@ function roboxSensorReport()
     rcl.LineFollow();
     rcl.Transmit(RoBoxBrain);
 }
+
+//
+// roboxVersionReport() - initiate a version report
+//
+function roboxVersionReport()
+{
+    var rcl = new RCLMessage();
+
+    rcl.Version();
+    rcl.Transmit(RoBoxBrain);
+}

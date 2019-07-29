@@ -37,10 +37,14 @@ RCLMessage.prototype.Ultrasonic = function()
     this.AppendMessage('U',[]);
 }
 
-
 RCLMessage.prototype.LineFollow = function()
 {
     this.AppendMessage('L',[]);
+}
+
+RCLMessage.prototype.Version = function()
+{
+    this.AppendMessage('V',[]);
 }
 
 RCLMessage.prototype.PlaySound = function(freq,dur)
