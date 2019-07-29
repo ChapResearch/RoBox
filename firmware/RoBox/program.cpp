@@ -22,6 +22,8 @@ Program::Program()
 	ptr = 0;
 	size = 0;
 	baseEnd = base + size;
+	last_if_value = true;	// an out-of-place stand-alone else will never execute with this init
+
 }
 
 Program::Program(int EEPROM_base, int count)
@@ -30,6 +32,7 @@ Program::Program(int EEPROM_base, int count)
 	ptr = 0;
 	size = count;
 	baseEnd = base + size;
+	last_if_value = true;	// an out-of-place stand-alone else will never execute with this init
 }
 
 Program::Program(int count, const char *prog)
@@ -42,6 +45,8 @@ Program::Program(int count, const char *prog)
 	for(int i=ptr; i < size; i++) {
 		EEPROM.write(i,(byte)prog[i]);
 	}
+
+	last_if_value = true;	// an out-of-place stand-alone else will never execute with this init
 }
 
 //
@@ -53,6 +58,8 @@ Program::Program(Program prog, int start, int endExclusive)
     ptr = 0;
     size = endExclusive - start;
     baseEnd = base+size;
+
+    last_if_value = true;	// an out-of-place stand-alone else will never execute with this init
 }
 	
 
@@ -97,5 +104,6 @@ void Program::SetIndex(int newptr)
 void Program::Reset()
 {
 	SetIndex(0);
+	last_if_value = true;
 }
 

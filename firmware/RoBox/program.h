@@ -25,6 +25,13 @@ public:
 	bool AtEnd();
 	void Skip(int);
 	int Position();
+
+        // each program stores the value of the last If expression evaluation - it is used for
+        // the "else".  NOTE that if an else isn't right next to an If, then the else
+        // will STILL take the last If expression evalution no matter where it occured.
+	// It is always defaulted to "true" so a stand-alone else won't execute
+
+	int	last_if_value;	
 };
 
 #endif

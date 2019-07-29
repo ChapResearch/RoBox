@@ -49,13 +49,6 @@ Program *methodC = NULL;
 
 static uint16_t	ir_hit;
 
-// this stores the value of the last If expression evaluation - it is used for
-// the "else".  NOTE that if an else isn't right next to an If, then the else
-// will STILL take the last If expression evalution no matter where it occured,
-// even if in a subprogram. If no If has occurred, then the else is not run.
-
-static bool last_if_value = true;	// default "true" means spurious "else's" won't run
-
 // DEBUG DEBUG DEBUG
 //#include <SoftwareSerial.h>
 //extern SoftwareSerial debugSerial;
@@ -562,9 +555,9 @@ int RXL_If(Program &program)
 
 	Program subprogram(program,subProgramBegin,subProgramEnd-1);
 
-	last_if_value = RXL_OpEvaluate(opA,op,opB);
+	program.last_if_value = RXL_OpEvaluate(opA,op,opB);
 
-	if(last_if_value) {
+	if(program.last_if_value) {
 		subprogram.Reset();
 		break_count = RXL(subprogram);
 		if(break_count > 0) {
@@ -595,7 +588,7 @@ int RXL_Else(Program &program)
 
 	Program subprogram(program,subProgramBegin,subProgramEnd-1);
 
-	if(!last_if_value) {
+	if(!program.last_if_value) {
 		subprogram.Reset();
 		break_count = RXL(subprogram);
 		if(break_count > 0) {
