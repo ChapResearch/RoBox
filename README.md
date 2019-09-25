@@ -1,4 +1,4 @@
-![Alt text](http://robox.chapresearch.com/media/robox.gif)
+![Alt text](https://robox.chapresearch.com/media/robox.png)
 
 # RoBox
 You have found the Chap Research and Team Appreciate (FRC2468)
