@@ -21,7 +21,8 @@
 //      I - If condition do (opA,op,opB)
 //      V - set variable (var,op,value)
 //      K - break (level)
-//      E - else 
+//      E - else
+//      e - else if
 //      m - defining a method (letter)
 //      M - run the specific method (number indicating which method)
 
@@ -119,6 +120,12 @@ void RXL_Skip(Program &program)
 	    program.Next();     // skip second parameter
 	    break;
 
+	case 'e':
+	    program.Next();     // skip first parameter
+	    program.Next();     // skip comparison
+	    program.Next();     // skip second parameter
+	    break;
+
 	case 'V':
 	    program.Next();     // skip variable
 	    program.Next();     // skip operator
@@ -187,6 +194,13 @@ int RXL(Program &program)
 			    
 		    case 'I':	
 			    break_count = RXL_If(program);	// execute -if- statement
+			    if(break_count > 0) {
+				    return (break_count);
+			    }
+			    break;
+
+		    case 'e':	
+			    break_count = RXL_Elif(program);	// execute -else if- statement
 			    if(break_count > 0) {
 				    return (break_count);
 			    }
@@ -567,6 +581,46 @@ int RXL_If(Program &program)
 
 	return(break_count);
 }
+
+// 
+// RXL_Elif() - executes the subprogram enclosed in () if the 
+//            left value (motor, sensor, integer, etc)
+//            is the same as value right value and the previous if or else if was false
+//
+int RXL_Elif(Program &program)
+{
+	int break_count = 0;
+	int subProgramBegin;   // points to the '(' starting the sub-program
+	int subProgramEnd;     // points to just after the sub-program ')'
+
+	int opA = program.Next();	// operand A
+	int op = program.Next();	// operation
+	int opB = program.Next();	// operand B
+
+	// see above for the sub-program progression here
+
+	program.Next();
+	subProgramBegin = program.Position();
+	RXL_Skip(program);
+	subProgramEnd = program.Position();
+
+	Program subprogram(program,subProgramBegin,subProgramEnd-1);
+
+	if(!program.last_if_value) {
+	  program.last_if_value = RXL_OpEvaluate(opA, op opB);
+
+	  if(program.last_if_value) {
+	    subprogram.Reset();
+	    break_count = RXL(subprogram);
+	    if(break_count > 0) {
+	      // doesn't count for break count -- only loops count
+	    }
+	  }
+	}
+
+	return (break_count);
+}
+
 
 //
 // RXL_Else() - just like "If", from a sub-program perspective, except that it takes the last
