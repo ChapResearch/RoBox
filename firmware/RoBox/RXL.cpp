@@ -607,7 +607,7 @@ int RXL_Elif(Program &program)
 	Program subprogram(program,subProgramBegin,subProgramEnd-1);
 
 	if(!program.last_if_value) {
-	  program.last_if_value = RXL_OpEvaluate(opA, op opB);
+	  program.last_if_value = RXL_OpEvaluate(opA, op, opB);
 
 	  if(program.last_if_value) {
 	    subprogram.Reset();
