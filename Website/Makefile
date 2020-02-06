@@ -51,7 +51,7 @@ all:
 # the deploydir must be relative this this directory so that subdirs can be directed appropriately
 DEPLOYDIR := public
 
-deploy: testForLogin
+deploy: 
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
 	[ -d $(DEPLOYDIR)/App ] || mkdir $(DEPLOYDIR)/App
 	make -C App DEPLOYDIR=../$(DEPLOYDIR)/App $@

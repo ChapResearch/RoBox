@@ -1,0 +1,79 @@
+#birdy {
+    position: absolute;
+    z-index: 100;
+    top: 150px;
+    left: 2500px;
+    width: 1000px;
+    height: 150px;
+}
+
+#birdy.deploy {
+    left: 25px;
+    transition: left 1.5s cubic-bezier(.63,.05,.43,1.2), width 1.5s cubic-bezier(.63,.05,.43,1.2);
+    width: 300px;
+}
+
+#birdy.goodbye {
+    opacity: 0.0;
+    transition-property: opacity;
+    transition-duration: 1.5s;
+}
+
+#birdywords {
+    position: absolute;
+    z-index: 75;
+    top: 300px;
+    left: 30px;
+    opacity: 0.0;
+    width: 300px;
+    height: 250px;
+    color: black;
+}
+
+#birdywords p {
+    font-size: 16px;
+    line-height: 18px;
+}
+
+#birdywords.deploy {
+    opacity: 1.0;
+    transition-delay: 1.75s;
+    transition-property: opacity;
+    transition-duration: .5s;
+}
+
+#birdywords.goodbye {
+    opacity: 0.0;
+    transition-delay: 0s;
+    transition-property: opacity;
+    transition-duration: .5s;
+}
+
+
+#birdywords p img {
+    margin: 0px 15px 0px 10px;
+}
+
+#birdywordsbox {
+    position: absolute;
+    z-index: 50;
+    top: 135px;
+    left: 10px;
+    opacity: 0.0;
+    width: 330px;
+    height: 380px;
+}
+
+#birdywordsbox.deploy {
+    opacity: 1.0;
+    transition-delay: 1.5s;
+    transition-property: opacity;
+    transition-duration: .5s;
+}
+#birdywordsbox.goodbye {
+    opacity: 0.0;
+    transition-delay: 0s;
+    transition-property: opacity;
+    transition-duration: .75s;
+}
+
