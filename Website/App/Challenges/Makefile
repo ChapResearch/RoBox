@@ -84,7 +84,7 @@ challengeHelp.js: $(shell ls */help.html)
 	@echo "var challengeHelp = {};" > $@
 	@for c in $(CHALLENGEDIRS); \
 	    do	NUMBER=`echo $$c | sed $(CHALLENGENUMBER)`; \
-	        echo "challengeHelp['$$NUMBER'] = '" "`base64 -w 0 $$c/help.html`" "'.trim();"; \
+	        echo "challengeHelp['$$NUMBER'] = '" "`base64 $$c/help.html | tr -d '\\n'`" "'.trim();"; \
 	    done >> $@
 
 challengeName.js:  $(shell ls */name.txt)
