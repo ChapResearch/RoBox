@@ -32,7 +32,17 @@ yui-compressor:
 	yui-compressor --type js < $< > $@
 
 $(TARGETFILE): $(ALLBLOCKS)
-	sed -e '$$s/$$/\n/' -s $^ > $(TARGETFILE)
+	for f in $^ ; do sed -e '$$s/$$/\n/' $$f; done > $(TARGETFILE)
+
+#
+# the above command used to look like this:
+#
+#	sed -e '$$s/$$/\n/' -s $^ > $(TARGETFILE)
+#
+# But the sed command on the Mac doesn't have the -s option.
+# -s means to process each file like a separate file, so that
+# the last-line match works on each file. Otherwise they are
+# simply concatenated, so there is only one last line.
 
 clean:
 	rm -f $(TARGETFILE) $(TARGETFILE_MIN)
