@@ -35,14 +35,18 @@ yui-compressor:
 	yui-compressor --type js < $< > $@
 
 $(TARGETFILE): $(ALLBLOCKS)
-	for f in $^ ; do sed -e '$$s/$$/\n/' $$f; done > $(TARGETFILE)
+	for f in $^ ; do cat $$f; echo; done > $(TARGETFILE)
 
 #
 # the above command used to look like this:
 #
 #	sed -e '$$s/$$/\n/' -s $^ > $(TARGETFILE)
 #
-# But the sed command on the Mac doesn't have the -s option.
+#     or
+#
+#	for f in $^ ; do sed -e '$$s/$$/\n/' $$f; done > $(TARGETFILE)
+#
+# But the sed command on the Mac doesn't have the -s option or the '\n' processing!
 # -s means to process each file like a separate file, so that
 # the last-line match works on each file. Otherwise they are
 # simply concatenated, so there is only one last line.
