@@ -7,7 +7,8 @@
 JSDIR = js
 MEDIADIR = media
 
-JSFILES = challenges.js challenges-min.js
+#JSFILES = challenges.js challenges-min.js
+JSFILES = challenges.js
 
 all: clean $(JSFILES)
 

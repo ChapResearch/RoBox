@@ -12,11 +12,14 @@
 TARGETFILE_MIN = roboxBlocks-min.js
 TARGETFILE = roboxBlocks.js
 
+# TARGETS = $(TARGETFILE) $(TARGETFILE_MIN)
+TARGETS = $(TARGETFILE)
+
 JSDIR = js
 
 ALLBLOCKS = $(shell ls *.js | grep -v $(TARGETFILE) | grep -v $(TARGETFILE_MIN))
 
-all: $(TARGETFILE) $(TARGETFILE_MIN)
+all: $(TARGETS)
 
 #
 # marking this as .SECONDARY (just like .INDERMEDIATE but doesn't try to delete it)
@@ -48,7 +51,7 @@ clean:
 	rm -f $(TARGETFILE) $(TARGETFILE_MIN)
 	rm -fr $(JSDIR)
 
-$(JSDIR): $(TARGETFILE_MIN) $(TARGETFILE)
+$(JSDIR): $(TARGETS)
 	[ -d $@ ] || mkdir $@
 	cp $^ $@
 	touch $@
