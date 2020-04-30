@@ -2,4 +2,4 @@
 *~
 #*
 .gitignore
-build-uno/
+build-*/
