@@ -14,15 +14,28 @@
 //   microseconds from 1000 to 2000).
 //
 
-RoBoxServo::RoBoxServo(int pin)
+RoBoxServo::RoBoxServo(int thePin)
 {
   continuous = 0;
   reverse = 0;
   minTime = 800;
   maxTime = 2200;
   servo = new Servo;
-  servo->attach(pin);
+  pin = thePin;
+  initialized = false;
+}
 
+//
+// init() - (PRIVATE) - initializes the servo if it hasn't already been
+//                      initialized.  See roboxServo.h for a explanation of
+//                      why this is done.
+//
+void RoBoxServo::init()
+{
+  if(!initialized) {
+    servo->attach(pin);
+    initialized = true;
+  }
 }
 
 //
@@ -61,6 +74,8 @@ void RoBoxServo::Max(int max)
 //
 void RoBoxServo::Rotate(int speed)
 {
+  init();
+
   speed = speed * -1;                         // switches signs in order to stay
                                               // true to designated directions
   speed = map(speed, -100, 100, 0, 180);      // continuous rotation servos take
@@ -76,6 +91,8 @@ void RoBoxServo::Rotate(int speed)
 //
 void RoBoxServo::Position(int pos)
 {
+  init();
+
   int microSeconds = map(pos, 0, 100, minTime, maxTime);
   servo->writeMicroseconds(microSeconds);
 }
