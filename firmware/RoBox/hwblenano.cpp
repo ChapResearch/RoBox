@@ -9,7 +9,7 @@
 #ifdef BLENANO
 
 #include "Arduino.h"
-#include "RoBoxBLENanoV10.h"
+#include "roboxDrivers.h"
 #include "IR-ID.h"
 
 BLE BLE;					// interface to the built-in Romeo BLE

@@ -16,4 +16,11 @@ MONITOR_PORT  = /dev/ttyACM0
 
 USER_LIB_PATH = ../..
 
+# change the next line to set the version of the RoBox
+# library you want to link to
+
+ARDUINO_LIBS := RoBoxBLENanoV11
+
+ARDUINO_LIBS := $(ARDUINO_LIBS) Servo
+
 include $(ARDMK_DIR)/Arduino.mk

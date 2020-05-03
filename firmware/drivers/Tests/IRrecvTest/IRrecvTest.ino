@@ -2,7 +2,7 @@
 // IR Send Test
 //
 #include "Arduino.h"
-#include "RoBoxRomeoV21.h"
+#include "roboxDrivers.h"
 
 IRReceiver irreceiver1 = IRReceiver(1);
 IRReceiver irreceiver2 = IRReceiver(2);

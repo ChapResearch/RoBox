@@ -9,7 +9,7 @@
 #ifdef ROMEO
 
 #include "Arduino.h"
-#include "RoBoxRomeoV21.h"		// from the roboxromeo library
+#include "roboxDrivers.h"
 #include "IR-ID.h"
 
 BLE BLE;					// interface to the built-in Romeo BLE
