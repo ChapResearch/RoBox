@@ -22,22 +22,20 @@
 
 class RoBoxServo {
 private:
-     int        pin;		 // the pin that the servo is connected to
-     bool	initialized;	 // TRUE if the servo has been initialized (see above)
-     int	continuous;      // TRUE if this is a continuous servo
-     int	reverse;	 // TRUE if this servo should be reversed, norm FALSE
-     int        minTime;         // Value of microseconds (experimentally determined)
-                                 // that will move the servo to the smallest position
-     int        maxTime;         // Value of microseconds (experimentally determined)
-                                 // that will move the servo to the greatest position
-     Servo      *servo;           // The Arduino Servo object
-
-     void       init();          // called to initialize the servo just-in-time
+     bool      	  initialized;	   // TRUE if the servo has been initialized (see above)
+     int	  reverse;	   // TRUE if this servo should be reversed, norm FALSE
+     int          minTime;         // Value of microseconds (experimentally determined)
+                                   // that will move the servo to the smallest position
+     int          maxTime;         // Value of microseconds (experimentally determined)
+                                   // that will move the servo to the greatest position
+     unsigned int targetMillis;    // The milliseconds at which the servo should stop
+                                   // rotating in order to shoot exactly one ball
+     Servo        *servo;          // The Arduino Servo object
+     
+     void         init();          // called to initialize the servo just-in-time
      
 public:
-     RoBoxServo(int);                // The argument is the pin the servo is connected to
-     void Continuous(int);      // To set the continuous to a certain state (TRUE if the servo is continuous)
-     void Continuous();         // To toggle the state of continuous
+     RoBoxServo();              // The argument is the pin the servo is connected to
      void Reverse(int);         // To set the reverse to a certain state (TRUE if the servo is reversed)
      void Reverse();            // To toggle the state of reverse
 
@@ -45,12 +43,15 @@ public:
                                 // negative numbers rotate counterclockwise, positive clockwise
                                 // magnitude is speed
      
+
+     void Rotate(int, int);     // Rotates the servo at a certain speed (first parameter) for a certain amount
+                                // of milliseconds (second parameter)
+     
      void Position(int);        // For non-continuous servos, takes a number from 0 to 100
                                 // 0 takes the servo to its minimum degrees and 100 to its maximum
      void Min(int);             // Sets the experimentally determined minimum microseconds
      void Max(int);             // Sets the experimentally determined maximum microseconds
-     
-private:
+     void Update();             // Makes the servo rotate until it reaches the necessary amount of time
      
 };
 

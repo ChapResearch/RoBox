@@ -14,14 +14,13 @@
 //   microseconds from 1000 to 2000).
 //
 
-RoBoxServo::RoBoxServo(int thePin)
+RoBoxServo::RoBoxServo()
 {
-  continuous = 0;
+  // maxTime and minTime are set by hardware_init
+  #define PIN 10
   reverse = 0;
-  minTime = 800;
-  maxTime = 2200;
+  targetMillis = 0;
   servo = new Servo;
-  pin = thePin;
   initialized = false;
 }
 
@@ -33,7 +32,7 @@ RoBoxServo::RoBoxServo(int thePin)
 void RoBoxServo::init()
 {
   if(!initialized) {
-    servo->attach(pin);
+    servo->attach(PIN);
     initialized = true;
   }
 }
@@ -70,19 +69,48 @@ void RoBoxServo::Max(int max)
 //
 // Rotate() - for continuous rotation servos, takes number from -100 to 100
 //            negative numbers rotate counterclockwise, positive clockwise
-//            magnitude is speed
+//            magnitude is speed. 0 is where the servo stops. NOTE - it is up
+//            to the caller to ensure that 0 stops by setting the min and max
+//            of the servo.
 //
 void RoBoxServo::Rotate(int speed)
 {
   init();
+ 
+  targetMillis = 0; // setting to 0 is a flag so nothing will be done in Update()
 
-  speed = speed * -1;                         // switches signs in order to stay
-                                              // true to designated directions
-  speed = map(speed, -100, 100, 0, 180);      // continuous rotation servos take
-                                              // speed from 0 (clockwise) to
-                                              // 180 (counterclockwise)
-  servo->write(speed);                               // double check whether this works
-                                              // pin 10 might not be able to write()
+  int microSeconds;
+
+  if(reverse) {
+    microSeconds = map(speed, -100, 100, maxTime, minTime);
+  } else {
+    microSeconds = map(speed, -100, 100, minTime, maxTime);
+  }
+  
+  servo->writeMicroseconds(microSeconds);
+
+}
+
+//
+// Rotate() - rotates at a certain speed (first parameter) for a certain
+//            amount of time in milliseconds (second parameter)
+//
+void RoBoxServo::Rotate(int speed, int time)
+{
+  init();
+
+  targetMillis = millis() + time;
+
+  int microSeconds;
+  
+  if(reverse) {
+    microSeconds = map(speed, -100, 100, maxTime, minTime);
+  } else {
+    microSeconds = map(speed, -100, 100, minTime, maxTime);
+  }
+  
+  servo->writeMicroseconds(microSeconds);
+
 }
 
 //
@@ -92,9 +120,35 @@ void RoBoxServo::Rotate(int speed)
 void RoBoxServo::Position(int pos)
 {
   init();
+ 
+  targetMillis = 0; // setting to 0 is a flag so nothing will be done in Update()
 
-  int microSeconds = map(pos, 0, 100, minTime, maxTime);
+  int microSeconds;
+  
+  if(reverse) {
+    microSeconds = map(pos, 0, 100, maxTime, minTime);
+  } else {
+    microSeconds = map(pos, 0, 100, minTime, maxTime);
+  }
+  
   servo->writeMicroseconds(microSeconds);
+
+}
+
+//
+// Update() - checks to see whether the time for one complete rotation has
+//            been met if a single shoot has been kicked off.
+//            If so, keeps the servo rotating, otherwise turns it off
+//
+void RoBoxServo::Update()
+{
+  if(millis() > targetMillis && targetMillis != 0) {  
+    Rotate(0);              // stops rotating the servo after the time for
+                            // Rotate() has elapsed
+    targetMillis = 0;       // setting to 0 is a flag so nothing will be
+                            // done in Update()
+  }
+  
 }
 
 	
