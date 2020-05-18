@@ -20,6 +20,28 @@ Blockly.Blocks['repeat_until'] = {
     }
 };
 
+Blockly.Blocks['repeat_until_light'] = {
+    init: function() {
+	this.appendDummyInput()
+	    .appendField("Repeat Until")
+	    .appendField(new Blockly.FieldDropdown([["Light","102"], ["Ultrasonic","101"], ["IR","103"], ["A","104"], ["B","105"], ["C","106"]]), "sensor")
+	    .appendField(new Blockly.FieldDropdown([["=","="],
+						    ["<","<"],
+						    [">",">"],
+						    ["<>","!"],
+						    [">=","G"],
+						    ["<=","L"]]), "comparison")
+	    .appendField(new Blockly.FieldNumber(0, -100, 100), "value");
+	this.appendStatementInput("statements")
+	    .setCheck(null);
+	this.setPreviousStatement(true, null);
+	this.setNextStatement(true, null);
+	this.setColour(0);
+	this.setTooltip('');
+	this.setHelpUrl('');
+    }
+};
+
 Blockly.RXP['repeat_until'] = function(block) {
     var out = "";
 
@@ -32,7 +54,7 @@ Blockly.RXP['repeat_until'] = function(block) {
     out += "[";
     out += block.getFieldValue('value');
     out += "](";
-    
+
     // a space gets injected in the "statementToCode"
     var branch = Blockly.RXP.statementToCode(block, 'statements');
     out += branch;
@@ -41,3 +63,5 @@ Blockly.RXP['repeat_until'] = function(block) {
 
     return(out);
 };
+
+Blockly.RXP['repeat_until_light'] = Blockly.RXP['repeat_until'];

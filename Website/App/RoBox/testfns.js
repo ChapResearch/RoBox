@@ -70,3 +70,18 @@ function SpeakerTest()
     rcl.PlaySound(25,5);
     rcl.Transmit(RoBoxBrain);
 }
+
+function ShooterLoadTest()
+{
+    var rcl = new RCLMessage();
+    
+    rcl.ShooterLoad();
+    rcl.Transmit(RoBoxBrain);
+}
+
+function ShooterFireTest(){
+    var rcl = new RCLMessage();
+
+    rcl.ShooterFire();
+    rcl.Transmit(RoBoxBrain);
+}

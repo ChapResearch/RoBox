@@ -26,10 +26,10 @@
     <script src="js/testfns.js"></script>
     <script src="js/roboxDriving.js"></script>
     <script src="js/rcl.js"></script>
-    
+
 
     <link rel="stylesheet" type="text/css" href="css/robox.css">
-    
+
 </head>
 
 <body style="margin:0px">
@@ -127,14 +127,14 @@
 </div>
 <div id="blocklyDiv" onmouseup="setTimeout(function () { roboxSave();}, 1000);" onload="" ></div>
 <div id="testingDiv" >
-  
+
     <table align="center">
       <tr>
 	<td><div id = "testButton">
-	    <img src="media/newBlaster.png" width="150" onclick="javascript:BlastTest();"/></td>
+	    <img class="button" src="media/newBlaster.png" width="150" onclick="javascript:BlastTest();"/></td>
 	</div>
 	<td><div id = "testButton">
-	    <img height="110" width="110" src="media/speaker.png" onclick="javascript:SpeakerTest();"/></td>
+	    <img class="button" height="110" width="110" src="media/speaker.png" onclick="javascript:SpeakerTest();"/></td>
 	</div>
 	<td id="ultrasoniccell"
 	    align="center"
@@ -150,19 +150,41 @@
 	  </script>
 	  <span class="hoverinstr">(Hover to Monitor)</span></td>
       </tr>
+
+
+      <tr>
+        <td>
+          <table>
+            <tr>
+
+              <img class="button" height="75" width="75" align="right" src="media/startFiring.png" onclick="javascript:ShooterStartTest();"/>
+
+            </tr>
+            <tr>
+
+              <img class="button" height="75" width="75" align="right" src="media/stopFiring.png" onclick="javascript:ShooterStopTest();"/>
+
+            </tr>
+          </table>
+        </td>
+        <td><img height="110" width="110" src="media/speaker.png"/></td>
+        <td><img class="button" height="100" width="100" src="media/fire.png" onclick="javascript:ShooterFireTest();"/></td>
+      </tr>
+
+
       <tr>
 	<td>
 	  <table>
 	    <tr>
-	      <td><img height="50" width="50" src="media/up.png" onclick="javascript:motorTest('L','forward');"/></td>	      
+	      <td><img class="button" height="50" width="50" src="media/up.png" onclick="javascript:motorTest('L','forward');"/></td>
 	      <td rowspan="3"><img src="media/left.png">
 	      </td>
 	    </tr>
 	    <tr>
-	      <td><img height="50" width="50" src="media/stop.png" onclick="javascript:motorTest('L','stop');"/></td>
+	      <td><img class="button" height="50" width="50" src="media/stop.png" onclick="javascript:motorTest('L','stop');"/></td>
 	    </tr>
 	    <tr>
-	      <td><img height="50" width="50" src="media/down.png" onclick="javascript:motorTest('L','backward');"/></td>	 
+	      <td><img class="button" height="50" width="50" src="media/down.png" onclick="javascript:motorTest('L','backward');"/></td>
 	  </table>
 	</td>
 	<td id="linefollowcell"
@@ -184,13 +206,13 @@
 	    <tr>
 	      <td rowspan="3"><img src="media/right.png">
 	      </td>
-	      <td><img height="50" width="50" src="media/up.png" onclick="javascript:motorTest('R','forward');"/></td>
+	      <td><img class="button" height="50" width="50" src="media/up.png" onclick="javascript:motorTest('R','forward');"/></td>
 	    </tr>
 	    <tr>
-	      <td><img height="50" width="50" src="media/stop.png" onclick="javascript:motorTest('R','stop');"/></td>
+	      <td><img class="button" height="50" width="50" src="media/stop.png" onclick="javascript:motorTest('R','stop');"/></td>
 	    </tr>
 	    <tr>
-	      <td><img heigh="50" width="50" src="media/down.png" onclick="javascript:motorTest('R','backward');"/></td>
+	      <td><img class="button" height="50" width="50" src="media/down.png" onclick="javascript:motorTest('R','backward');"/></td>
 	    </tr>
 	  </table>
 	</td>
@@ -206,9 +228,9 @@
 	  });
 	</script>
 	<td colspan="2" align="center">
-	  <img height="50" width="50" src="media/redLight.png" onclick="javascript:LEDTest(1,2);"/>
-	  <img height="50" width="50" src="media/yellowLight.png" onclick="javascript:LEDTest(2,2);"/>
-	  <img height="50" width="50" src="media/greenLight.png" onclick="javascript:LEDTest(3,2);"/></td>
+	  <img class="button" height="50" width="50" src="media/redLight.png" onclick="javascript:LEDTest(1,2);"/>
+	  <img class="button" height="50" width="50" src="media/yellowLight.png" onclick="javascript:LEDTest(2,2);"/>
+	  <img class="button" height="50" width="50" src="media/greenLight.png" onclick="javascript:LEDTest(3,2);"/></td>
       </tr>
     </table>
 </div>
@@ -228,7 +250,7 @@
 </div>
 
     <!-- change name pop-up  -->
-    
+
     <div id="robox-changename" class="robox-changename-modal">
       <div id="robox-changename-content" class="robox-changename-modal-content">
 	<span class="robox-changename-close">&times;</span>
@@ -238,7 +260,7 @@
     <!-- ******************************************************* -->
     <!-- ******************************************************* -->
     <!-- box that will pop-up when showing the challenge text -->
-    
+
     <div id="robox-explain" class="robox-explain-modal" style="display:none">
       <div id="robox-explain-content" class="robox-explain-modal-content">
 	<span class="robox-explain-close"">&times;</span>
@@ -248,23 +270,23 @@
 		<div>
 
 		<center><img src="media/robox.gif"></center>
-	
+
 		<p>The first thing you must do is connect to your RoBox robot.
 		  Click on the "Connect" button below (need picture)
 		  to get started.
 	        </div>
 	</div>
-		
+
       </div>
     </div>
 
     <!-- ******************************************************* -->
     <!-- ******************************************************* -->
-    
-    
+
+
     <div id="bottomDiv">
       <a id="prevChallengeButton" style="display:none"
-	 onClick="roboxPrevChallenge();" class="challengeButton allButtons"><i class="material-icons">skip_previous</i>Prev</a>      
+	 onClick="roboxPrevChallenge();" class="challengeButton allButtons"><i class="material-icons">skip_previous</i>Prev</a>
       <a id="RunButton"
 	 onClick="return roboxRun();" class="runButton allButtons"
 	 oncontextmenu="roboxCompileDebug();return false;" %%RUNDISPLAY%%>RUN <i class="material-icons">play_arrow</i></a>
@@ -280,6 +302,6 @@
 	 class="runButton allButtons"
 	 onClick="roboxSave();return false;" %%RUNDISPLAY%%>SAVE </a>
       <a id="nextChallengeButton" style="display:none"
-	 onClick="roboxNextChallenge();" class="challengeButton allButtons">Next<i class="material-icons">skip_next</i></a>      
+	 onClick="roboxNextChallenge();" class="challengeButton allButtons">Next<i class="material-icons">skip_next</i></a>
     </div>
 </body></html>

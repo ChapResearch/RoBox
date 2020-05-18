@@ -58,7 +58,7 @@ function gamepadInit()
 				gamepadIndex = event.gamepad.index;
 				gamepad = navigator.getGamepads()[gamepadIndex];
 				gamepadMap();
-    
+
 				console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
 					    event.gamepad.index, event.gamepad.id,
 					    event.gamepad.buttons.length, event.gamepad.axes.length);
@@ -89,9 +89,13 @@ gamepadLastLeftStick = null;
 gamepadLastRightStick = null;
 gamepadLastBlastButton = null;
 gamepadLastBlast = null;
+gamepadLastShooterToggle = null;
+gamepadLastShooterFire = null;
+
 gamepadTimeout = 0;
 gamepadPace = 250;               // only send updates every XXX ms (as set here)
 gamepadLoopID = null;            // the setInterval() id for clearing later
+
 
 //
 // gamepadDispatch() - this routine is meant to be called repeatedly, quickly,
@@ -100,26 +104,39 @@ gamepadLoopID = null;            // the setInterval() id for clearing later
 //
 function gamepadDispatch()
 {
+    // BUTTONS on joystick
+    const IRBLAST = 2; // X button
+    const SHOOTERTOGGLE = 6; // Left bumper
+    const SHOOTERFIRE = 7; // Right bumper
+
+    // JOYSTICKS on joystick
+    const LEFTMOTOR = 1; // left joystick
+    const RIGHTMOTOR = 3; // right joystick
+
     var now = Date.now();
 
     if(now > gamepadTimeout && gamepad !== null) {
 
 	var max = 75;
-	
+
 	gamepad = navigator.getGamepads()[gamepadIndex];
-	var left = Math.floor(gamepad.axes[1] * -max);
-	var right = Math.floor(gamepad.axes[3] * -max);
-	var blast = gamepad.buttons[2].pressed;
+	var left = Math.floor(gamepad.axes[LEFTMOTOR] * -max);
+	var right = Math.floor(gamepad.axes[RIGHTMOTOR] * -max);
+	var blast = gamepad.buttons[IRBLAST].pressed;
+
+	var shooterToggle = gamepad.buttons[SHOOTERTOGGLE] > 0.1;
+	var shooterFire = gamepad.buttons[SHOOTERFIRE] > 0.1;
+
 
 	// TODO - there should be translation function for the sticks
 	//        to drive more smoothly.
-	
+
 	var rcl = new RCLMessage();
 
 	// this is currently coded to send both left and right
 	// everytime anything has changed. A little insurance
 	// policy in case a packet is dropped.
-	
+
 	if(gamepadLastLeftStick != left || gamepadLastRightStick != right) {
 	    gamepadLastLeftStick = left;
 	    gamepadLastRightStick = right;
@@ -134,6 +151,23 @@ function gamepadDispatch()
 	    if(blast) {
 		rcl.Blast(1,50);
 		battleFire();            // TODO - move this somewhere else
+	    }
+	}
+
+	if(gamepadLastShooterToggle != shooterToggle){
+	    gamepadLastShooterToggle = shooterToggle;
+	    if(shooterToggle){
+		      rcl.ShooterStart();
+	    }
+      else{
+        rcl.ShooterStop();
+      }
+	}
+
+	if(gamepadLastShooterFire != shooterFire){
+	    gamepadLastShooterFire = shooterFire;
+	    if(shooterFire){
+		rcl.ShooterFire();
 	    }
 	}
 

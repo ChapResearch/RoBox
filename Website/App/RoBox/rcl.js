@@ -57,6 +57,22 @@ RCLMessage.prototype.Blast = function(count,power)
     this.AppendMessage('B',[count,power]);
 }
 
+RCLMessage.prototype.ShooterLoad = function(){
+    this.AppendMessage('A',[]);
+}
+
+RCLMessage.prototype.ShooterFire = function(){
+    this.AppendMessage('O',[]);
+}
+
+RCLMessage.prototype.ShooterStart = function(){
+    this.AppendMessage('J',[]);
+}
+
+RCLMessage.prototype.ShooterStop = function(){
+    this.AppendMessage('C',[]);
+}
+
 RCLMessage.prototype.Program = function(program)
 {
     this.AppendMessage('P',program);
@@ -95,7 +111,7 @@ RCLMessage.prototype.Transmit = function(BLEObject)
 
 	// the OLD way of doing this...the message(s) were sent to the helper app
 	//
-	//     msgAppPort.postMessage(this.messages);    
+	//     msgAppPort.postMessage(this.messages);
 
 	var data = this.TransmitEncode();
 	return BLEObject.transmit(data);   // returns a promise
@@ -149,13 +165,13 @@ RCLMessage.prototype.TransmitEncode = function()
     }
 
     return(data);
-}    
+}
 
 //
 // RCL_Incoming() - An incoming message is always in RCL, although the format of the message
 //                  must be appropriately translated.  It is possible that the message from
 //                  the RoBox will be a multi-packet message (like a program upload) and it
-//                  needs to be assimilated before dispatching. There is a command, and some data. 
+//                  needs to be assimilated before dispatching. There is a command, and some data.
 //
 //                  Input into this function is a Uint8Array of raw data that supposedly adheres
 //                  to RCL, unless, of course, it is a continuation of a data stream.
@@ -181,7 +197,7 @@ function RCL_Incoming(packet)
     // first, put the incoming data in the buffer of incoming data
 
     console.log("RCL_Incoming - length is " + packet.length);
-    
+
     var c = new Uint8Array(RCL_IncomingBuffer.length+packet.length);
     c.set(RCL_IncomingBuffer);
     c.set(packet,RCL_IncomingBuffer.length)
@@ -260,11 +276,11 @@ function RCL_CMDProcess(msg)
     case 'U':              // ultra sonic reading
 	RoBoxEvents.dispatch("onUltraSonic",msg.data[0]);
 	break;
-	
+
     case 'I':              // IR hit
 	RoBoxEvents.dispatch("onIRHit",[msg.data[0],msg.data[1]]);
 	break;
-	
+
     case 'S':             // Program has stopped
 	RoBoxEvents.dispatch("onStop");
 	break;
@@ -274,7 +290,7 @@ function RCL_CMDProcess(msg)
 	for(var i=0; i < msg.length; i++) {
 	    name += String.fromCharCode(msg.data[i]);
 	}
-	
+
 	RoBoxEvents.dispatch("onNameReport",name);
 	break;
 
