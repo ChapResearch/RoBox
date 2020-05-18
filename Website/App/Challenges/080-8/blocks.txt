@@ -3,7 +3,7 @@ wait
 light_on
 light_off
 repeat_forever
-if
+if_IR
 else
 play_sound
 wheel_right

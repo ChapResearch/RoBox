@@ -1,7 +1,7 @@
 start
 wait
 repeat_forever
-if
+if_light
 play_sound
 wheel_right
 wheel_left
