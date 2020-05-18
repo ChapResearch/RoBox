@@ -33,6 +33,15 @@ ToneGenerator myTone = ToneGenerator();
 LineFollow line = LineFollow();
 
 //
+// hw_init() - initializes all hardware
+//
+void hw_init()
+{
+        hw_bleStart();
+        hw_motorReverse('R');
+}
+
+//
 // hw_readLineFollow() - read the line-follow sensor.  Returns value between 0 and 100.
 //
 unsigned int hw_readLineFollow()
@@ -233,4 +242,57 @@ void hw_setname(const char *name)
 	BLE.rename(name);
 }
 
+//
+// hw_servoStart - the romeo currently doesn't use a servo,
+//                 but this is for consistence/compilation purposes
+//
+void hw_servoStart()
+{
+  
+}
+
+//
+// hw_servoStop - the romeo currently doesn't use a servo
+//                but this is for consistence/compilation purposes
+//
+void hw_servoStop()
+{
+  
+}
+
+//
+// hw_servoShoot - the romeo currently doesn't use a servo
+//                 but this is for consistence/compilation purposes
+//
+void hw_servoShoot()
+{
+  
+}
+
+//
+// hw_servoLoad - the romeo currently doesn't use a servo
+//                but this is for consistence/compilation purposes
+//
+void hw_servoLoad()
+{
+  
+}
+
+//
+// hw_setServoMax - the romeo currently doesn't use a servo
+//                  but this is for consistence/compilation purposes
+//
+void hw_setServoMax(int max)
+{
+  
+}
+
+//
+// hw_setServoMin - the romeo currently doesn't use a servo
+//                  but this is for consistence/compilation purposes
+//
+void hw_setServoMin(int min)
+{
+  
+}
 #endif

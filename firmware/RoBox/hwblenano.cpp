@@ -11,6 +11,7 @@
 #include "Arduino.h"
 #include "roboxDrivers.h"
 #include "IR-ID.h"
+#include "hardware.h"
 
 BLE BLE;					// interface to the built-in Romeo BLE
 
@@ -28,9 +29,22 @@ IRReceiver irreceiver2 = IRReceiver(2);
 Motor LeftMotor(1);				// motor pins are built-in to the driver too
 Motor RightMotor(2);
 
+RoBoxServo myServo = RoBoxServo();
+
 ToneGenerator myTone = ToneGenerator();
 
 LineFollow line = LineFollow();
+
+//
+// hw_init() - initializes all hardware
+//
+void hw_init()
+{
+        hw_bleStart();
+        hw_motorReverse('R');
+        myServo.Min(800);      // this has been experimentally determined  
+        myServo.Max(2200);     // this has been experimentally determined
+}
 
 //
 // hw_readLineFollow() - read the line-follow sensor.  Returns value between 0 and 100.
@@ -113,6 +127,48 @@ void hw_motorReverse(char motor)
      }
 }
 
+// 
+// hw_servoShoot() - shoots exactly one ball by rotating the servo
+//                   at a certain speed for a certain time
+//                   both experimentally determined
+//
+void hw_servoShoot()
+{
+  #define SHOOTING_SPEED 100    // set the servo for full-speed rotation
+  #define SHOOTING_TIME 150     // number of millis to keep the servo rotating
+  myServo.Rotate(SHOOTING_SPEED, SHOOTING_TIME);
+}
+
+//
+// hw_servoLoad() - the current version of the RoBox doesn't need
+//                  for a servo to be loaded
+//
+void hw_servoLoad() 
+{
+
+}          
+
+//
+// hw_servoStart() - starts moving the servo 
+//
+//
+//
+void hw_servoStart()
+{
+  #define SHOOTING_SPEED 100    // set the servo for full-speed rotation
+  myServo.Rotate(SHOOTING_SPEED);
+}
+
+//
+// hw_servoStop() - stops moving the servo 
+//
+//
+//
+void hw_servoStop()
+{
+  myServo.Rotate(0);           // rotation of 0 stops the servo
+}
+
 //
 // hw_blaster() - sends out an IR signal (blasts) that is specific to RoBox. Note
 //                that an 8-bit ID is sent in, which is added to the 24-bits of
@@ -191,6 +247,7 @@ void hw_update()
      myTone.Update();
      LeftMotor.Update();
      RightMotor.Update();
+     myServo.Update();
 }
 
 //

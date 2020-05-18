@@ -16,6 +16,10 @@ Program RXL_SubProgram(Program&);
 
 int RXL_Break(Program&);
 void RXL_Wheel(Program&);
+void RXL_OpenFire(Program&);
+void RXL_ArrangeShot(Program&);
+void RXL_ServoStart(Program&);
+void RXL_ServoStop(Program&);
 unsigned long RXL_Sleep(Program&);
 void RXL_Beep(Program&);
 void RXL_Led(Program&);

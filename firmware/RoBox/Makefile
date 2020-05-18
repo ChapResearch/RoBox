@@ -47,9 +47,9 @@ CXXFLAGS = -DBLENANO
 # Currently defined libraries: (uncomment the one you want)
 # ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxRomeo
 # ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxRomeoV20
-ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxRomeoV21
+# ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxRomeoV21
 # ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxBLENanoV10
-# ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxBLENanoV11
+ ARDUINO_LIBS := $(ARDUINO_LIBS) RoBoxBLENanoV11
 
 
 include $(ARDMK_DIR)/Arduino.mk

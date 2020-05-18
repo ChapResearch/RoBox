@@ -11,6 +11,10 @@
 //	( - start of sub program
 //      ) - end of sub program
 //      W - Wheel ('L'/'R',power)
+//      O - open fire/shoot using the shooter
+//      A - arrage shot/load using the servo
+//      C - cease fire (servo)
+//      J - jumpstart fire (servo)
 //      S - Start of program
 //      D - delay (10'ths of seconds)
 //      L - LED (num,op - 0/off, 1/on, 2/toggle, 3/blink)
@@ -81,6 +85,18 @@ void RXL_Skip(Program &program)
 	case 'W':
 	    program.Next();     // skip L/R
 	    program.Next();     // skip power
+	    break;
+
+	case 'O':
+	    break;              // skips the shoot command, no arguments
+
+	case 'A':
+	    break;              // skips the load command, no arguments
+
+	case 'J':
+	    break;              // skips the start fire command, no arguments
+
+	case 'C':               // skips the cease fire command, no arguments
 	    break;
 
 	case 'S':		// indicates the start of the program, no args
@@ -181,17 +197,17 @@ int RXL(Program &program)
 		    switch(program.Next()) {
 
 		    case 'W':	RXL_Wheel(program);			break;	// turn on/off a wheel
-
-		    case 'S':	RXL_Start(program);			break;  // start of program
-			    
+		    case 'O':   RXL_OpenFire(program);                  break;  // shoots the ball
+		    case 'A':   RXL_ArrangeShot(program);               break;  // loads the ball
+                    case 'J':   RXL_ServoStart(program);                break;  // starts firing servo
+		    case 'C':   RXL_ServoStop(program);                 break;  // ceases firing servo
+   		    case 'S':	RXL_Start(program);			break;  // start of program
 		    case 'D':	sleepTarget = RXL_Sleep(program);	break;	// set-up delay/sleep condition
-
 		    case 'L':	RXL_Led(program);			break;	// turn on/off an LED
 		    case 'F':	RXL_Ir(program);			break;	// fire the IR blaster
 		    case 'B':	RXL_Beep(program);			break;	// generate a tone/beep
 		    case 'K':	return(RXL_Break(program));		break; 	// break out of loop, if, or program
-		    case 'V':	RXL_Variable(program);			break;	// set a variable
-			    
+		    case 'V':	RXL_Variable(program);			break;	// set a variable			    
 		    case 'I':	
 			    break_count = RXL_If(program);	// execute -if- statement
 			    if(break_count > 0) {
@@ -350,6 +366,47 @@ void RXL_Wheel(Program &program)
 
 	hw_motor(wheel,power);
 }
+
+//
+// RXL_OpenFire() - shoots the servo
+//
+void RXL_OpenFire(Program &program)
+{
+  
+        hw_servoShoot();
+  
+}
+
+//
+// RXL_ArrangeShot() - loads the servo
+//
+void RXL_ArrangeShot(Program &program)
+{
+  
+        hw_servoLoad();
+  
+}
+
+//
+// RXL_ServoStart() - starts rotating the servo
+//
+void RXL_ServoStart(Program &program)
+{
+
+        hw_servoStart();
+  
+}
+
+//
+// RXL_ServoStop() - stops rotating the servo
+//
+void RXL_ServoStop(Program &program)
+{
+
+        hw_servoStop();
+  
+}
+
 
 //
 // RXL_SetMethod() - takes an RXL program that is really a subprogram

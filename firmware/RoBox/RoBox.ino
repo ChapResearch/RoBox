@@ -26,6 +26,7 @@
 #include "RCL.h"
 #include "IR.h"
 #include "start_up_show.h"
+
 // DEBUG DEBUG DEBUG 
 //#include "SoftwareSerial.h"
 //SoftwareSerial debugSerial(2,4);
@@ -46,8 +47,7 @@ void setup()
 /// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG 
 //	debugSerial.begin(38400);
 
-	hw_bleStart();
-	hw_motorReverse('R');
+        hw_init();
 	start_up_show();
 }
 

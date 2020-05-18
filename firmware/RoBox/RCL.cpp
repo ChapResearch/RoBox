@@ -16,7 +16,10 @@
 //	B - blast the IR (NOT valid during run)
 //	E - LED on/off (NOT valid during run)
 //	T - tone/speaker/beep (NOT valid during run)
-//
+//      A - arrange shot/load using the servo (NOT valid during run)
+//      O - open fire/shoot using the servo (NOT valid during run)
+//      J - jump fire (NOT valid during run)
+//      C - cease fire (NOT valid during run)
 //	I - incoming blast - only return, ignored incoming
 //
 
@@ -137,6 +140,32 @@ bool RCLIncoming(RoBoxMessage &message, bool running)
 			hw_motor(message.arg[0],message.arg[1]);
 		}
 		break;		
+
+        case 'O':                       // Open fire (shoot ball) - no arguments 
+	  if(!running) {
+            hw_servoShoot();
+	  }
+	  break;                       
+
+	case 'A':                       // Arrange shot (load ball) - no arguments
+          if(!running) {
+	    hw_servoLoad();
+	  }
+	  break;
+
+	case 'J':                       // Jump fire (start rotating servo) - no arguments
+	  
+	  if (!running) {
+	    hw_servoStart();
+	  }
+	  break;
+
+	case 'C':                       // Cease fire (stop rotating servo) - no arguments
+	  
+	  if (!running) {
+	    hw_servoStop();
+	  }
+	  break;
 
 	case 'B':			// Blast - 2 args
 		if(!running) {
