@@ -135,7 +135,7 @@ void hw_motorReverse(char motor)
 void hw_servoShoot()
 {
   #define SHOOTING_SPEED 100    // set the servo for full-speed rotation
-  #define SHOOTING_TIME 150     // number of millis to keep the servo rotating
+  #define SHOOTING_TIME 720     // number of millis to keep the servo rotating
   myServo.Rotate(SHOOTING_SPEED, SHOOTING_TIME);
 }
 
