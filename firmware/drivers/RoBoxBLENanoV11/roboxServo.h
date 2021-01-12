@@ -28,7 +28,7 @@ private:
                                    // that will move the servo to the smallest position
      int          maxTime;         // Value of microseconds (experimentally determined)
                                    // that will move the servo to the greatest position
-     unsigned int targetMillis;    // The milliseconds at which the servo should stop
+     unsigned long targetMillis;    // The milliseconds at which the servo should stop
                                    // rotating in order to shoot exactly one ball
      Servo        *servo;          // The Arduino Servo object
      
