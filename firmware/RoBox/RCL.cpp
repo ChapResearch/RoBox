@@ -119,6 +119,7 @@ bool RCLIncoming(RoBoxMessage &message, bool running)
 		hw_motor('L',0);
 		hw_motor('R',0);
 		hw_tone(0,0); //stop any beeping
+		hw_servoStop();
 		//TODO - stop any beeps
 		break;
 
