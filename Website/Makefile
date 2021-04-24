@@ -55,9 +55,10 @@ deploy:
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
 	[ -d $(DEPLOYDIR)/App ] || mkdir $(DEPLOYDIR)/App
 	make -C App DEPLOYDIR=../$(DEPLOYDIR)/App $@
+	make -C HUD DEPLOYDIR=../$(DEPLOYDIR)/HUD $@
 	make -C Main DEPLOYDIR=../$(DEPLOYDIR) $@
 	cp $(DEPLOYDIR)/App/favicon.ico $(DEPLOYDIR)
-	firebase deploy
+	firebase --project robox-3666f deploy
 
 clean:
 	rm -rf $(DEPLOYDIR)
