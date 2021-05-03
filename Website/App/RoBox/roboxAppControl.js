@@ -15,6 +15,11 @@ function roboxAppControlInit(searchString)
     var page = roboxAppControlValidatePage(searchString);
     roboxAppControlDrivingSelectorVisibility(page,searchString)
 
+    // check to see if we started in "remote" mode, if so, global variables
+    //   are set so that other functions work "remote-style"
+    
+    roboxRemoteMode.setup(searchString);
+    
     // page is set to either an int, or a string
     //   int means start challenge mode, string means one of the other modes
 

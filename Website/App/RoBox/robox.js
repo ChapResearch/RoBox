@@ -69,7 +69,12 @@ function roboxDisConnect(resultsFn)
 //
 function roboxConnect()
 {
-    RoBoxBrain.connect(console.log);
+    if(roboxRemoteMode.isOn) {
+	roboxSelect();
+	roboxRemoteMode.connect();
+    } else {
+	RoBoxBrain.connect(console.log);
+    }
 }
 
 //

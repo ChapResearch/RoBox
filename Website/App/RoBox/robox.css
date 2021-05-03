@@ -355,6 +355,54 @@
     text-transform: uppercase;
 }
 
+#robox-select-password {
+    text-align: center;
+    font-size: 24px;
+    font-family: "Arial";
+    font-weight: bold;
+    color: #fff;
+    margin: 0px;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+#robox-select-password p {
+    margin: 0px;
+}
+
+#robox-select-password-box input {
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px #ffffff;
+    transition: border 0.3s;
+    background: none;
+    font-size: 25px;
+    font-family: "Courier";
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    width: calc(100% - 20px);
+}
+
+#robox-connect-password-prompt {
+    font-family: "Courier";
+    font-size: 25px;
+    width: 100%;
+}
+
+.robox-password-prompt {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+.robox-password-prompt-value {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
 
 /****** CSS for controlling the modal robox challenge explanation pop-up ******/
 

@@ -13,7 +13,8 @@ MEDIADIR = media
 # if you want the uncompressed version
 #JSFILES = rxp-min.js roboxBlockly-min.js roboxEvents-min.js robox-min.js rcl-min.js roboxBLE-min.js 
 JSFILES = rxp.js roboxBlockly.js roboxEvents.js robox.js rcl.js roboxBLE.js gamepad.js battle.js \
-	  roboxAppControl.js roboxTesting.js roboxChallenge.js roboxDriving.js testfns.js
+	  roboxAppControl.js roboxTesting.js roboxChallenge.js roboxDriving.js testfns.js \
+	  roboxRemoteMode.js firebase.js
 
 CSSFILES = robox.css
 MEDIAFILES = favicon.ico
@@ -55,7 +56,6 @@ $(CSSDIR): $(CSSFILES)
 # nothing really happens to media currently
 
 $(MEDIADIR):
-	
 
 clean:
 	rm -fr $(JSDIR)

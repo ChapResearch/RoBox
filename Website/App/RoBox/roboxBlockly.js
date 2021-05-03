@@ -11,6 +11,8 @@ function roboxBlocklyStart(divName)
 					scrollbars: true,
 					trashcan: true,
 					collapse: false});
+
+    workspace.addChangeListener(roboxRemoteMode.blocklyListener);
 }
 
 function roboxBlocklyChallengeToolbox(id)
