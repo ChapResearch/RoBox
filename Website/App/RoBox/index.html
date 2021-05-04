@@ -8,6 +8,8 @@
 	    crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Acme" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
 
     <script src="js/blockly_compressed.js"></script>
     <script src="js/en.js"></script>
@@ -26,7 +28,8 @@
     <script src="js/testfns.js"></script>
     <script src="js/roboxDriving.js"></script>
     <script src="js/rcl.js"></script>
-
+    <script src="js/roboxRemoteMode.js"></script>
+    <script src="js/firebase.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/robox.css">
 
@@ -279,6 +282,13 @@
 
       </div>
     </div>
+
+    <div id="robox-select" class="robox-select-modal" style="display:none">
+      <div id="robox-select-content" class="robox-select-modal-content">
+	<span class="robox-select-close">&times;</span>
+      </div>
+    </div>
+
 
     <!-- ******************************************************* -->
     <!-- ******************************************************* -->

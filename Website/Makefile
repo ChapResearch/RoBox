@@ -51,14 +51,19 @@ all:
 # the deploydir must be relative this this directory so that subdirs can be directed appropriately
 DEPLOYDIR := public
 
-deploy: 
+copy-files:
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
 	[ -d $(DEPLOYDIR)/App ] || mkdir $(DEPLOYDIR)/App
 	make -C App DEPLOYDIR=../$(DEPLOYDIR)/App $@
 	make -C HUD DEPLOYDIR=../$(DEPLOYDIR)/HUD $@
 	make -C Main DEPLOYDIR=../$(DEPLOYDIR) $@
 	cp $(DEPLOYDIR)/App/favicon.ico $(DEPLOYDIR)
+
+deploy: copy-files
 	firebase --project robox-3666f deploy
+
+testdeploy: copy-files
+	cd $(DEPLOYDIR); python -m SimpleHTTPServer
 
 clean:
 	rm -rf $(DEPLOYDIR)
