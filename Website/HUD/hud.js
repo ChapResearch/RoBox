@@ -55,17 +55,6 @@ function mentorSave()
     }
 }
 
-function mentorSave()
-{
-    var mentorName = document.getElementById('mentor-name').value;
-
-    if(mentorName) {
-	firebase.database()
-	    .ref('/RoBoxRemote/available/' + mentorName + ":")
-	    .set({mentorName:mentorName});
-    }
-}
-
 function sessionChange()
 {
 	var inSession = document.getElementById("inSessionCheckbox").checked;
