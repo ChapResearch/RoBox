@@ -55,6 +55,66 @@ function mentorSave()
     }
 }
 
+function mentorSave()
+{
+    var mentorName = document.getElementById('mentor-name').value;
+
+    if(mentorName) {
+	firebase.database()
+	    .ref('/RoBoxRemote/available/' + mentorName + ":")
+	    .set({mentorName:mentorName});
+    }
+}
+
+function sessionChange()
+{
+	var inSession = document.getElementById("inSessionCheckbox").checked;
+	if(inSession){
+		console.log("in session")
+
+		document.getElementById("mentor-name").disabled = true;
+		document.getElementById("robox-name").disabled = true;
+		document.getElementById("password").disabled = true;
+
+		var mentorName = document.getElementById('mentor-name').value;
+		var roboxName = document.getElementById('robox-name').value;
+		var password = document.getElementById('password').value;
+		
+		if(mentorName && roboxName && password){
+			firebase.database()
+			.ref('/RoBoxRemote/available/' + mentorName + ":"+roboxName)
+			.set({mentor:mentorName, robox:roboxName,password,password});
+			console.log("setting up reference");
+			firebase.database()
+			.ref('/RoBoxRemote/sessions')
+			.on('child_added', function(snapshot)
+			{
+				var key = snapshot.key;
+				var value = snapshot.val();
+				console.log(key)
+				if(key == mentorName + ":" + roboxName)
+				{
+					console.log("child added that was mine")
+				}
+				else
+				{
+					console.log("this is not my child!")
+				}
+			});
+		}
+
+	} 
+	else{
+		console.log("ended session")
+		document.getElementById("mentor-name").disabled = false;
+		document.getElementById("robox-name").disabled = false;
+		document.getElementById("password").disabled = false;
+	}
+
+}
+
+
+
 firebaseInit();
 
 
