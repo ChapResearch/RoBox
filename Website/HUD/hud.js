@@ -55,9 +55,16 @@ function mentorSave()
     }
 }
 
+var connected = false;
+
 function sessionChange()
 {
+	var mentorName = document.getElementById('mentor-name').value;
+	var roboxName = document.getElementById('robox-name').value;
+	var password = document.getElementById('password').value;
+
 	var inSession = document.getElementById("inSessionCheckbox").checked;
+
 	if(inSession){
 		console.log("in session")
 
@@ -65,9 +72,7 @@ function sessionChange()
 		document.getElementById("robox-name").disabled = true;
 		document.getElementById("password").disabled = true;
 
-		var mentorName = document.getElementById('mentor-name').value;
-		var roboxName = document.getElementById('robox-name').value;
-		var password = document.getElementById('password').value;
+		
 		
 		if(mentorName && roboxName && password){
 			firebase.database()
@@ -83,26 +88,60 @@ function sessionChange()
 				console.log(key)
 				if(key == mentorName + ":" + roboxName)
 				{
-					console.log("child added that was mine")
+					console.log("connected with child");
+					connected = true;
+	
+					firebase.database()
+					.ref('/RoBoxRemote/available/' + mentorName + ":"+roboxName).remove();
+					console.log("removed session info from /RoBoxRemote/avaliable");
+			
+					document.getElementById("inSessionLabel").style.color = "#34ED56";
+					firebase.database()
+					.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+					.set({peek:"null", currentStudentChallenge:1,nextPreviousAllow:true,autoRoBoxRunAllow:false,sensorReadings:true,ultrasonic:0,lineFollow:0,IR:0});
 				}
 				else
 				{
-					console.log("this is not my child!")
+					console.log("this is not my child!");
 				}
 			});
 		}
 
 	} 
 	else{
-		console.log("ended session")
-		document.getElementById("mentor-name").disabled = false;
-		document.getElementById("robox-name").disabled = false;
-		document.getElementById("password").disabled = false;
+		if(connected){
+			var conf = confirm("You are currently connected with a child. Are you sure you would like to end the session?");
+			if(conf == true){
+				console.log("ended session");
+				document.getElementById("mentor-name").disabled = false;
+				document.getElementById("robox-name").disabled = false;
+				document.getElementById("password").disabled = false;
+				connected = false;
+				
+				firebase.database()
+				.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).remove();
+				console.log("removed session info from /RoBoxRemote/sessions")
+
+				document.getElementById("inSessionLabel").style.color = "#000000"
+			}
+			if(conf == false){
+				console.log("canceled end");
+				document.getElementById("inSessionCheckbox").checked = true;
+			}
+		}
+		else{
+			console.log("ended session")
+			document.getElementById("mentor-name").disabled = false;
+			document.getElementById("robox-name").disabled = false;
+			document.getElementById("password").disabled = false;
+			
+			firebase.database()
+			.ref('/RoBoxRemote/available/' + mentorName + ":"+roboxName).remove();
+			console.log("removed session info from /RoBoxRemote/avaliable");
+		}
 	}
 
 }
-
-
 
 firebaseInit();
 
