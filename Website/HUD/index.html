@@ -18,14 +18,13 @@
   <div id="topDiv" style="display: flex; min-height: 128px">
     <img src = "./media/roboxIcon128.png">
     <div id="title" style = "line-height: 2; flex-grow: 1;">RoBox HUD</div>
-    <div id="title" style="line-height: 2; flex-grow: 1;">[Mentor name]</div>
+    <!--<div id="title" style="line-height: 2; flex-grow: 1;">[Mentor name]</div>-->
   </div>
   <div style="display: flex; min-height: 80%  ;">
     <div id="control" style="background-color: rgb(255, 255, 255); min-width: 50%; margin: 0px">
         <div class='text' style="display: flex;">
           <p>Mentor Name:</p>
           <input type="text" id="mentor-name" name="mentor-name" class="textfield"> 
-	  <button class="save-button" onclick="mentorSave()">Save</button>
         </div>
         <div class='text' style="display: flex;">
           <p>RoBox Name:</p>
@@ -37,16 +36,13 @@
         </div>
 
         <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="inSessionCheckbox" name="inSessionCheckbox" value="inSession" onchange="sessionChange()">
-        <label class="text" style="margin-left: 10px;" for="inSessionCheckbox">In Session</label><br>
+        <label class="text" style="margin-left: 10px;" id="inSessionLabel" for="inSessionCheckbox">In Session</label><br>
 
         <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="autoRunRoboxCheckbox" name="autoRunRoboxCheckbox" value="autoRunRobox">
         <label class="text" style="margin-left: 10px;" for="autoRunRoboxCheckbox">Automatically Run RoBox</label><br>
 
         <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="allowChallengeControlCheckbox" name="allowChallengeControlCheckbox" value="allowChallengeControl">
         <label class="text" style="margin-left: 10px;" for="allowChallengeControlCheckbox">Allow Challenge Control</label><br>
-
-        <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="showSensorReadingsCheckbox" name="showSensorReadingsCheckbox" value="showSensorReadings">
-        <label class="text" style="margin-left: 10px;" for="showSensorReadingsCheckbox">Show Sensor Readings</label><br>
 
         <div style="display: flex; width: 80%;" >
           <div style="width: 60%; margin: 0px 5% 0px 0px"><a id="NextButton" class="button allButtons" style="width: 100%;">Previous</a></div>
