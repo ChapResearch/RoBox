@@ -75,10 +75,6 @@ function mentorSave()
     }
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> c8424222dff26b140a4c104b44ab36403c9e874c
 var connected = false;
 
 function sessionChange()
@@ -122,11 +118,7 @@ function sessionChange()
 					document.getElementById("inSessionLabel").style.color = "#34ED56";
 					firebase.database()
 					.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
-<<<<<<< HEAD
 					.set({peek:"null", currentStudentChallenge:1,nextPreviousAllow:true,autoRoBoxRunAllow:false,sensorReadings:true,ultrasonic:0,lineFollow:0,IR:0, activityPinger:true});
-=======
-					.set({peek:"null", currentStudentChallenge:1,nextPreviousAllow:true,autoRoBoxRunAllow:false,sensorReadings:true,ultrasonic:0,lineFollow:0,IR:0});
->>>>>>> c8424222dff26b140a4c104b44ab36403c9e874c
 				}
 				else
 				{
