@@ -34,6 +34,26 @@ function firebaseInit()
     firebase.initializeApp(firebaseConfig);
 }
 
+setInterval(pingDatabase,3000);
+
+function pingDatabase(){
+	if(connected){
+		var mentorName = document.getElementById('mentor-name').value;
+		var roboxName = document.getElementById('robox-name').value;
+		document.getElementById("inSessionLabel").style.color = "#34ED56";
+		var obj = firebase.database()
+			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).child("activityPinger").get().then((snapshot) => {
+				if(snapshot.exists()){
+					console.log(snapshot.val());
+					firebase.database().ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).update({activityPinger: !(snapshot.val())})
+				}
+
+			}).catch((error) => {
+				console.error((error));
+			});
+	}
+}
+
 
 //
 // mentorSave() - this function is called when someone clicks on the
