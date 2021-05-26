@@ -55,6 +55,60 @@ function mentorSave()
     }
 }
 
+function autoRunRoboxCheckbox()
+{
+	var autoRun = document.getElementById('autoRunRoboxCheckbox').checked;
+
+	var mentorName = document.getElementById('mentor-name').value;
+	var roboxName = document.getElementById('robox-name').value;
+
+	if (autoRun) {
+		console.log("Auto run robox");
+		firebase.database()
+			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+			.update({autoRoBoxRunAllow:autoRun});	
+	}	
+}
+
+function showSensorReadingsCheckbox()
+{
+	var sensors = document.getElementById('showSensorReadingsCheckbox').checked;
+
+	var mentorName = document.getElementById('mentor-name').value;
+	var roboxName = document.getElementById('robox-name').value;
+
+	if (sensors) {
+		console.log("Show sensor readings");
+		firebase.database()
+			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+			.update({sensorReadings:sensors});
+	}
+	
+}
+
+function nextPreviousButton()
+{
+	var next = document.getElementById('NextButton').clicked;
+	var previous = document.getElementById('PreviousButton').clicked;
+
+	var mentorName = document.getElementById('mentor-name').value;
+	var roboxName = document.getElementById('robox-name').value;
+
+	if (next) {
+		console.log("Go to next challenge");
+		firebase.database()
+			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+			.update({currentStudentChallenge:currentStudentChallenge+1});
+	}
+
+	else if (previous) {
+		console.log("Go to previous challenge");
+		firebase.database()
+			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+			.update({currentStudentChallenge:currentStudentChallenge-1});
+	}
+}
+
 var connected = false;
 
 function sessionChange()
@@ -98,13 +152,22 @@ function sessionChange()
 					document.getElementById("inSessionLabel").style.color = "#34ED56";
 					firebase.database()
 					.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
-					.set({peek:"null", currentStudentChallenge:1,nextPreviousAllow:true,autoRoBoxRunAllow:false,sensorReadings:true,ultrasonic:0,lineFollow:0,IR:0});
+					.set({screenshot:"null", currentStudentChallenge:1,nextPreviousAllow:true,autoRoBoxRunAllow:false,sensorReadings:true,ultrasonic:0,lineFollow:0,IR:0});
 				}
 				else
 				{
 					console.log("this is not my child!");
 				}
 			});
+
+			//changes start here
+			firebase.database()
+			.ref('/RoBoxRemote/sessions')
+			.on('child_changed', function(snapshot, key)
+			{
+				console.log("screenshot has changed.");		
+			});
+			//changes end here
 		}
 
 	} 
