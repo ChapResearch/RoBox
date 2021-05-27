@@ -82,27 +82,21 @@ function autoRunRoboxCheckbox()
 	var mentorName = document.getElementById('mentor-name').value;
 	var roboxName = document.getElementById('robox-name').value;
 
-	if (autoRun) {
-		console.log("Auto run robox");
-		firebase.database()
-			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
-			.update({autoRoBoxRunAllow:autoRun});	
-	}	
+	firebase.database()
+		.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+		.update({autoRoBoxRunAllow:autoRun});	
 }
 
-function showSensorReadingsCheckbox()
+function allowChallengeControl()
 {
-	var sensors = document.getElementById('showSensorReadingsCheckbox').checked;
+	var challengeControl = document.getElementById('allowChallengeControlCheckbox').checked;
 
 	var mentorName = document.getElementById('mentor-name').value;
 	var roboxName = document.getElementById('robox-name').value;
 
-	if (sensors) {
-		console.log("Show sensor readings");
-		firebase.database()
-			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
-			.update({sensorReadings:sensors});
-	}
+	firebase.database()
+		.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+		.update({allowChallengeControl:challengeControl});
 	
 }
 
