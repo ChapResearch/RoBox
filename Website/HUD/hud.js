@@ -100,6 +100,19 @@ function allowChallengeControl()
 	
 }
 
+function launchMentorGUI()
+{
+	var mentorName = document.getElementById('mentor-name').value;
+	var roboxName = document.getElementById('robox-name').value;
+	var password = document.getElementById('password').value;
+
+		window.open(
+			"http://robox.chapresearch.com/App/?mentor&mentorName="+mentorName
+			+"&roboxName="+roboxName+"&password="+password, 
+			"_blank"
+		);
+} 
+
 function nextPreviousButton()
 {
 	var next = document.getElementById('NextButton').clicked;
