@@ -179,7 +179,10 @@ function sessionChange()
 					document.getElementById("inSessionLabel").style.color = "#34ED56";
 					firebase.database()
 					.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
-					.set({screenshot:"null", currentStudentChallenge:1,nextPreviousAllow:true,autoRoBoxRunAllow:false,sensorReadings:true,ultrasonic:0,lineFollow:0,IR:0});
+					.set({screenshot:"null", currentStudentChallenge:1,
+						nextPreviousAllow:document.getElementById('allowChallengeControlCheckbox').checked,
+						autoRoBoxRunAllow:document.getElementById('autoRunRoboxCheckbox').checked,
+						ultrasonic:0,lineFollow:0,IR:0});
 				}
 				else
 				{
