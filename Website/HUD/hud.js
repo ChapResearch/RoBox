@@ -35,12 +35,12 @@ function firebaseInit()
 }
 
 setInterval(pingDatabase,3000);
+setInterval(checkRemoteActivity,10000)
 
 function pingDatabase(){
 	if(connected){
 		var mentorName = document.getElementById('mentor-name').value;
 		var roboxName = document.getElementById('robox-name').value;
-		document.getElementById("inSessionLabel").style.color = "#34ED56";
 		var obj = firebase.database()
 			.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).child("activityPinger").get().then((snapshot) => {
 				if(snapshot.exists()){
@@ -51,6 +51,81 @@ function pingDatabase(){
 			}).catch((error) => {
 				console.error((error));
 			});
+	}
+}
+var lastRemotePing = 0
+function checkRemoteActivity(){
+	if(connected){
+		var mentorName = document.getElementById('mentor-name').value;
+		var roboxName = document.getElementById('robox-name').value;
+		if(lastRemotePing==0){
+			var obj = firebase.database()
+				.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).child("remoteAlive").get().then((snapshot) => {
+					if(snapshot.exists()){
+						lastRemotePing=snapshot.val();
+					}
+				}).catch((error) => {
+					console.error((error));
+				});
+		}
+		else{
+			var obj = firebase.database()
+				.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).child("remoteAlive").get().then((snapshot) => {
+					if(snapshot.exists()){
+						if(lastRemotePing==snapshot.val()){
+							firebase.database()
+								.ref('/RoBoxRemote/available/' + mentorName + ":"+roboxName).remove();
+							console.log("remote connection timed out");
+						}
+						else{
+							lastRemotePing=snapshot.val();
+						}
+					}
+				}).catch((error) => {
+					console.error((error));
+				});
+		}
+	}
+}
+
+function nextChallenge(){
+	if(connected){
+		var mentorName = document.getElementById('mentor-name').value;
+		var roboxName = document.getElementById('robox-name').value;
+		var obj = firebase.database()
+				.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).child("currentStudentChallenge").get().then((snapshot) => {
+					if(snapshot.exists()){
+						var currentChallenge=snapshot.val();
+						if(currentChallenge!=14){
+							currentChallenge+=1;
+							firebase.database()
+								.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+								.update({currentStudentChallenge:currentChallenge});
+						}
+					}
+				}).catch((error) => {
+					console.error((error));
+				});
+	}
+}
+function previousChallenge(){
+	if(connected){
+		var mentorName = document.getElementById('mentor-name').value;
+		var roboxName = document.getElementById('robox-name').value;
+		var obj = firebase.database()
+				.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName).child("currentStudentChallenge").get().then((snapshot) => {
+					if(snapshot.exists()){
+						var currentChallenge=snapshot.val();
+						if(currentChallenge!=1){
+							currentChallenge-=1;
+							firebase.database()
+								.ref('/RoBoxRemote/sessions/' + mentorName + ":"+roboxName)
+								.update({currentStudentChallenge:currentChallenge});
+						}
+					}
+				}).catch((error) => {
+					console.error((error));
+				});
 	}
 }
 

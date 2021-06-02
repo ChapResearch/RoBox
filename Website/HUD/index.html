@@ -35,23 +35,32 @@
           <input type="text" id="password" name="password" class="textfield">
         </div>
 
-        <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="inSessionCheckbox" name="inSessionCheckbox" value="inSession" onchange="sessionChange()">
-        <label class="text" style="margin-left: 10px;" id="inSessionLabel" for="inSessionCheckbox">In Session</label><br>
-
+        <div style="display:flex">
+          <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="inSessionCheckbox" name="inSessionCheckbox" value="inSession" onchange="sessionChange()">
+          <div style="margin-top: 30px; margin-bottom: 30px">
+            <label class="text" style="margin-left: 10px;" id="inSessionLabel" for="inSessionCheckbox">In Session</label><br>
+          </div>
+          <div style="display: flex; width: 50%; padding-left: 230px; padding-top: 3px;" >
+            <div style="width: 130%; margin: 0px 5% 0px 0px"><a id="LaunchMentorGUI" class="button allButtons" style="width: 100%;" onclick="launchMentorGUI()">Launch Mentor GUI</a></div>  
+          </div>
+        </div>
+        
         <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="autoRunRoboxCheckbox" name="autoRunRoboxCheckbox" value="autoRunRobox" onchange="autoRunRoboxCheckbox()">
         <label class="text" style="margin-left: 10px;" for="autoRunRoboxCheckbox">Automatically Run RoBox</label><br>
-
-        <input type="checkbox" style="margin-left: 20px; margin-top: 30px; margin-bottom: 30px;" id="allowChallengeControlCheckbox" name="allowChallengeControlCheckbox" value="allowChallengeControl" onchange="allowChallengeControl()">
-        <label class="text" style="margin-left: 10px;" for="allowChallengeControlCheckbox">Allow Challenge Control</label><br>
-
-        <div style="display: flex; width: 80%;" >
-          <div style="width: 60%; margin: 0px 5% 0px 0px"><a id="PreviousButton" class="button allButtons" style="width: 100%;">Previous</a></div>
-          
-          <div style="width: 60%; margin: 0px 0px 0px 5%"><a id="NextButton" class="button allButtons" style="width: 100%;">Next</a></div>
         
+        <div style="display:flex;">
+          <input type="checkbox" style="margin-left: 20px; margin-top: 25px; margin-bottom: 30px;" id="allowChallengeControlCheckbox" name="allowChallengeControlCheckbox" value="allowChallengeControl" onchange="allowChallengeControl()">
+          <div style="margin-top: 30px; margin-bottom: 30px">
+            <label class="text" style="margin-left: 17px; margin-top: 25px; margin-bottom: 30px;" for="allowChallengeControlCheckbox"><span style="vertical-align: middle">Allow Challenge Control</span></label><br>
+          </div>
+          <div style="display: flex; width: 50%; padding-left: 40px; padding-top: 3px;" >
+            <div style="width: 60%; margin: 0px 5% 0px 0px"><a id="PreviousButton" class="button allButtons" style="width: 100%;" onclick="previousChallenge()">Previous</a></div>
+            
+            <div style="width: 60%; margin: 0px 0px 0px 5%"><a id="NextButton" class="button allButtons" style="width: 100%;" onclick="nextChallenge()">Next</a></div>
+          
+          </div>
         </div>
 
-        <div style="width: 55%; margin: -50% 0px 0px 180px"><a id="LaunchMentorGUI" class="button allButtons" style="width: 100%;" onclick="launchMentorGUI()">Launch Mentor GUI</a></div>
         
 
     </div>
