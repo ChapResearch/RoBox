@@ -40,19 +40,44 @@ function roboxRun()
 {
     var roboxCode = roboxCompile();
 
+    // if we're in remote mode, the program is sent to firebase instead
+    //   of directly to a robox.
+    
+    if(roboxRemoteMode.isOn) {
+	roboxRemoteMode.run(roboxCode);
+	RoBoxEvents.dispatch("onRun");
+    } else {
+	roboxRunLowLevel(roboxCode);
+    }
+
+
+}
+
+function roboxRunLowLevel(roboxCode)
+{
     var rcl = new RCLMessage();       // send the program
     rcl.Program(roboxCode);           // send the program
     rcl.Run();                        // and start the run
     rcl.Transmit(RoBoxBrain);
-
-    RoBoxEvents.dispatch("onRun");
+    RoBoxEvents.dispatch("onRun");    
 }
+    
 
 function roboxStop(resultsFn)
 {
-    var rcl = new RCLMessage();
-    rcl.Stop();
-    rcl.Transmit(RoBoxBrain);
+   if(roboxRemoteMode.isOn) {
+       roboxRemoteMode.stop();
+       RoBoxEvents.dispatch("onStop");
+   } else {
+       roboxStopLowLevel();
+   }
+}
+
+function roboxStopLowLevel()
+{
+       var rcl = new RCLMessage();
+       rcl.Stop();
+       rcl.Transmit(RoBoxBrain);
 }
 
 function roboxScan(resultFn) {
@@ -127,7 +152,7 @@ function roboxSelect()
     var html = "";
     html += '<span class="robox-select-close">&times;</span>';
     html += '<div>';
-    html += '<img style="margin-left:auto;margin-right:auto;display:block;" src="/media/robox.gif"/>';
+    html += '<img style="margin-left:auto;margin-right:auto;display:block;" src="media/robox.gif"/>';
     html += '<p id="robox-select-scanning">Scanning...</p>';
     html += '</div>';
 
@@ -181,7 +206,7 @@ function roboxSelectList(data)
 	html += data[i].name + '\',\'';
 	html += data[i].address + '\')">';
 	html += '<table><tr>'
-	html += '<td><img width="40px" src="/media/roboxIcon128.png"/></td>';
+	html += '<td><img width="40px" src="media/roboxIcon128.png"/></td>';
 	html += '<td>';
 	html += '<span class="robox-select-choice-name">';
 	html += data[i].name;

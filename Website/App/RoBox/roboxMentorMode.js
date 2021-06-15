@@ -46,7 +46,10 @@ roboxMentorMode.setup = function(searchString)
 	    password = params.password;
 	}
 
-	roboxCommonMode.available('sessions','No sessions currently available. Start the HUD!')
+	// for the mentor mode, get ALL outstanding sessions, including those in available and in
+	//   sessions, and then check
+	
+	roboxCommonMode.available('available','No sessions currently available. Start the HUD!')
 	    .then((sessions) => {
 		var session = null;
 		var sessionKeys = Object.keys(sessions);
@@ -101,11 +104,13 @@ roboxMentorMode.enterSession = function(mentor,robox,password)
 
     RoBoxEvents.dispatch('onSessionUpdate',{session:mentor+':'+robox,status:'Offline'});
 
-    // TODO - set-up the monitoring for important thingies:
-    //   - session data changes - need to react to many things
-    //   - sensor monitor reports come in - need to send them on
-    //   - disconnect if nothing changes for awhile!
+    this.session.child('run').on('value',this.run.bind(this));
+    this.session.child('stop').on('value',this.stop.bind(this));
 
+    RoBoxEvents.addListener("onIRHit",this.onIRHit.bind(this));
+    RoBoxEvents.addListener("onLineFollow",this.onLineFollow.bind(this));
+    RoBoxEvents.addListener("onUltraSonic",this.onUltraSonic.bind(this));
+    
     return(Promise.resolve(this.session));
 }
 
@@ -171,6 +176,60 @@ roboxMentorMode.guiSetup = function()
 }
 
 
+//
+// .run() - called when a program was dropped into the session from the remote GUI.
+//          Silently ignore empty programs.
+//
+roboxMentorMode.run = function(snapshot)
+{
+    var code = snapshot.val();
+
+    if(code !== null && code.length != 0) {
+	console.log("got a program! ",code);
+
+	// remove it right away, so that another run can be done, otherwise
+	//   the data may not change so the firebase update won't occur
+    
+	roboxMentorMode.session.child('run').remove();
+
+	roboxRunLowLevel(code);
+    }
+}
+
+//
+// .stop() - called when the remote GUI person presses STOP
+//
+roboxMentorMode.stop = function(snapshot)
+{
+    console.log("stopped pressed");
+    roboxStopLowLevel();
+}
+
+//
+// .onIRHit() - called when we get an IRHit from the physical RoBox
+//
+roboxMentorMode.onIRHit = function()
+{
+    roboxMentorMode.session.child('ir').set(firebase.database.ServerValue.TIMESTAMP);
+}
+
+//
+// .onLineFollow() - called when we get a report on the line follow from the
+//                   physical robox.
+//
+roboxMentorMode.onLineFollow = function(data)
+{
+    roboxMentorMode.session.child('linefollow').set(data);
+}
+
+//
+// .onUltraSonic() - called when get a report from the ultra-sonic from the
+//                   physical robox.
+//
+roboxMentorMode.onUltraSonic = function(data)
+{
+    roboxMentorMode.session.child('ultrasonic').set(data);
+}
 
 //
 // .firebaseSetup() - setup the monitoring and connections for firebase.

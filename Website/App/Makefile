@@ -9,6 +9,7 @@
 
 DEPLOYDIR := public
 //DEPLOYDIR := /media/sf_Virtual_Machine_Shares/deployment/RoBox
+//DEPLOYDIR := /mnt/VirtualMachineShares/deployment/RoBox
 
 all:
 	make -C Blockly js
@@ -18,7 +19,7 @@ all:
 	make -C RoBox media
 	make -C RoBoxBlocks js
 
-copy-files: 
+copy-files: all
 	[ -d $(DEPLOYDIR) ] || mkdir $(DEPLOYDIR)
 	[ -d $(DEPLOYDIR)/js ] || mkdir $(DEPLOYDIR)/js
 	[ -d $(DEPLOYDIR)/css ] || mkdir $(DEPLOYDIR)/css

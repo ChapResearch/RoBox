@@ -162,12 +162,51 @@ roboxRemoteMode.enterSession = function(mentor,robox,password)
 
     var sessionData = { mentor:this.mentor,robox:this.robox,password:this.password };
     
-//    return(roboxCommonMode.sessionRef('available',this.mentor,this.robox)
-//	   .set(null)
-//	   .then(() => this.session.set(sessionData))
-//	  );
+    this.session.child('ir').on('value',this.onIRHit.bind(this));
+    this.session.child('linefollow').on('value',this.onLineFollow.bind(this));
+    this.session.child('ultrasonic').on('value',this.onUltraSonic.bind(this));
 
     return(this.session.set(sessionData));
+}
+
+//
+// .run() - sends the given code/program to the appropriate firebase location
+//          to allow the mentor's GUI to actually run it.
+//
+roboxRemoteMode.run = function(code)
+{
+    roboxRemoteMode.session.child('run').set(code);
+}
+
+//
+// .stop() - sends the stop signal to the appropriate firebase location
+//           to allow the mentor's GUI to actually do it.
+//
+roboxRemoteMode.stop = function()
+{
+    roboxRemoteMode.session.child('stop').set(firebase.database.ServerValue.TIMESTAMP);
+}
+
+//
+// .onIRHit() - called when firebase indicates a new IR hit from the mentor GUI
+//
+roboxRemoteMode.onIRHit = function(snapshot)
+{
+    RoBoxEvents.dispatch('onIRHit',snapshot.val());
+}
+//
+// .onLineFollow() - called when firebase indicates a new line follow value from the mentor GUI
+//
+roboxRemoteMode.onLineFollow = function(snapshot)
+{
+    RoBoxEvents.dispatch('onLineFollow',snapshot.val());
+}
+//
+// .onUltraSonic() - called when firebase indicates a new ultra sonic value from the mentor GUI
+//
+roboxRemoteMode.onUltraSonic = function(snapshot)
+{
+    RoBoxEvents.dispatch('onUltraSonic',snapshot.val());
 }
 
 RoBoxEvents.addListener('pulse',function(){

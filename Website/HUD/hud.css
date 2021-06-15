@@ -81,3 +81,24 @@ body {
     margin-top: 34px;
     margin-left: 20px;
 }
+.blocklyText {
+    fill: #fff;
+    font-family: sans-serif;
+    font-size: 11pt;
+}
+.blocklyPathLight {
+    fill:none;
+    stroke-linecap: round;
+    stroke-width: 1;
+}
+.blocklyEditableText>rect {
+    fill: #fff;
+    fill-opacity: .6;
+}
+.blocklyEditableText>text {
+    fill: #000;
+}
+
+svg {
+    border: 2px solid grey;
+}

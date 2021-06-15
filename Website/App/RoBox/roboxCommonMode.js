@@ -35,7 +35,7 @@ roboxCommonMode.connectSelections = function(type,selections)
 	html += selection.mentor + '\',\'';
 	html += selection.robox + '\')">';
 	html += '<table><tr>'
-	html += '<td><img width="40px" src="/media/roboxIcon128.png"/></td>';
+	html += '<td><img width="40px" src="media/roboxIcon128.png"/></td>';
 	html += '<td>';
 	html += '<span class="robox-select-choice-name">';
 	html += selection.mentor;
