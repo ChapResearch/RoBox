@@ -72,6 +72,9 @@ function roboxConnect()
     if(roboxRemoteMode.isOn) {
 	roboxSelect();
 	roboxRemoteMode.connect();
+//    } if(roboxMentorMode.isOn) {      // the connect button is used to connect to local RoBox!
+//	roboxSelect();
+//	roboxMentorMode.connect();
     } else {
 	RoBoxBrain.connect(console.log);
     }

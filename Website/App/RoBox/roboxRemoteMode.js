@@ -44,181 +44,17 @@ roboxRemoteMode.connect = function()
 
     // after waiting for the cosmetic time, get the available sessions
     
-	.then(() => this.available())
+    	.then(() => roboxCommonMode.available('available','No mentors available for remote sessions!'))
 
     // catch the case where there is nothing available
     // TODO - pop-up something when nothing is available
 
-	.catch((error) => { this.connectError(error); throw error; } )
+	.catch((error) => { roboxCommonMode.connectError(error); throw error; } )
 
     // otherwise, pop-up the pretty box with the selections
     
-	.then((selections) => this.connectSelections(selections));
+	.then((selections) => roboxCommonMode.connectSelections('available',selections));
 
-}
-
-//
-// .connectSelections() - populate the robox-select dialog with connection
-//                        selections.  These are wired to "move on" once
-//                        a selection is made.
-//
-roboxRemoteMode.connectSelections = function(selections)
-{
-    var modal = document.getElementById('robox-select');
-    var content = document.getElementById('robox-select-content');
-    var scanning = document.getElementById('robox-select-scanning');
-
-//    content.style.backgroundColor = "#56daee";
-
-    var html = "";
-    for(var i=0; i < selections.length; i++) {
-	html += '<div class="robox-select-choice" ';
-	html += 'onclick="roboxRemoteMode.connectExecute(\'';
-	html += selections[i].mentor + '\',\'';
-	html += selections[i].robox + '\')">';
-	html += '<table><tr>'
-	html += '<td><img width="40px" src="/media/roboxIcon128.png"/></td>';
-	html += '<td>';
-	html += '<span class="robox-select-choice-name">';
-	html += selections[i].mentor;
-	html += '</span><br>';
-	html += '<span class="robox-select-choice-address">';
-	html += selections[i].robox;
-	html += '</span>';
-	html += '</td></tr></table>';
-	html += '</div>';
-    }
-    html += '<div style="float:clear;"></div>';
-    content.innerHTML = html;
-}
-
-//
-// .connectError() - populate the robox-select dialog with the error
-//                   message.
-//
-roboxRemoteMode.connectError = function(msg)
-{
-    var modal = document.getElementById('robox-select');
-    var content = document.getElementById('robox-select-content');
-    var scanning = document.getElementById('robox-select-scanning');
-
-    var html = "";
-    html += '<span class="robox-select-close">&times;</span>';
-    html += '<div>';
-    html += '<img style="margin-left:auto;margin-right:auto;display:block;" '
-    html += 'src="media/roboxIcon128.png"/>';
-    html += '<p id="robox-select-scanning">';
-    html += 'Can\'t find any RoBox!';
-    html += '<br>' + msg;
-    html += '</p>';
-    html += '</div>';
-
-    content.innerHTML = html;
-}
-
-//
-// .connectExecute() - called by clicking on a selection, initiate the
-//                     connection to the specified session.
-//
-roboxRemoteMode.connectExecute = function(mentor,robox)
-{
-    firebase.database()
-	.ref('/RoBoxRemote/available/'+ mentor + ':' + robox)
-	.get()
-	.then((snapshot)=> {
-	    if(!snapshot.exists()) {
-		roboxRemoteMode.connectFailed(mentor,robox);
-	    } else {
-		roboxRemoteMode.mentor = mentor;
-		roboxRemoteMode.robox = robox;
-		roboxRemoteMode.password = snapshot.val().password
-		roboxRemoteMode.connectInitiate(this.mentor,this.robox,this.password);
-	    }
-	});
-}
-
-roboxRemoteMode.connectFailed = function(mentor,robox)
-{
-    console.log("connection failed");
-}
-
-roboxRemoteMode.connectInitiate = function(mentor,robox,password)
-{
-    var modal = document.getElementById('robox-select');
-    var content = document.getElementById('robox-select-content');
-    var scanning = document.getElementById('robox-select-scanning');
-
-    var html = "";
-    html += '<span class="robox-select-close">&times;</span>';
-    html += '<div>';
-    html += '<img style="margin-left:auto;margin-right:auto;display:block;" '
-    html += 'src="media/roboxIcon128.png"/>';
-    html += '<table id="robox-connect-password-prompt"><tr>';
-    html +=    '<td><p class="robox-password-prompt">' + "Mentor:" + '</p></td>';
-    html +=    '<td><p class="robox-password-prompt-value">' + mentor + '</p></td>';
-    html +=   '</tr><tr>';
-    html +=    '<td><p class="robox-password-prompt">' + "RoBox:" + '</p></td>';
-    html +=    '<td><p class="robox-password-prompt-value">' + robox + '</p></td>';
-    html += '</tr></table>';
-    html += '<div id="robox-select-password">';
-    html += '<p>Please enter the password<p>';
-    html += '<div id="robox-select-password-box">';
-
-    var uponEnterOrClick = "roboxRemoteMode.checkPassword('" + password + "')";
-    
-    html += '<form onsubmit="' + uponEnterOrClick + '; return false;">';
-    html +=   '<input type="text" id="robox-select-password-input"></input>';
-    html += '</form>';
-    html += '</div>';
-    html += '<a id="robox-select-password-ok" onclick="' + uponEnterOrClick + '" class="runButton allButtons">OK</a>';
-    html += '</div>';
-    html += '</div>';
-
-    content.innerHTML = html;
-    
-    // TODO - set-up a pinger, so we know that the connection is still live
-}
-
-roboxRemoteMode.checkPassword = function(passwordTarget)
-{
-    var password = document.getElementById('robox-select-password-input').value;
-
-    console.log("checking '" + password + "' against '" + passwordTarget + "'");
-    if(password == passwordTarget) {
-	this.checkPasswordGood();
-    } else {
-	this.checkPasswordBad();
-    }
-
-    return(false);     // to stop form from doing standard submitting
-}
-
-roboxRemoteMode.checkPasswordBad = function(passwordTarget)
-{
-    var content = document.getElementById('robox-select-content');
-
-    var html = "";
-    html += '<span class="robox-select-close">&times;</span>';
-    html += '<div>';
-    html += '<img style="margin-left:auto;margin-right:auto;display:block;" '
-    html += 'src="media/roboxIcon128.png"/>';
-    html += '<div id="robox-select-password">';
-    html += '<p>THAT DIDN\'T WORK!  WRONG PASSWORD! YIKES!</p>';
-    html += '<br><p>Press OK to select again.</p>';
-    html += '<a id="robox-select-password-ok" onclick="roboxConnect()" class="runButton allButtons">OK</a>';
-    html += '</div>';
-    html += '</div>';
-
-    content.innerHTML = html;
-}
-
-roboxRemoteMode.checkPasswordGood = function()
-{
-    var modal = document.getElementById('robox-select');
-    modal.style.display = "none";
-
-    this.enterSession()
-	.then((lastTime) => this.monitorSession(lastTime));
 }
 
 roboxRemoteMode.indicateConnection = function(connection)
@@ -234,40 +70,6 @@ roboxRemoteMode.indicateConnection = function(connection)
 	$('#DisconnectButton').hide();
 	$('#robox-name').text("");
     }
-}
-
-const POLLING = 5000;    // how often do we check the connection? (ms)
-
-//
-// .monitorSession()  - called to kicks-off the monitoring of the session.
-//                   Provides feedback to the user, then kicks-off the next
-//                   monitor.
-
-//
-roboxRemoteMode.monitorSession = function(lastTime)
-{
-    console.log("entering monitorSession");
-    
-    roboxRemoteMode.indicateConnection(true);
-
-    this.lastTime = lastTime;
-
-    function checkConnectionPolling()
-    {
-	this.session.get()
-	    .then((snapshot) => snapshot.val())
-	    .then((lastTime) => {
-		if(lastTime != this.lastTime) {  // it's been updated!
-		    console.log("still connected");
-		    this.monitorSession(lastTime);
-		} else {
-		    console.log("disconnected");
-		    roboxRemoteMode.indicateConnection(false);
-		}
-	    });
-    }
-
-    setTimeout(checkConnectionPolling.bind(this),POLLING);
 }
 
 //
@@ -328,6 +130,24 @@ roboxRemoteMode.blocklyListener = function(event)
 	    break;
 	default: break;
 	}
+	var svg = document.getElementsByClassName('blocklySvg')[0];
+	var svgDoc = svg.contentDocument;
+	var defs = document.getElementsByTagName('defs')[0];
+	var blocks = document.getElementsByClassName('blocklyBlockCanvas')[0];
+	var bbox = blocks.getBBox();
+
+	var viewbox = 'viewbox="' + (bbox.x-10) + ' ' + (bbox.y-10) + ' ' +
+	                           (bbox.width+50) + ' ' + (bbox.height+50) + '" ';
+	var widthHeight = 'width="' + bbox.width + '" height="' + bbox.height + '" ';
+	    
+	var svgText = '<svg ' + viewbox + widthHeight + '>';
+	svgText += defs.outerHTML;
+	svgText += blocks.outerHTML;
+	svgText += '</svg>';
+
+	if(roboxRemoteMode.connected) {
+	    roboxRemoteMode.session.child('snapshot').set(svgText);
+	}
     }
 }
     
@@ -335,52 +155,21 @@ roboxRemoteMode.blocklyListener = function(event)
 // .enterSession() - enter the given session
 //
 //
-roboxRemoteMode.enterSession = function()
+roboxRemoteMode.enterSession = function(mentor,robox,password)
 {
-    this.session = '/RoBoxRemote/sessions/' + this.mentor + ":" + this.robox;
-    this.session = firebase.database().ref(this.session);
+    roboxCommonMode.enterSession(this,mentor,robox,password);
+    roboxCommonMode.monitorAlive(this,'remoteAlive','mentorAlive');
+
+    var sessionData = { mentor:this.mentor,robox:this.robox,password:this.password };
     
-    return(firebase.database()
-	   .ref('/RoBoxRemote/available/' + this.mentor + ':' + this.robox)
-	   .set(null)
-	   .then(() => this.session.set(firebase.database.ServerValue.TIMESTAMP))
-	   .then(() => this.session.get())
-	   .then((snapshot) => snapshot.val())
-	  );
+//    return(roboxCommonMode.sessionRef('available',this.mentor,this.robox)
+//	   .set(null)
+//	   .then(() => this.session.set(sessionData))
+//	  );
+
+    return(this.session.set(sessionData));
 }
 
-//
-// .available() - return a promise, returning an array of the available sessions.
-//
-roboxRemoteMode.available = function()
-{
-    return(firebase.database()
-	   .ref('/RoBoxRemote/available')
-	   .get()
-	   .then((snapshot)=> {
-
-	       if(!snapshot.exists()) {
-		   throw "No mentors available for remote sessions!";
-	       }
-
-	       var returnArray = [];
-
-	       var data = snapshot.val();
-	       var available = Object.keys(snapshot.val());
-	       for(var i=0; i < available.length; i++) {
-		   var entry = data[available[i]];
-		   if(entry.hasOwnProperty('mentor') &&
-		      entry.hasOwnProperty('robox') &&
-		      entry.hasOwnProperty('password')) {
-		       returnArray.push(entry);
-		   }
-	       }
-	       if(returnArray.length == 0) {
-		   throw "No mentors available for remote sessions!";
-	       }
-
-	       return(returnArray);
-	   })
-	  );
-}
-
+RoBoxEvents.addListener('pulse',function(){
+    console.log('beep');
+});

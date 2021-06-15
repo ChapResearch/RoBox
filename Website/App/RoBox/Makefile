@@ -14,7 +14,7 @@ MEDIADIR = media
 #JSFILES = rxp-min.js roboxBlockly-min.js roboxEvents-min.js robox-min.js rcl-min.js roboxBLE-min.js 
 JSFILES = rxp.js roboxBlockly.js roboxEvents.js robox.js rcl.js roboxBLE.js gamepad.js battle.js \
 	  roboxAppControl.js roboxTesting.js roboxChallenge.js roboxDriving.js testfns.js \
-	  roboxRemoteMode.js firebase.js
+	  roboxCommonMode.js roboxRemoteMode.js roboxMentorMode.js firebase.js
 
 CSSFILES = robox.css
 MEDIAFILES = favicon.ico

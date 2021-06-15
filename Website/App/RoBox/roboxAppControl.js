@@ -19,6 +19,13 @@ function roboxAppControlInit(searchString)
     //   are set so that other functions work "remote-style"
     
     roboxRemoteMode.setup(searchString);
+
+    // same thing with the mentor mode - note that if we are already in
+    //   remote mode, we won't even check for mentor mode
+
+    if(!roboxRemoteMode.isOn) {
+	roboxMentorMode.setup(searchString);
+    }
     
     // page is set to either an int, or a string
     //   int means start challenge mode, string means one of the other modes
