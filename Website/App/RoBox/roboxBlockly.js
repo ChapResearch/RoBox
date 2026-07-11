@@ -7,10 +7,16 @@ function roboxBlocklyStart(divName)
 {
     console.log("starting");
     
+    var roboxTheme = Blockly.Theme.defineTheme('robox', {
+	base: Blockly.Themes.Classic,
+	startHats: true
+    });
+
     workspace = Blockly.inject(divName,{toolbox: roboxBlocklyChallengeToolbox(null),
 					scrollbars: true,
 					trashcan: true,
-					collapse: false});
+					collapse: false,
+					theme: roboxTheme});
 
     workspace.addChangeListener(roboxRemoteMode.blocklyListener);
 }
@@ -41,7 +47,7 @@ function roboxBlocklyChallengeLoad(id)
 
 function roboxBlocklySave(location)
 {
-    var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+    var xmlDom = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
 
     var url = window.location.href;
@@ -58,13 +64,13 @@ function roboxBlocklyLoad(location)
     var url = window.location.href;
     var xmlText = localStorage.getItem(location);
 
-    Blockly.mainWorkspace.clear();
+    workspace.clear();
 
     var hasData = false;
-    
+
     if (xmlText) {
 	xmlDom = Blockly.Xml.textToDom(xmlText);
-	Blockly.Xml.domToWorkspace(xmlDom,Blockly.mainWorkspace);
+	Blockly.Xml.domToWorkspace(xmlDom,workspace);
 
 	// if there are any <blocks> in the xml string, then it is non-blank
 	if(xmlText.indexOf('block') != -1) {

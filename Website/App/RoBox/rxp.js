@@ -1,9 +1,4 @@
 
-goog.provide('Blockly.RXP');
-
-goog.require('Blockly.Generator');
-
-
 Blockly.RXP = new Blockly.Generator('RXP');
 
 /**
