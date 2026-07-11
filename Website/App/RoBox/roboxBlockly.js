@@ -69,7 +69,7 @@ function roboxBlocklyLoad(location)
     var hasData = false;
 
     if (xmlText) {
-	xmlDom = Blockly.Xml.textToDom(xmlText);
+	xmlDom = Blockly.utils.xml.textToDom(xmlText);
 	Blockly.Xml.domToWorkspace(xmlDom,workspace);
 
 	// if there are any <blocks> in the xml string, then it is non-blank
