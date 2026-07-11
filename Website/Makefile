@@ -62,8 +62,15 @@ copy-files:
 deploy: copy-files
 	firebase --project robox-3666f deploy
 
+# BIG NOTE - when using testdeploy in a VM, it is often necessary
+#   to use the host to talk to BLE - in that the VM doesn't often
+#   get access to BLE (easily). The best way to do this (for
+#   VirtualBox anyway) is to set up NAT as the network interface
+#   and port forward HOST: 0.0.0.0/8000 to  GUEST: 0.0.0.0/8000
+#   and then point a browser on the host to localhost:8000.
+
 testdeploy: copy-files
-	cd $(DEPLOYDIR); python -m SimpleHTTPServer
+	cd $(DEPLOYDIR); python -m http.server
 
 clean:
 	rm -rf $(DEPLOYDIR)
