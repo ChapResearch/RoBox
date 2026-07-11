@@ -10,7 +10,7 @@ Blockly.Blocks['fire_ir'] = {
     }
 };
 
-Blockly.RXP['fire_ir'] = function(block) {
+Blockly.RXP.forBlock['fire_ir'] = function(block) {
     var out = "";
 
     out += "F[2][50]";

@@ -1,4 +1,3 @@
-Blockly.BlockSvg.START_HAT = true;
 
 Blockly.Blocks['def_method_c'] = {
     init: function() {
@@ -12,7 +11,7 @@ Blockly.Blocks['def_method_c'] = {
     }
 };
 
-Blockly.RXP['def_method_c'] = function(block) {
+Blockly.RXP.forBlock['def_method_c'] = function(block) {
     var out = "";
     
     out += "mC"

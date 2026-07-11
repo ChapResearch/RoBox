@@ -11,7 +11,7 @@ Blockly.Blocks['break'] = {
     }
 }
 
-Blockly.RXP['break'] = function(block) {
+Blockly.RXP.forBlock['break'] = function(block) {
     var out = "";
 
     out += "K[";

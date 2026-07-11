@@ -29,7 +29,7 @@ Blockly.Blocks['wheel_left'] = {
     }
 };
 
-Blockly.RXP['wheel_left'] = function(block) {
+Blockly.RXP.forBlock['wheel_left'] = function(block) {
     var wheel = block.getFieldValue('wheel');
     var power = block.getFieldValue('power');
     var wi;
@@ -41,5 +41,5 @@ Blockly.RXP['wheel_left'] = function(block) {
     return "W" + wi + "[" + power + "]";
 };
 
-Blockly.RXP['wheel_right'] = Blockly.RXP['wheel_left'];
+Blockly.RXP.forBlock['wheel_right'] = Blockly.RXP.forBlock['wheel_left'];
   

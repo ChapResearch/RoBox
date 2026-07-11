@@ -42,7 +42,7 @@ Blockly.Blocks['repeat_until_light'] = {
     }
 };
 
-Blockly.RXP['repeat_until'] = function(block) {
+Blockly.RXP.forBlock['repeat_until'] = function(block) {
     var out = "";
 
     out += "RU[";
@@ -64,4 +64,4 @@ Blockly.RXP['repeat_until'] = function(block) {
     return(out);
 };
 
-Blockly.RXP['repeat_until_light'] = Blockly.RXP['repeat_until'];
+Blockly.RXP.forBlock['repeat_until_light'] = Blockly.RXP.forBlock['repeat_until'];

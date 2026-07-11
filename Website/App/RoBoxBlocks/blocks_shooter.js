@@ -46,18 +46,18 @@ Blockly.Blocks['shooter_stop'] = {
     }
 };
 
-Blockly.RXP['shooter_fire'] = function(block) {
+Blockly.RXP.forBlock['shooter_fire'] = function(block) {
     return('O');
 };
 
-Blockly.RXP['shooter_load'] = function(block) {
+Blockly.RXP.forBlock['shooter_load'] = function(block) {
     return('A');
 };
 
-Blockly.RXP['shooter_start'] = function(block) {
+Blockly.RXP.forBlock['shooter_start'] = function(block) {
     return('J');
 };
 
-Blockly.RXP['shooter_stop'] = function(block) {
+Blockly.RXP.forBlock['shooter_stop'] = function(block) {
     return('C');
 };

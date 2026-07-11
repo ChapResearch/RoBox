@@ -36,7 +36,7 @@ Blockly.Blocks['variable_math'] = {
 };
 
 
-Blockly.RXP['variable_setVar'] = function(block) {
+Blockly.RXP.forBlock['variable_setVar'] = function(block) {
     var out = "";
 
     out += "V[";
@@ -48,7 +48,7 @@ Blockly.RXP['variable_setVar'] = function(block) {
     return(out);
 };
 
-Blockly.RXP['variable_math'] = function(block) {
+Blockly.RXP.forBlock['variable_math'] = function(block) {
     var out = "";
 
     out += "V[";

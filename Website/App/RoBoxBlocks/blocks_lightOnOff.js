@@ -36,7 +36,7 @@ Blockly.Blocks['light_off'] = {
     }
 };
 
-Blockly.RXP['light_on'] = function(block) {
+Blockly.RXP.forBlock['light_on'] = function(block) {
     var out = "";
 
     out += "L[";
@@ -48,4 +48,4 @@ Blockly.RXP['light_on'] = function(block) {
     return(out);
 };
 
-Blockly.RXP['light_off'] = Blockly.RXP['light_on'];
+Blockly.RXP.forBlock['light_off'] = Blockly.RXP.forBlock['light_on'];

@@ -15,7 +15,7 @@ Blockly.Blocks['repeat_number_times'] = {
     }
 };
 
-Blockly.RXP['repeat_number_times'] = function(block) {
+Blockly.RXP.forBlock['repeat_number_times'] = function(block) {
     var out = "";
 
     out += "RT[";

@@ -12,7 +12,7 @@ Blockly.Blocks['else'] = {
     }
 };
 
-Blockly.RXP['else'] = function(block) {
+Blockly.RXP.forBlock['else'] = function(block) {
     var out = "";
 
     out += "E";

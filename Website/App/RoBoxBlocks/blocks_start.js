@@ -1,4 +1,3 @@
-Blockly.BlockSvg.START_HAT = true;
 
 Blockly.Blocks['start'] = {
     init: function() {
@@ -12,6 +11,6 @@ Blockly.Blocks['start'] = {
     }
 };
 
-Blockly.RXP['start'] = function(block) {
+Blockly.RXP.forBlock['start'] = function(block) {
     return("S");
 };

@@ -31,7 +31,7 @@ Blockly.Blocks['move_forward'] = {
     }
 };
 
-Blockly.RXP['move_backward'] = function(block) {
+Blockly.RXP.forBlock['move_backward'] = function(block) {
     var dir = block.getFieldValue('direction');
     var time = block.getFieldValue('seconds');
 
@@ -49,4 +49,4 @@ Blockly.RXP['move_backward'] = function(block) {
     return(out);
 };
 
-Blockly.RXP['move_forward'] = Blockly.RXP['move_backward'];
+Blockly.RXP.forBlock['move_forward'] = Blockly.RXP.forBlock['move_backward'];

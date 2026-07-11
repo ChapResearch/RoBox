@@ -10,6 +10,6 @@ Blockly.Blocks['run_method_b'] = {
     }
 };
 
-Blockly.RXP['run_method_b'] = function(block) {
+Blockly.RXP.forBlock['run_method_b'] = function(block) {
     return("MB");
 };

@@ -68,7 +68,7 @@ Blockly.Blocks['elseIf_variable'] = {
     }
 };
 
-Blockly.RXP['elseIf'] = function(block) {
+Blockly.RXP.forBlock['elseIf'] = function(block) {
 
     var out = "";
     var sense = block.getFieldValue('variable');
@@ -96,7 +96,7 @@ Blockly.RXP['elseIf'] = function(block) {
     return(out);
 };
 
-Blockly.RXP['elseIf_ultrasonic'] = Blockly.RXP['elseIf'];
-Blockly.RXP['elseIf_light'] = Blockly.RXP['elseIf'];
-Blockly.RXP['elseIf_IR'] = Blockly.RXP['elseIf'];
-Blockly.RXP['elseIf_variable'] = Blockly.RXP['elseIf'];
+Blockly.RXP.forBlock['elseIf_ultrasonic'] = Blockly.RXP.forBlock['elseIf'];
+Blockly.RXP.forBlock['elseIf_light'] = Blockly.RXP.forBlock['elseIf'];
+Blockly.RXP.forBlock['elseIf_IR'] = Blockly.RXP.forBlock['elseIf'];
+Blockly.RXP.forBlock['elseIf_variable'] = Blockly.RXP.forBlock['elseIf'];

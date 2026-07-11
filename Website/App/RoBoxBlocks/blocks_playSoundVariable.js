@@ -14,7 +14,7 @@ Blockly.Blocks['play_sound_variable'] = {
     }
 };
 
-Blockly.RXP['play_sound_variable'] = function(block) {
+Blockly.RXP.forBlock['play_sound_variable'] = function(block) {
     var out = "";
     var time = block.getFieldValue('time')*10;
 

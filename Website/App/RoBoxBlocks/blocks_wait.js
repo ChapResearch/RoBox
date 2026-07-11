@@ -13,7 +13,7 @@ Blockly.Blocks['wait'] = {
     }
 };
 
-Blockly.RXP['wait'] = function(block) {
+Blockly.RXP.forBlock['wait'] = function(block) {
     var time = block.getFieldValue("powerR");
 
     return("D[" + time*10 + "]");

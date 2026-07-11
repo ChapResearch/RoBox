@@ -12,7 +12,7 @@ Blockly.Blocks['repeat_forever'] = {
     }
 };
 
-Blockly.RXP['repeat_forever'] = function(block) {
+Blockly.RXP.forBlock['repeat_forever'] = function(block) {
     var out = "";
 
     out += "RT[0](";
