@@ -128,7 +128,7 @@ RCLMessage.prototype.TransmitEncode = function()
     // the format of the messages coming in is an array of individual objects
     //   comprised of cmd (string),length (int),data (int array)
 
-    console.log("got %d commands",this.messages.length);
+    //   console.log("got %d commands",this.messages.length);
 
     // first, precompute the Uint8Array size that we need
 
@@ -142,7 +142,7 @@ RCLMessage.prototype.TransmitEncode = function()
 
     var ptr = 0;
     for(var i=0; i < this.messages.length; i++) {
-	console.log("got a %s with length %d (%d)",this.messages[i].cmd,this.messages[i].length,this.messages[i].data.length);
+//	console.log("got a %s with length %d (%d)",this.messages[i].cmd,this.messages[i].length,this.messages[i].data.length);
 
 	var cmd = this.messages[i].cmd.charCodeAt(0);
 	var length = this.messages[i].length;
@@ -196,7 +196,7 @@ function RCL_Incoming(packet)
 {
     // first, put the incoming data in the buffer of incoming data
 
-    console.log("RCL_Incoming - length is " + packet.length);
+//    console.log("RCL_Incoming - length is " + packet.length);
 
     var c = new Uint8Array(RCL_IncomingBuffer.length+packet.length);
     c.set(RCL_IncomingBuffer);
@@ -265,7 +265,7 @@ function RCL_PostToGUI(msg)
 
 function RCL_CMDProcess(msg)
 {
-    console.log("RCL incoming: %s",msg.cmd);
+//    console.log("RCL incoming: %s",msg.cmd);
 
     switch(msg.cmd) {
 
