@@ -37,6 +37,10 @@ function roboxAppControlInit(searchString)
     $('#topDivSelector td').click(function() {
 	roboxAppSwitch($(this).data('type'));
     });
+
+    // monitor changes for saving
+
+    Blockly.getMainWorkspace().addChangeListener(roboxSave);
 }
 
 //
